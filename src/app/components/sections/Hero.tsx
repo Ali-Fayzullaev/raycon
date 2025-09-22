@@ -6,14 +6,11 @@ import {
   CheckCircle2,
   Sparkles,
   Zap,
-  Shield,
-  Users,
-  Play,
   MessageCircle,
   Bot,
-  Calendar,
 } from "lucide-react";
 import { useI18n } from "@/providers/I18nProvider";
+import ModernTryModal from "../modals/TryModal";
 
 // Анимированный фон с частицами
 const AnimatedBackground = () => {
@@ -240,7 +237,8 @@ export default function ModernHero() {
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setOpen(true)}
-                className="group relative px-8 py-4 bg-gradient-to-r from-teal-500 to-emerald-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                className="group  relative px-8 py-4 bg-gradient-to-r from-teal-500 to-emerald-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+               
               >
                 {/* Анимированный блеск */}
                 <motion.div
@@ -294,6 +292,7 @@ export default function ModernHero() {
             <PhoneFrameVideo src="/demo.mp4" poster="/demo-poster.jpg" />
           </motion.div>
         </div>
+        <ModernTryModal open={open} onOpenChange={setOpen} />
       </div>
     </section>
   );
