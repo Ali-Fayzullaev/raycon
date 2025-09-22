@@ -120,7 +120,6 @@ export default function ModernHeader() {
               width={40}
               height={40}
               alt="Raycon CRM"
-
             />
           </motion.div>
         </motion.div>
