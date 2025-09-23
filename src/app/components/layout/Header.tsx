@@ -116,7 +116,7 @@ export default function ModernHeader() {
             transition={{ duration: 2, repeat: Infinity, delay: 2 }}
           >
             <Image
-              src="/favicon.png"
+              src="/img/favicon.svg"
               width={40}
               height={40}
               alt="Raycon CRM"
@@ -202,7 +202,12 @@ export default function ModernHeader() {
           >
             <SheetHeader>
               <SheetTitle className="flex items-center gap-3">
-                <LogoMark />
+                <Image
+                  src="/img/favicon.svg"
+                  alt="Raycon"
+                  width={30}
+                  height={30}
+                />
                 <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                   Raycon CRM
                 </span>

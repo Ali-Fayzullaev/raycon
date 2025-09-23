@@ -14,6 +14,7 @@ import SimpleForBusiness from "./sections/SimpleForBusiness";
 import ForWhom from "./sections/ForWhom";
 import OnboardingRoadmap from "./sections/OnboardingRoadmap";
 import KeyCapabilities from "./sections/KeyCapabilities";
+import ClientResults from "./sections/ClientResults";
 
 
 export default function LandingClient() {
@@ -28,6 +29,7 @@ export default function LandingClient() {
           <OnboardingRoadmap/>
           <KeyCapabilities/>
           <Pricing />
+          <ClientResults/>
           <CTA />
           <Footer />
         </div>
