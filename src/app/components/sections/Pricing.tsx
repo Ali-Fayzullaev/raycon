@@ -3,7 +3,20 @@ import React, { useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { useI18n } from "@/providers/I18nProvider";
 import ModernTryModal from "../modals/TryModal";
-import { CheckCircle2, Crown, Sparkles, Zap, Star, Rocket, Gem, BadgeCheck, ArrowRight, Users, Clock, Shield } from "lucide-react";
+import {
+  CheckCircle2,
+  Crown,
+  Sparkles,
+  Zap,
+  Star,
+  Rocket,
+  Gem,
+  BadgeCheck,
+  ArrowRight,
+  Users,
+  Clock,
+  Shield,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const fade: Variants = {
@@ -15,20 +28,37 @@ const fade: Variants = {
   }),
 };
 
+const DOTS = [
+  { left: "12%", top: "22%", dur: 4.4, delay: 0.2 },
+  { left: "28%", top: "68%", dur: 4.8, delay: 0.6 },
+  { left: "46%", top: "35%", dur: 5.2, delay: 0.1 },
+  { left: "63%", top: "12%", dur: 5.6, delay: 0.9 },
+  { left: "77%", top: "52%", dur: 4.6, delay: 0.3 },
+  { left: "84%", top: "18%", dur: 5.0, delay: 0.7 },
+  { left: "35%", top: "82%", dur: 5.4, delay: 0.5 },
+  { left: "68%", top: "74%", dur: 4.2, delay: 0.4 },
+];
+
 const stagger: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
     transition: {
       staggerChildren: 0.15,
-      ease: "easeOut"
-    }
-  }
+      ease: "easeOut",
+    },
+  },
 };
 
-function Feature({ children, popular = false }: { children: React.ReactNode; popular?: boolean }) {
+function Feature({
+  children,
+  popular = false,
+}: {
+  children: React.ReactNode;
+  popular?: boolean;
+}) {
   return (
-    <motion.li 
+    <motion.li
       className="flex items-start gap-3 p-2 rounded-lg hover:bg-white/50 dark:hover:bg-slate-800/30 transition-colors"
       whileHover={{ x: 2 }}
     >
@@ -39,7 +69,9 @@ function Feature({ children, popular = false }: { children: React.ReactNode; pop
       ) : (
         <CheckCircle2 className="mt-0.5 h-5 w-5 text-teal-600 dark:text-emerald-400 flex-shrink-0" />
       )}
-      <span className="text-slate-700 dark:text-slate-300 font-medium">{children}</span>
+      <span className="text-slate-700 dark:text-slate-300 font-medium">
+        {children}
+      </span>
     </motion.li>
   );
 }
@@ -96,7 +128,11 @@ export default function ModernPricing() {
       ],
       stats: [
         { icon: Users, value: "10", label: t("plan_stat_managers") },
-        { icon: Zap, value: t("plan_stat_implement_value"), label: t("plan_stat_implement_label") },
+        {
+          icon: Zap,
+          value: t("plan_stat_implement_value"),
+          label: t("plan_stat_implement_label"),
+        },
       ],
       badge: t("plan_mini_popular"),
     },
@@ -135,41 +171,30 @@ export default function ModernPricing() {
     <section className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 overflow-hidden">
       {/* Анимированный фон */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Градиентные волны */}
+        {/* Градиентные волны — ок, тут нет рандома */}
         <motion.div
           className="absolute inset-0 opacity-[0.03]"
           style={{
-            background: `radial-gradient(circle at 20% 30%, rgba(20, 184, 166, 0.4) 0%, transparent 50%),
-                         radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
-                         radial-gradient(circle at 40% 10%, rgba(59, 130, 246, 0.3) 0%, transparent 50%)`
+            background: `radial-gradient(circle at 20% 30%, rgba(20,184,166,0.4) 0%, transparent 50%),
+                   radial-gradient(circle at 80% 70%, rgba(139,92,246,0.3) 0%, transparent 50%),
+                   radial-gradient(circle at 40% 10%, rgba(59,130,246,0.3) 0%, transparent 50%)`,
           }}
-          animate={{
-            backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
+          animate={{ backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         />
-        
-        {/* Плавающие элементы */}
-        {[...Array(8)].map((_, i) => (
+
+        {/* Плавающие элементы — без Math.random() */}
+        {DOTS.map((p, i) => (
           <motion.div
             key={i}
             className="absolute w-3 h-3 rounded-full bg-teal-400/20"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.3, 0.8, 0.3],
-            }}
+            style={{ left: p.left, top: p.top }}
+            animate={{ y: [0, -30, 0], opacity: [0.3, 0.8, 0.3] }}
             transition={{
-              duration: 4 + Math.random() * 2,
+              duration: p.dur,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              ease: "easeInOut",
+              delay: p.delay,
             }}
           />
         ))}
@@ -217,9 +242,9 @@ export default function ModernPricing() {
           className="hidden lg:flex items-end gap-8 justify-center"
         >
           {plans.map((plan, index) => (
-            <PricingCard 
-              key={plan.key} 
-              plan={plan} 
+            <PricingCard
+              key={plan.key}
+              plan={plan}
               index={index}
               onSelect={handlePlanSelect}
             />
@@ -274,17 +299,25 @@ export default function ModernPricing() {
   );
 }
 
-function PricingCard({ plan, index, onSelect }: { plan: any; index: number; onSelect: (key: string) => void }) {
+function PricingCard({
+  plan,
+  index,
+  onSelect,
+}: {
+  plan: any;
+  index: number;
+  onSelect: (key: string) => void;
+}) {
   const isPopular = plan.popular;
-  
+
   return (
     <motion.div
       variants={fade}
       custom={index + 2}
-      whileHover={{ 
+      whileHover={{
         y: isPopular ? -12 : -8,
         scale: isPopular ? 1.03 : 1.01,
-        transition: { duration: 0.3 }
+        transition: { duration: 0.3 },
       }}
       whileTap={{ scale: 0.98 }}
       className={`relative flex-1 max-w-md ${
@@ -297,17 +330,22 @@ function PricingCard({ plan, index, onSelect }: { plan: any; index: number; onSe
           className="absolute -inset-4 rounded-3xl opacity-0 hover:opacity-100 transition-opacity duration-300"
           style={{
             background: `linear-gradient(45deg, rgba(20, 184, 166, 0.15), transparent)`,
-            filter: 'blur(20px)'
+            filter: "blur(20px)",
           }}
           animate={{ rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         />
       )}
 
-      <div className={`relative rounded-2xl ${plan.gradient} border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-md p-8 shadow-lg hover:shadow-2xl transition-all duration-500 h-full flex flex-col ${
-        isPopular ? "border-teal-500/30 dark:border-teal-500/30 ring-2 ring-teal-500/20" : ""
-      }`}>
-        
+      <div
+        className={`relative rounded-2xl ${
+          plan.gradient
+        } border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-md p-8 shadow-lg hover:shadow-2xl transition-all duration-500 h-full flex flex-col ${
+          isPopular
+            ? "border-teal-500/30 dark:border-teal-500/30 ring-2 ring-teal-500/20"
+            : ""
+        }`}
+      >
         {/* Бейдж популярного тарифа */}
         {isPopular && (
           <motion.div
@@ -364,8 +402,12 @@ function PricingCard({ plan, index, onSelect }: { plan: any; index: number; onSe
               transition={{ delay: index * 0.2 + i * 0.1 }}
             >
               <stat.icon className="w-6 h-6 mx-auto mb-1 text-teal-500" />
-              <div className="font-bold text-slate-900 dark:text-white">{stat.value}</div>
-              <div className="text-xs text-slate-600 dark:text-slate-400">{stat.label}</div>
+              <div className="font-bold text-slate-900 dark:text-white">
+                {stat.value}
+              </div>
+              <div className="text-xs text-slate-600 dark:text-slate-400">
+                {stat.label}
+              </div>
             </motion.div>
           ))}
         </div>
@@ -400,14 +442,24 @@ function PricingCard({ plan, index, onSelect }: { plan: any; index: number; onSe
   );
 }
 
-function MobilePricingCard({ plan, index, onSelect }: { plan: any; index: number; onSelect: (key: string) => void }) {
+function MobilePricingCard({
+  plan,
+  index,
+  onSelect,
+}: {
+  plan: any;
+  index: number;
+  onSelect: (key: string) => void;
+}) {
   const isPopular = plan.popular;
-  
+
   return (
     <motion.div
       variants={fade}
       custom={index}
-      className={`relative rounded-2xl ${plan.gradient} border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-md p-6 shadow-lg ${
+      className={`relative rounded-2xl ${
+        plan.gradient
+      } border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-md p-6 shadow-lg ${
         isPopular ? "border-teal-500/30 ring-2 ring-teal-500/20" : ""
       }`}
     >
@@ -421,7 +473,9 @@ function MobilePricingCard({ plan, index, onSelect }: { plan: any; index: number
       )}
 
       <div className="flex items-center gap-4 mb-4">
-        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${plan.accent} flex items-center justify-center shadow-md`}>
+        <div
+          className={`w-12 h-12 rounded-xl bg-gradient-to-br ${plan.accent} flex items-center justify-center shadow-md`}
+        >
           <plan.icon className="w-6 h-6 text-white" />
         </div>
         <div>
