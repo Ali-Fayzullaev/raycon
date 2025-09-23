@@ -11,6 +11,7 @@ import CTA from "./sections/CTA";
 import { I18nProvider } from "@/providers/I18nProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import SimpleForBusiness from "./sections/SimpleForBusiness";
+import ForWhom from "./sections/ForWhom";
 
 export default function LandingClient() {
   return (
@@ -20,6 +21,7 @@ export default function LandingClient() {
           <Header />
           <Hero />
           <SimpleForBusiness/>
+          <ForWhom/>
           <div className="mx-auto max-w-7xl px-4">
             <div className="mt-14">
               <FakeDashboard />

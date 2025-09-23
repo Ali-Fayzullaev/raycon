@@ -41,20 +41,40 @@ export const dict: Record<Lang, Record<string, string>> = {
     step1_title: "Быстрый старт",
     step1_desc: "Начните работу за 20 минут с готовыми шаблонами и настройками",
     step1_feature1: "Быстрая настройка",
-    step1_feature2: "Готовые шаблоны", 
+    step1_feature2: "Готовые шаблоны",
     step1_feature3: "Автоматизация",
-    
+
     step2_title: "Интуитивный интерфейс",
-    step2_desc: "Управляйте всеми процессами через понятный и удобный интерфейс",
+    step2_desc:
+      "Управляйте всеми процессами через понятный и удобный интерфейс",
     step2_feature1: "Интуитивный интерфейс",
     step2_feature2: "Drag & Drop",
     step2_feature3: "AI-помощник",
-    
+
     step3_title: "Все в одном пакете",
     step3_desc: "WhatsApp, чат-боты и CRM в единой экосистеме",
     step3_feature1: "Интеграции",
     step3_feature2: "Мультичат",
     step3_feature3: "Аналитика",
+
+    for_title: "Для кого подходит Raycon CRM?",
+    for_group_a_title: "Микро и малый бизнес",
+    for_group_a_1: "1+ менеджеров по работе с клиентами",
+    for_group_a_2: "Быстрое подключение",
+    for_group_a_3: "Для тех, кому пишут клиенты на WhatsApp",
+
+    for_group_b_title: "Отрасли применения",
+    for_group_b_1: "Услуги и консалтинг",
+    for_group_b_2: "E-commerce и розница",
+    for_group_b_3: "Финансы и недвижимость",
+
+    for_group_c_title: "Преимущества",
+    for_group_c_1: "WhatsApp-центричность",
+    for_group_c_2: "Встроенный чат-бот",
+    for_group_c_3: "Простое внедрение",
+     for_badge: "Целевая аудитория",
+    for_cta: "Подобрать решение",
+    for_subtitle: "Универсальное решение для бизнеса любого масштаба и направлений",
   },
   kk: {
     // Hero
@@ -92,24 +112,46 @@ export const dict: Record<Lang, Record<string, string>> = {
     next_lead: "Интуитивті интерфейс және қуатты функциялар бір шешімде",
     business_badge: "Тиімді жұмыс процесі",
     business_cta: "Тегін қолданып көру",
-    
+
     // Шаги
     step1_title: "Жылдам бастау",
     step1_desc: "Дайын үлгілер мен параметрлермен 20 минутта жұмысты бастаңыз",
     step1_feature1: "Жылдам баптау",
     step1_feature2: "Дайын үлгілер",
     step1_feature3: "Автоматтандыру",
-    
+
     step2_title: "Интуитивті интерфейс",
-    step2_desc: "Барлық процестерді түсінікті және ыңғайлы интерфейс арқылы басқарыңыз",
+    step2_desc:
+      "Барлық процестерді түсінікті және ыңғайлы интерфейс арқылы басқарыңыз",
     step2_feature1: "Интуитивті интерфейс",
     step2_feature2: "Drag & Drop",
     step2_feature3: "AI-көмекші",
-    
+
     step3_title: "Барлығы бір пакетте",
     step3_desc: "WhatsApp, чат-боттар және CRM біртұтас экожүйеде",
     step3_feature1: "Интеграциялар",
     step3_feature2: "Мультичат",
     step3_feature3: "Аналитика",
+    for_title: "Raycon CRM кімдерге лайық?",
+    for_group_a_title: "Микро және шағын бизнес",
+    for_group_a_1: "Клиенттермен жұмыс істейтін 1+ менеджер",
+    for_group_a_2: "Жылдам қосу",
+    for_group_a_3: "Клиенттер WhatsApp-та жазатындар үшін",
+
+    for_group_b_title: "Қолдану салалары",
+    for_group_b_1: "Қызметтер және консалтинг",
+    for_group_b_2: "E-commerce және бөлшек сауда",
+    for_group_b_3: "Қаржы және жылжымайтын мүлік",
+
+    for_group_c_title: "Артықшылықтар",
+    for_group_c_1: "WhatsApp-орталық",
+    for_group_c_2: "Ішкі чат-бот",
+    for_group_c_3: "Оңай енгізу",
+    for_badge: "Максатты аудитория",
+    for_cta: "Шешімді таңдау",
+    for_subtitle: "Кез келген масштаб және бағыттағы бизнес үшін әмбебап шешім",
+
+
+    
   },
 };
