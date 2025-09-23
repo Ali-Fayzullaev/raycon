@@ -13,6 +13,7 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import SimpleForBusiness from "./sections/SimpleForBusiness";
 import ForWhom from "./sections/ForWhom";
 import OnboardingRoadmap from "./sections/OnboardingRoadmap";
+import KeyCapabilities from "./sections/KeyCapabilities";
 
 
 export default function LandingClient() {
@@ -25,6 +26,7 @@ export default function LandingClient() {
           <SimpleForBusiness/>
           <ForWhom/>
           <OnboardingRoadmap/>
+          <KeyCapabilities/>
           <Features />
           <Cases />
           <Pricing />
