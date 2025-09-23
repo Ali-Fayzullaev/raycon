@@ -10,6 +10,7 @@ import Pricing from "./sections/Pricing";
 import CTA from "./sections/CTA";
 import { I18nProvider } from "@/providers/I18nProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import SimpleForBusiness from "./sections/SimpleForBusiness";
 
 export default function LandingClient() {
   return (
@@ -18,6 +19,7 @@ export default function LandingClient() {
         <div className="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
           <Header />
           <Hero />
+          <SimpleForBusiness/>
           <div className="mx-auto max-w-7xl px-4">
             <div className="mt-14">
               <FakeDashboard />

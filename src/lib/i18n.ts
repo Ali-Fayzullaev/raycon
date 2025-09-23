@@ -33,6 +33,28 @@ export const dict: Record<Lang, Record<string, string>> = {
     lang_kk: "ҚАЗ",
     theme_light: "Светлая",
     theme_dark: "Тёмная",
+    next_lead: "Интуитивный интерфейс и мощные функции в одном решении",
+    business_badge: "Эффективный рабочий процесс",
+    business_cta: "Начать использовать бесплатно",
+    next_title: "Простота для бизнеса",
+    // Шаги
+    step1_title: "Быстрый старт",
+    step1_desc: "Начните работу за 20 минут с готовыми шаблонами и настройками",
+    step1_feature1: "Быстрая настройка",
+    step1_feature2: "Готовые шаблоны", 
+    step1_feature3: "Автоматизация",
+    
+    step2_title: "Интуитивный интерфейс",
+    step2_desc: "Управляйте всеми процессами через понятный и удобный интерфейс",
+    step2_feature1: "Интуитивный интерфейс",
+    step2_feature2: "Drag & Drop",
+    step2_feature3: "AI-помощник",
+    
+    step3_title: "Все в одном пакете",
+    step3_desc: "WhatsApp, чат-боты и CRM в единой экосистеме",
+    step3_feature1: "Интеграции",
+    step3_feature2: "Мультичат",
+    step3_feature3: "Аналитика",
   },
   kk: {
     // Hero
@@ -66,5 +88,28 @@ export const dict: Record<Lang, Record<string, string>> = {
     lang_kk: "ҚАЗ",
     theme_light: "Жарық",
     theme_dark: "Қараңғы",
+    next_title: "Бизнес үшін қарапайымдылық",
+    next_lead: "Интуитивті интерфейс және қуатты функциялар бір шешімде",
+    business_badge: "Тиімді жұмыс процесі",
+    business_cta: "Тегін қолданып көру",
+    
+    // Шаги
+    step1_title: "Жылдам бастау",
+    step1_desc: "Дайын үлгілер мен параметрлермен 20 минутта жұмысты бастаңыз",
+    step1_feature1: "Жылдам баптау",
+    step1_feature2: "Дайын үлгілер",
+    step1_feature3: "Автоматтандыру",
+    
+    step2_title: "Интуитивті интерфейс",
+    step2_desc: "Барлық процестерді түсінікті және ыңғайлы интерфейс арқылы басқарыңыз",
+    step2_feature1: "Интуитивті интерфейс",
+    step2_feature2: "Drag & Drop",
+    step2_feature3: "AI-көмекші",
+    
+    step3_title: "Барлығы бір пакетте",
+    step3_desc: "WhatsApp, чат-боттар және CRM біртұтас экожүйеде",
+    step3_feature1: "Интеграциялар",
+    step3_feature2: "Мультичат",
+    step3_feature3: "Аналитика",
   },
 };
