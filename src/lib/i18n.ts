@@ -136,6 +136,62 @@ export const dict: Record<Lang, Record<string, string>> = {
     cap3_b: "Тренды",
     cap3_c: "Аналитика",
     cap3_stat: "рост эффективности",
+
+    pricing_title: "Открытые тарифы",
+    pricing_subtitle:
+      "Выберите оптимальный план для вашего бизнеса. Во всех тарифах полный функционал.",
+    pricing_badge: "Гибкая система цен",
+    pricing_feature1: "14 дней бесплатно",
+    pricing_feature2: "Без скрытых платежей",
+    pricing_feature3: "Можно менять тариф в любое время",
+
+    plan_mini: "Mini",
+    plan_mini_popular: "Популярно",
+    plan_mini_desc: "для малого бизнеса",
+    plan_mini_price: "35 000 ₸/мес",
+    plan_mini_cta:
+      "Тегін бастау" /* если на RU нужна русская версия — замените на "Начать бесплатно" */,
+
+    plan_pro: "Pro",
+    plan_pro_desc: "для растущего бизнеса",
+    plan_pro_price: "49 000 ₸/мес",
+    plan_pro_cta: "Попробывать Pro" /* корректнее: "Попробовать Pro" */,
+
+    plan_enterprise: "Enterprise",
+    plan_enterprise_desc: "для корпораций",
+    plan_enterprise_price: "По запросу",
+    plan_enterprise_cta: "Обсудить проект",
+
+    // FEATURES: Pro
+    plan_pro_f1: "До 20 менеджеров",
+    plan_pro_f2: "Все мессенджеры",
+    plan_pro_f3: "Расширенная аналитика",
+    plan_pro_f4: "Приоритетная поддержка",
+    plan_pro_f5: "Интеграции с CRM",
+
+    // FEATURES: Mini
+    plan_mini_f1: "До 10 менеджеров",
+    plan_mini_f2: "WhatsApp + бот",
+    plan_mini_f3: "Базовая аналитика",
+    plan_mini_f4: "Стандартная поддержка",
+    plan_mini_f5: "Готовые шаблоны",
+    plan_mini_f6: "AI-помощник",
+
+    // FEATURES: Enterprise
+    plan_ent_f1: "Неограниченно менеджеров",
+    plan_ent_f2: "Все каналы связи",
+    plan_ent_f3: "Кастомная разработка",
+    plan_ent_f4: "Личный менеджер",
+    plan_ent_f5: "Обучение команды",
+    plan_ent_f6: "Доступ к API",
+
+    // STATS labels / values
+    plan_stat_managers: "менеджеров",
+    plan_stat_support: "поддержка",
+    plan_stat_implement_value: "20 мин",
+    plan_stat_implement_label: "внедрение",
+    plan_stat_uptime: "uptime",
+    plan_stat_sla: "гарантия",
   },
   kk: {
     // Hero
@@ -267,5 +323,59 @@ export const dict: Record<Lang, Record<string, string>> = {
     cap3_b: "Трендтер",
     cap3_c: "Аналитика",
     cap3_stat: "тиімділіктің өсуі",
+    pricing_title: "Ашық тарифтер",
+    pricing_subtitle:
+      "Бизнесіңізге бейім жоспарды таңдаңыз. Барлық тарифтерде толық функционал бар.",
+    pricing_badge: "Икемді баға жүйесі",
+    pricing_feature1: "14 күн тегін сынау",
+    pricing_feature2: "Жасырын төлемдер жоқ",
+    pricing_feature3: "Кез келген уақытта тарифті өзгерту",
+
+    plan_mini: "Mini",
+    plan_mini_popular: "Танымал",
+    plan_mini_desc: "шағын бизнес үшін",
+    plan_mini_price: "35 000 ₸/ай",
+    plan_mini_cta: "Тегін бастау",
+
+    plan_pro: "Pro",
+    plan_pro_desc: "өсіп келе жатқан бизнес үшін",
+    plan_pro_price: "49 000 ₸/ай",
+    plan_pro_cta: "Pro-ды сынау",
+
+    plan_enterprise: "Enterprise",
+    plan_enterprise_desc: "корпорациялар үшін",
+    plan_enterprise_price: "Сұраныс бойынша",
+    plan_enterprise_cta: "Жобаны талқылау",
+
+    // FEATURES: Pro
+    plan_pro_f1: "20 менеджерге дейін",
+    plan_pro_f2: "Барлық мессенджерлер",
+    plan_pro_f3: "Кеңейтілген аналитика",
+    plan_pro_f4: "Басым қолдау",
+    plan_pro_f5: "CRM интеграциялары",
+
+    // FEATURES: Mini
+    plan_mini_f1: "10 менеджерге дейін",
+    plan_mini_f2: "WhatsApp + бот",
+    plan_mini_f3: "Негізгі аналитика",
+    plan_mini_f4: "Стандартты қолдау",
+    plan_mini_f5: "Дайын үлгілер",
+    plan_mini_f6: "AI көмекші",
+
+    // FEATURES: Enterprise
+    plan_ent_f1: "Шектеусіз менеджер",
+    plan_ent_f2: "Барлық байланыс арналары",
+    plan_ent_f3: "Кастомды әзірлеу",
+    plan_ent_f4: "Жеке менеджер",
+    plan_ent_f5: "Команданы оқыту",
+    plan_ent_f6: "API қолжетімділігі",
+
+    // STATS labels / values
+    plan_stat_managers: "менеджер",
+    plan_stat_support: "қолдау",
+    plan_stat_implement_value: "20 мин",
+    plan_stat_implement_label: "енгізу",
+    plan_stat_uptime: "uptime",
+    plan_stat_sla: "кепілдік",
   },
 };

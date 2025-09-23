@@ -27,8 +27,6 @@ export default function LandingClient() {
           <ForWhom/>
           <OnboardingRoadmap/>
           <KeyCapabilities/>
-          <Features />
-          <Cases />
           <Pricing />
           <CTA />
           <Footer />
