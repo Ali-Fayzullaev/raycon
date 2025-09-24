@@ -2,12 +2,24 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
 import { useI18n } from "@/providers/I18nProvider";
-import { CalendarClock, Video, Rocket, Zap, ArrowRight, CheckCircle, Play, Star, Clock, Users, Settings } from "lucide-react";
+import {
+  CalendarClock,
+  Video,
+  Rocket,
+  Zap,
+  ArrowRight,
+  CheckCircle,
+  Play,
+  Star,
+  Clock,
+  Users,
+  Settings,
+} from "lucide-react";
 
 const fade: Variants = {
   hidden: { opacity: 0, y: 30 },
   show: (i: number = 0) => ({
-    opacity: 1, 
+    opacity: 1,
     y: 0,
     transition: { duration: 0.8, ease: "easeOut", delay: 0.15 * i },
   }),
@@ -19,9 +31,9 @@ const stagger: Variants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.2,
-      ease: "easeOut"
-    }
-  }
+      ease: "easeOut",
+    },
+  },
 };
 
 export default function EnhancedOnboardingRoadmap() {
@@ -34,10 +46,15 @@ export default function EnhancedOnboardingRoadmap() {
       desc: t("roadmap_1_desc"),
       Icon: CalendarClock,
       accent: "from-orange-500 to-amber-500",
-      gradient: "bg-gradient-to-br from-orange-500/10 to-amber-500/10 dark:from-orange-500/5 dark:to-amber-500/5",
+      gradient:
+        "bg-gradient-to-br from-orange-500/10 to-amber-500/10 dark:from-orange-500/5 dark:to-amber-500/5",
       duration: "15 минут",
-      features: ["Бесплатная консультация", "Анализ потребностей", "Подбор решения"],
-      progress: 33
+      features: [
+        "Бесплатная консультация",
+        "Анализ потребностей",
+        "Подбор решения",
+      ],
+      progress: 33,
     },
     {
       tag: t("roadmap_2_tag"),
@@ -45,10 +62,15 @@ export default function EnhancedOnboardingRoadmap() {
       desc: t("roadmap_2_desc"),
       Icon: Video,
       accent: "from-teal-500 to-emerald-500",
-      gradient: "bg-gradient-to-br from-teal-500/10 to-emerald-500/10 dark:from-teal-500/5 dark:to-emerald-500/5",
-      duration: "20 минут", 
-      features: ["Живая демонстрация", "Ответы на вопросы", "Практические примеры"],
-      progress: 66
+      gradient:
+        "bg-gradient-to-br from-teal-500/10 to-emerald-500/10 dark:from-teal-500/5 dark:to-emerald-500/5",
+      duration: "20 минут",
+      features: [
+        "Живая демонстрация",
+        "Ответы на вопросы",
+        "Практические примеры",
+      ],
+      progress: 66,
     },
     {
       tag: t("roadmap_3_tag"),
@@ -56,10 +78,15 @@ export default function EnhancedOnboardingRoadmap() {
       desc: t("roadmap_3_desc"),
       Icon: Rocket,
       accent: "from-purple-500 to-indigo-500",
-      gradient: "bg-gradient-to-br from-purple-500/10 to-indigo-500/10 dark:from-purple-500/5 dark:to-indigo-500/5",
+      gradient:
+        "bg-gradient-to-br from-purple-500/10 to-indigo-500/10 dark:from-purple-500/5 dark:to-indigo-500/5",
       duration: "Мгновенно",
-      features: ["Тестовый доступ", "Персональная настройка", "Обучение команды"],
-      progress: 100
+      features: [
+        "Тестовый доступ",
+        "Персональная настройка",
+        "Обучение команды",
+      ],
+      progress: 100,
     },
   ];
 
@@ -72,15 +99,15 @@ export default function EnhancedOnboardingRoadmap() {
           style={{
             backgroundImage: `radial-gradient(circle at 20% 50%, rgba(249, 115, 22, 0.4) 0%, transparent 50%),
                               radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.3) 0%, transparent 50%),
-                              radial-gradient(circle at 40% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%)`
+                              radial-gradient(circle at 40% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%)`,
           }}
           animate={{
-            backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
+            backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
           }}
           transition={{
             duration: 20,
             repeat: Infinity,
-            ease: "linear"
+            ease: "linear",
           }}
         />
       </div>
@@ -135,7 +162,7 @@ export default function EnhancedOnboardingRoadmap() {
                 whileInView={{ scaleY: 1 }}
                 transition={{ duration: 2, ease: "easeOut" }}
               />
-              
+
               {/* Анимированные точки на линии */}
               {steps.map((_, index) => (
                 <motion.div
@@ -143,7 +170,12 @@ export default function EnhancedOnboardingRoadmap() {
                   className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-white border-4 border-current"
                   style={{
                     top: `${(index + 0.5) * (100 / steps.length)}%`,
-                    color: index === 0 ? '#f97316' : index === 1 ? '#14b8a6' : '#8b5cf6'
+                    color:
+                      index === 0
+                        ? "#f97316"
+                        : index === 1
+                        ? "#14b8a6"
+                        : "#8b5cf6",
                   }}
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
@@ -160,7 +192,7 @@ export default function EnhancedOnboardingRoadmap() {
                   key={index}
                   step={step}
                   index={index}
-                  position={index % 2 === 0 ? 'left' : 'right'}
+                  position={index % 2 === 0 ? "left" : "right"}
                 />
               ))}
             </div>
@@ -184,7 +216,12 @@ export default function EnhancedOnboardingRoadmap() {
                   className="absolute -left-2 w-5 h-5 rounded-full bg-white border-2 border-current"
                   style={{
                     top: `${(index + 0.5) * (100 / steps.length)}%`,
-                    color: index === 0 ? '#f97316' : index === 1 ? '#14b8a6' : '#8b5cf6'
+                    color:
+                      index === 0
+                        ? "#f97316"
+                        : index === 1
+                        ? "#14b8a6"
+                        : "#8b5cf6",
                   }}
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
@@ -195,11 +232,7 @@ export default function EnhancedOnboardingRoadmap() {
 
             <div className="space-y-8 pl-12">
               {steps.map((step, index) => (
-                <MobileStepCard
-                  key={index}
-                  step={step}
-                  index={index}
-                />
+                <MobileStepCard key={index} step={step} index={index} />
               ))}
             </div>
           </motion.div>
@@ -243,7 +276,9 @@ export default function EnhancedOnboardingRoadmap() {
               </div>
               <div className="flex items-center gap-2 bg-white/50 dark:bg-slate-800/50 rounded-full px-3 py-1">
                 <Users className="w-4 h-4 text-amber-500" />
-                <span className="text-sm font-medium">{t("roadmap_support")}</span>
+                <span className="text-sm font-medium">
+                  {t("roadmap_support")}
+                </span>
               </div>
             </motion.div>
           </div>
@@ -253,42 +288,55 @@ export default function EnhancedOnboardingRoadmap() {
   );
 }
 
-function RoadmapStep({ step, index, position }: { step: any; index: number; position: 'left' | 'right' }) {
+function RoadmapStep({
+  step,
+  index,
+  position,
+}: {
+  step: any;
+  index: number;
+  position: "left" | "right";
+}) {
   return (
     <motion.div
       variants={fade}
       custom={index}
-      className={`flex items-center justify-between ${position === 'left' ? 'flex-row' : 'flex-row-reverse'}`}
+      className={`flex items-center justify-between ${
+        position === "left" ? "flex-row" : "flex-row-reverse"
+      }`}
     >
       {/* Карточка */}
       <motion.div
-        whileHover={{ 
+        whileHover={{
           y: -5,
           scale: 1.02,
-          transition: { duration: 0.3 }
+          transition: { duration: 0.3 },
         }}
         whileTap={{ scale: 0.98 }}
-        className={`relative ${position === 'left' ? 'mr-12' : 'ml-12'} w-96`}
+        className={`relative ${position === "left" ? "mr-12" : "ml-12"} w-96`}
       >
         {/* Соединительная линия */}
         <motion.div
           className={`absolute top-1/2 w-12 h-0.5 bg-gradient-to-r ${
-            position === 'left' 
-              ? 'left-full from-teal-500/50 to-transparent' 
-              : 'right-full from-transparent to-purple-500/50'
+            position === "left"
+              ? "left-full from-teal-500/50 to-transparent"
+              : "right-full from-transparent to-purple-500/50"
           }`}
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           transition={{ delay: index * 0.3 + 0.3, duration: 0.6 }}
         />
 
-        <div className={`relative rounded-2xl ${step.gradient} border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-md p-6 shadow-lg hover:shadow-xl transition-all duration-500`}>
-          
+        <div
+          className={`relative rounded-2xl ${step.gradient} border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-md p-6 shadow-lg hover:shadow-xl transition-all duration-500`}
+        >
           {/* Номер шага */}
           <motion.div
             className={`absolute -top-4 ${
-              position === 'left' ? '-left-4' : '-right-4'
-            } w-12 h-12 rounded-2xl bg-gradient-to-br ${step.accent} shadow-lg flex items-center justify-center text-white font-bold text-lg`}
+              position === "left" ? "-left-4" : "-right-4"
+            } w-12 h-12 rounded-2xl bg-gradient-to-br ${
+              step.accent
+            } shadow-lg flex items-center justify-center text-white font-bold text-lg`}
             whileHover={{ rotate: 360, scale: 1.1 }}
             transition={{ duration: 0.5 }}
           >
@@ -328,7 +376,7 @@ function RoadmapStep({ step, index, position }: { step: any; index: number; posi
               <motion.div
                 key={i}
                 className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300"
-                initial={{ opacity: 0, x: position === 'left' ? -10 : 10 }}
+                initial={{ opacity: 0, x: position === "left" ? -10 : 10 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.2 + i * 0.1 }}
               >
@@ -357,8 +405,8 @@ function RoadmapStep({ step, index, position }: { step: any; index: number; posi
 
       {/* Декоративный элемент напротив карточки */}
       <motion.div
-        className={`flex-1 ${position === 'left' ? 'text-right' : 'text-left'}`}
-        initial={{ opacity: 0, x: position === 'left' ? 50 : -50 }}
+        className={`flex-1 ${position === "left" ? "text-right" : "text-left"}`}
+        initial={{ opacity: 0, x: position === "left" ? 50 : -50 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ delay: index * 0.3 + 0.2 }}
       >
@@ -375,15 +423,14 @@ function RoadmapStep({ step, index, position }: { step: any; index: number; posi
 
 function MobileStepCard({ step, index }: { step: any; index: number }) {
   return (
-    <motion.div
-      variants={fade}
-      custom={index}
-      className="group relative"
-    >
-      <div className={`relative rounded-2xl ${step.gradient} border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-md p-6 shadow-lg`}>
-        
+    <motion.div variants={fade} custom={index} className="group relative">
+      <div
+        className={`relative rounded-2xl ${step.gradient} border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-md p-6 shadow-lg`}
+      >
         {/* Номер шага */}
-        <div className={`absolute -top-3 -left-3 w-10 h-10 rounded-xl bg-gradient-to-br ${step.accent} shadow-lg flex items-center justify-center text-white font-bold`}>
+        <div
+          className={`absolute -top-3 -left-3 w-10 h-10 rounded-xl bg-gradient-to-br ${step.accent} shadow-lg flex items-center justify-center text-white font-bold`}
+        >
           {index + 1}
         </div>
 
@@ -394,7 +441,7 @@ function MobileStepCard({ step, index }: { step: any; index: number }) {
           >
             <step.Icon className="w-6 h-6 text-white" />
           </motion.div>
-          
+
           <div className="flex-1">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">
@@ -405,18 +452,21 @@ function MobileStepCard({ step, index }: { step: any; index: number }) {
                 {step.duration}
               </span>
             </div>
-            
+
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
               {step.title}
             </h3>
-            
+
             <p className="text-slate-600 dark:text-slate-400 mb-3 text-sm">
               {step.desc}
             </p>
 
             <div className="space-y-1 mb-3">
               {step.features.map((feature: string, i: number) => (
-                <div key={i} className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
+                <div
+                  key={i}
+                  className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300"
+                >
                   <CheckCircle className="w-3 h-3 text-emerald-500" />
                   {feature}
                 </div>

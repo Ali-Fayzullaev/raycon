@@ -78,8 +78,40 @@ export default function ForWhom() {
     },
   ];
 
+  const FLOATING_POSITIONS = [
+  { left: "10%", top: "20%" },
+  { left: "85%", top: "30%" },
+  { left: "15%", top: "70%" },
+  { left: "90%", top: "60%" },
+  { left: "50%", top: "15%" },
+  { left: "25%", top: "40%" },
+  { left: "75%", top: "80%" },
+  { left: "40%", top: "25%" },
+  { left: "60%", top: "65%" },
+  { left: "20%", top: "85%" },
+  { left: "80%", top: "45%" },
+  { left: "35%", top: "55%" },
+];
+
   return (
     <section className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 overflow-hidden">
+       {FLOATING_POSITIONS.map((position, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-3 h-3 rounded-full bg-gradient-to-r from-teal-400/30 to-emerald-400/20"
+            style={position}
+            animate={{
+              y: [0, -30, 0],
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.8, 0.3],
+            }}
+            transition={{
+              duration: 4 + (i % 3),
+              repeat: Infinity,
+              delay: i * 0.3,
+            }}
+          />
+        ))}
       {/* Анимированный фон */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Градиентные орбы */}

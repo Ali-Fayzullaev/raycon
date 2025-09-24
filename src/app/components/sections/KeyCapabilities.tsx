@@ -33,13 +33,19 @@ const stagger: Variants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.15,
-      ease: "easeOut"
-    }
-  }
+      ease: "easeOut",
+    },
+  },
 };
 
-const Chip = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
-  <motion.span 
+const Chip = ({
+  children,
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  delay?: number;
+}) => (
+  <motion.span
     className="inline-flex items-center gap-2 rounded-full border border-slate-200/50 dark:border-slate-700/50 bg-white/80 dark:bg-slate-800/50 backdrop-blur-sm px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-teal-300/50 dark:hover:border-teal-500/50 transition-all duration-300 group"
     whileHover={{ scale: 1.05, y: -2 }}
     whileTap={{ scale: 0.95 }}
@@ -59,7 +65,8 @@ export default function ModernKeyCapabilities() {
       title: t("cap1_title"),
       description: t("cap1_desc"),
       accent: "from-orange-500 to-amber-500",
-      gradient: "bg-gradient-to-br from-orange-500/10 to-amber-500/10 dark:from-orange-500/5 dark:to-amber-500/5",
+      gradient:
+        "bg-gradient-to-br from-orange-500/10 to-amber-500/10 dark:from-orange-500/5 dark:to-amber-500/5",
       icon: MessagesSquare,
       features: [t("cap1_feature1"), t("cap1_feature2"), t("cap1_feature3")],
       chips: [
@@ -67,13 +74,14 @@ export default function ModernKeyCapabilities() {
         { icon: LayoutGrid, text: t("cap1_b"), color: "text-amber-500" },
         { icon: Users, text: t("cap1_c"), color: "text-orange-600" },
       ],
-      stats: { value: "95%", label: t("cap1_stat") }
+      stats: { value: "95%", label: t("cap1_stat") },
     },
     {
       title: t("cap2_title"),
       description: t("cap2_desc"),
       accent: "from-teal-500 to-emerald-500",
-      gradient: "bg-gradient-to-br from-teal-500/10 to-emerald-500/10 dark:from-teal-500/5 dark:to-emerald-500/5",
+      gradient:
+        "bg-gradient-to-br from-teal-500/10 to-emerald-500/10 dark:from-teal-500/5 dark:to-emerald-500/5",
       icon: Bot,
       features: [t("cap2_feature1"), t("cap2_feature2"), t("cap2_feature3")],
       chips: [
@@ -81,13 +89,14 @@ export default function ModernKeyCapabilities() {
         { icon: Shield, text: t("cap2_b"), color: "text-emerald-500" },
         { icon: Zap, text: t("cap2_c"), color: "text-teal-600" },
       ],
-      stats: { value: "24/7", label: t("cap2_stat") }
+      stats: { value: "24/7", label: t("cap2_stat") },
     },
     {
       title: t("cap3_title"),
       description: t("cap3_desc"),
       accent: "from-purple-500 to-indigo-500",
-      gradient: "bg-gradient-to-br from-purple-500/10 to-indigo-500/10 dark:from-purple-500/5 dark:to-indigo-500/5",
+      gradient:
+        "bg-gradient-to-br from-purple-500/10 to-indigo-500/10 dark:from-purple-500/5 dark:to-indigo-500/5",
       icon: BarChart3,
       features: [t("cap3_feature1"), t("cap3_feature2"), t("cap3_feature3")],
       chips: [
@@ -95,12 +104,44 @@ export default function ModernKeyCapabilities() {
         { icon: TrendingUp, text: t("cap3_b"), color: "text-indigo-500" },
         { icon: PieChart, text: t("cap3_c"), color: "text-purple-600" },
       ],
-      stats: { value: "+45%", label: t("cap3_stat") }
+      stats: { value: "+45%", label: t("cap3_stat") },
     },
+  ];
+
+  const FLOATING_POSITIONS = [
+    { left: "10%", top: "20%" },
+    { left: "85%", top: "30%" },
+    { left: "15%", top: "70%" },
+    { left: "90%", top: "60%" },
+    { left: "50%", top: "15%" },
+    { left: "25%", top: "40%" },
+    { left: "75%", top: "80%" },
+    { left: "40%", top: "25%" },
+    { left: "60%", top: "65%" },
+    { left: "20%", top: "85%" },
+    { left: "80%", top: "45%" },
+    { left: "35%", top: "55%" },
   ];
 
   return (
     <section className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 overflow-hidden">
+      {FLOATING_POSITIONS.map((position, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-3 h-3 rounded-full bg-gradient-to-r from-teal-400/30 to-emerald-400/20"
+          style={position}
+          animate={{
+            y: [0, -30, 0],
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.8, 0.3],
+          }}
+          transition={{
+            duration: 4 + (i % 3),
+            repeat: Infinity,
+            delay: i * 0.3,
+          }}
+        />
+      ))}
       {/* Анимированный фон */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Плавающие градиентные орбы */}
@@ -110,9 +151,11 @@ export default function ModernKeyCapabilities() {
             className="absolute rounded-full opacity-10 blur-3xl"
             style={{
               background: `linear-gradient(45deg, ${
-                i % 3 === 0 ? 'rgba(249, 115, 22, 0.3)' :
-                i % 3 === 1 ? 'rgba(20, 184, 166, 0.2)' :
-                'rgba(139, 92, 246, 0.25)'
+                i % 3 === 0
+                  ? "rgba(249, 115, 22, 0.3)"
+                  : i % 3 === 1
+                  ? "rgba(20, 184, 166, 0.2)"
+                  : "rgba(139, 92, 246, 0.25)"
               }, transparent)`,
               width: `${200 + i * 60}px`,
               height: `${200 + i * 60}px`,
@@ -131,16 +174,16 @@ export default function ModernKeyCapabilities() {
             }}
           />
         ))}
-        
+
         {/* Сетка */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.02] dark:opacity-[0.01]"
           style={{
             backgroundImage: `
               linear-gradient(rgba(0, 122, 110, 0.3) 1px, transparent 1px),
               linear-gradient(90deg, rgba(0, 122, 110, 0.3) 1px, transparent 1px)
             `,
-            backgroundSize: '40px 40px'
+            backgroundSize: "40px 40px",
           }}
         />
       </div>
@@ -226,10 +269,10 @@ function CapabilityCard({ card, index }: { card: any; index: number }) {
     <motion.div
       variants={fade}
       custom={index + 2}
-      whileHover={{ 
+      whileHover={{
         y: -8,
         scale: 1.02,
-        transition: { duration: 0.3 }
+        transition: { duration: 0.3 },
       }}
       whileTap={{ scale: 0.98 }}
       className="group relative"
@@ -239,31 +282,38 @@ function CapabilityCard({ card, index }: { card: any; index: number }) {
         className="absolute -inset-4 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{
           background: `linear-gradient(45deg, 
-            ${index === 0 ? 'rgba(249, 115, 22, 0.1)' : 
-              index === 1 ? 'rgba(20, 184, 166, 0.1)' : 
-              'rgba(139, 92, 246, 0.1)'}, 
+            ${
+              index === 0
+                ? "rgba(249, 115, 22, 0.1)"
+                : index === 1
+                ? "rgba(20, 184, 166, 0.1)"
+                : "rgba(139, 92, 246, 0.1)"
+            }, 
             transparent)`,
-          filter: 'blur(20px)'
+          filter: "blur(20px)",
         }}
         animate={{ rotate: 360 }}
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
       />
 
       {/* Основная карточка */}
-      <div className={`relative rounded-2xl ${card.gradient} border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-md p-8 shadow-lg hover:shadow-2xl transition-all duration-500 group-hover:border-slate-300/70 dark:group-hover:border-slate-600/70 h-full flex flex-col`}>
-        
+      <div
+        className={`relative rounded-2xl ${card.gradient} border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-md p-8 shadow-lg hover:shadow-2xl transition-all duration-500 group-hover:border-slate-300/70 dark:group-hover:border-slate-600/70 h-full flex flex-col`}
+      >
         {/* Верхний акцент */}
-        <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${card.accent} rounded-t-2xl`} />
+        <div
+          className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${card.accent} rounded-t-2xl`}
+        />
 
         {/* Заголовок с иконкой */}
         <div className="flex items-start justify-between mb-6">
           <div className="flex items-center gap-4">
             <motion.div
               className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${card.accent} shadow-lg`}
-              whileHover={{ 
+              whileHover={{
                 scale: 1.1,
                 rotate: 5,
-                transition: { duration: 0.2 }
+                transition: { duration: 0.2 },
               }}
             >
               <card.icon className="h-7 w-7 text-white" />
@@ -286,7 +336,9 @@ function CapabilityCard({ card, index }: { card: any; index: number }) {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ delay: index * 0.2 + 0.3 }}
         >
-          <div className={`text-2xl font-black bg-gradient-to-br ${card.accent} bg-clip-text text-transparent`}>
+          <div
+            className={`text-2xl font-black bg-gradient-to-br ${card.accent} bg-clip-text text-transparent`}
+          >
             {card.stats.value}
           </div>
           <div className="text-sm text-slate-600 dark:text-slate-400">
