@@ -124,7 +124,7 @@ export default function ModernKeyCapabilities() {
   ];
 
   return (
-    <section className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 overflow-hidden">
+    <section id="features" className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 overflow-hidden">
       {FLOATING_POSITIONS.map((position, i) => (
         <motion.div
           key={i}

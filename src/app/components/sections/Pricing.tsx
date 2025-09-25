@@ -168,7 +168,7 @@ export default function ModernPricing() {
   };
 
   return (
-    <section className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 overflow-hidden">
+    <section id="pricing" className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 overflow-hidden">
       {/* Анимированный фон */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Градиентные волны — ок, тут нет рандома */}

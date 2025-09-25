@@ -123,7 +123,7 @@ export default function PremiumFAQ() {
   });
 
   return (
-    <section className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800">
+    <section  id="faq" className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800">
       {FLOATING_POSITIONS.map((position, i) => (
         <motion.div
           key={i}
