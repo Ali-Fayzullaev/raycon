@@ -16,6 +16,7 @@ import OnboardingRoadmap from "./sections/OnboardingRoadmap";
 import KeyCapabilities from "./sections/KeyCapabilities";
 import ClientResults from "./sections/ClientResults";
 import FAQ from "./sections/FAQ";
+import FinalCTA from "./sections/FinalCTA";
 
 
 export default function LandingClient() {
@@ -32,7 +33,7 @@ export default function LandingClient() {
           <Pricing />
           <ClientResults/>
           <FAQ/>
-          <CTA />
+          <FinalCTA />
           <Footer />
         </div>
       </I18nProvider>
