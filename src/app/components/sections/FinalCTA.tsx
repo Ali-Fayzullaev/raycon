@@ -7,9 +7,7 @@ import ModernTryModal from "../modals/TryModal";
 import {
   ArrowRight,
   Zap,
-  Sparkles,
   CheckCircle2,
-  Star,
   Rocket,
   Target,
   Clock,
@@ -30,10 +28,7 @@ const stagger: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      ease: "easeOut",
-    },
+    transition: { staggerChildren: 0.15, ease: "easeOut" },
   },
 };
 
@@ -54,39 +49,29 @@ export default function AdaptiveFinalCTA() {
   ];
 
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-blue-900/20">
-      {/* Анимированный фон */}
+    <section className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50/60 dark:from-slate-900 dark:via-slate-900 dark:to-emerald-900/15">
+      {/* ФОН (зелёная палитра) */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Градиентные волны для light/dark */}
+        {/* Мягкие радиальные пятна */}
         <motion.div
           className="absolute inset-0 opacity-10 dark:opacity-15"
           style={{
-            background: `radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
-                         radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.2) 0%, transparent 50%)`,
+            background: `
+              radial-gradient(circle at 20% 30%, rgba(0, 122, 110, 0.30) 0%, transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(51, 202, 183, 0.22) 0%, transparent 50%)
+            `,
           }}
-          animate={{
-            backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "linear",
-          }}
+          animate={{ backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
         />
 
-        {/* Плавающие элементы */}
+        {/* Плавающие точки */}
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 rounded-full bg-blue-400/20 dark:bg-blue-400/30"
-            style={{
-              left: `${10 + i * 12}%`,
-              top: `${20 + i * 8}%`,
-            }}
-            animate={{
-              y: [0, -40, 0],
-              opacity: [0.3, 0.8, 0.3],
-            }}
+            className="absolute w-2 h-2 rounded-full bg-teal-400/20 dark:bg-emerald-400/30"
+            style={{ left: `${10 + i * 12}%`, top: `${20 + i * 8}%` }}
+            animate={{ y: [0, -40, 0], opacity: [0.3, 0.8, 0.3] }}
             transition={{
               duration: 4 + Math.random() * 2,
               repeat: Infinity,
@@ -95,69 +80,50 @@ export default function AdaptiveFinalCTA() {
           />
         ))}
 
-        {/* Световые лучи */}
+        {/* Лёгкий конусный луч */}
         <motion.div
           className="absolute inset-0 opacity-5 dark:opacity-10"
           style={{
             background: `conic-gradient(
               from 0deg at 50% 50%,
-              rgba(59, 130, 246, 0.2) 0deg,
-              rgba(139, 92, 246, 0.15) 120deg,
-              rgba(99, 102, 241, 0.15) 240deg,
-              rgba(59, 130, 246, 0.2) 360deg
+              rgba(0,122,110,0.20) 0deg,
+              rgba(51,202,183,0.16) 120deg,
+              rgba(0,168,146,0.16) 240deg,
+              rgba(0,122,110,0.20) 360deg
             )`,
           }}
           animate={{ rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         />
 
-        {/* Декоративные формы */}
+        {/* Декоративные «облака» */}
         <motion.div
-          className="absolute top-10 right-10 w-32 h-32 rounded-full bg-blue-200/20 dark:bg-blue-600/10 blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          className="absolute top-10 right-10 w-32 h-32 rounded-full bg-teal-300/20 dark:bg-teal-600/10 blur-3xl"
+          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-indigo-200/20 dark:bg-indigo-600/10 blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.2, 0.5, 0.2],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-emerald-300/20 dark:bg-emerald-600/10 blur-3xl"
+          animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.5, 0.2] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
 
       <div className="relative mx-auto max-w-6xl px-4 text-center">
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-        >
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-100px" }}>
           {/* Бейдж */}
           <motion.div
             variants={fade}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500/15 to-indigo-500/15 dark:from-blue-500/20 dark:to-indigo-500/20 backdrop-blur-md border border-blue-200/50 dark:border-blue-400/30 rounded-full px-6 py-3 text-sm font-medium text-blue-700 dark:text-blue-200 mb-8"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500/15 to-emerald-500/15 dark:from-teal-500/20 dark:to-emerald-500/20 backdrop-blur-md border border-teal-200/50 dark:border-teal-400/30 rounded-full px-6 py-3 text-sm font-medium text-teal-800 dark:text-emerald-200 mb-8"
           >
-            <Target className="w-4 h-4 text-blue-600 dark:text-blue-300" />
+            <Target className="w-4 h-4 text-teal-700 dark:text-emerald-300" />
             {t("final_cta_badge")}
           </motion.div>
 
           {/* Заголовок */}
           <motion.h2
             variants={fade}
-            className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 dark:from-white dark:via-blue-200 dark:to-white bg-clip-text text-transparent mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight bg-gradient-to-r from-slate-900 via-teal-900 to-slate-900 dark:from-white dark:via-emerald-200 dark:to-white bg-clip-text text-transparent mb-6"
           >
             {t("final_cta_title")}
           </motion.h2>
@@ -172,11 +138,7 @@ export default function AdaptiveFinalCTA() {
           </motion.p>
 
           {/* Особенности */}
-          <motion.div
-            variants={fade}
-            custom={2}
-            className="flex flex-wrap justify-center gap-4 mb-12"
-          >
+          <motion.div variants={fade} custom={2} className="flex flex-wrap justify-center gap-4 mb-12">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -184,7 +146,7 @@ export default function AdaptiveFinalCTA() {
                 whileHover={{ scale: 1.05, y: -2 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#007A6E] to-[#19B69F] flex items-center justify-center">
                   <feature.icon className="w-4 h-4 text-white" />
                 </div>
                 <span className="text-slate-700 dark:text-slate-200 text-sm font-medium">
@@ -194,27 +156,23 @@ export default function AdaptiveFinalCTA() {
             ))}
           </motion.div>
 
-          {/* CTA кнопка */}
+          {/* CTA кнопка (зелёный градиент) */}
           <motion.div variants={fade} custom={3} className="relative">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button
                 onClick={() => setOpen(true)}
                 className="group relative inline-flex items-center gap-4 h-16 px-10 text-lg font-bold text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 overflow-hidden"
-                style={{
-                  background: "linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #8b5cf6 100%)",
-                }}
+                style={{ background: "linear-gradient(135deg, #007A6E 0%, #19B69F 100%)" }}
               >
-                {/* Блестящий эффект */}
+                {/* Блеск */}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12"
                   initial={{ x: "-100%" }}
                   whileHover={{ x: "200%" }}
                   transition={{ duration: 1.2, ease: "easeInOut" }}
                 />
-
-                {/* Внутреннее свечение */}
+                {/* Внутренний soft highlight */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/20 to-transparent opacity-50" />
-
                 <Zap className="w-5 h-5 relative z-10" />
                 <span className="relative z-10">{t("final_cta_button")}</span>
                 <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
@@ -228,17 +186,17 @@ export default function AdaptiveFinalCTA() {
               transition={{ delay: 0.8 }}
               className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4 text-slate-500 dark:text-slate-400 text-sm"
             >
-              {guarantees.map((guarantee, index) => (
-                <div key={index} className="flex items-center gap-2 bg-white/50 dark:bg-slate-800/30 rounded-full px-3 py-1">
-                  <guarantee.icon className="w-3 h-3 text-blue-500" />
-                  <span>{guarantee.text}</span>
+              {guarantees.map((g, i) => (
+                <div key={i} className="flex items-center gap-2 bg-white/50 dark:bg-slate-800/30 rounded-full px-3 py-1">
+                  <g.icon className="w-3 h-3 text-teal-600" />
+                  <span>{g.text}</span>
                 </div>
               ))}
             </motion.div>
           </motion.div>
         </motion.div>
 
-        {/* Декоративные элементы внизу */}
+        {/* Декоративные точки внизу */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -248,16 +206,9 @@ export default function AdaptiveFinalCTA() {
           {[...Array(3)].map((_, i) => (
             <motion.div
               key={i}
-              className="w-2 h-2 rounded-full bg-blue-400/40 dark:bg-blue-400/60"
-              animate={{
-                scale: [1, 1.5, 1],
-                opacity: [0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                delay: i * 0.5,
-              }}
+              className="w-2 h-2 rounded-full bg-teal-400/40 dark:bg-emerald-400/60"
+              animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
             />
           ))}
         </motion.div>
