@@ -11,6 +11,10 @@ import {
   CheckCircle2,
   Star,
   Rocket,
+  Target,
+  Clock,
+  Users,
+  Shield,
 } from "lucide-react";
 
 const fade: Variants = {
@@ -33,27 +37,32 @@ const stagger: Variants = {
   },
 };
 
-export default function PremiumFinalCTA() {
+export default function AdaptiveFinalCTA() {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
 
   const features = [
-    { icon: Zap, text: "Настройка за 20 минут" },
-    { icon: CheckCircle2, text: "14 дней бесплатно" },
-    { icon: Rocket, text: "Запуск в тот же день" },
-    { icon: Star, text: "Персональный менеджер" },
+    { icon: Zap, text: t("final_feature_quick") },
+    { icon: CheckCircle2, text: t("final_feature_trial") },
+    { icon: Rocket, text: t("final_feature_fast") },
+    { icon: Users, text: t("final_feature_support") },
+  ];
+
+  const guarantees = [
+    { icon: Shield, text: t("final_guarantee_security") },
+    { icon: Clock, text: t("final_guarantee_cancel") },
   ];
 
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <section className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-blue-900/20">
       {/* Анимированный фон */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Градиентные волны */}
+        {/* Градиентные волны для light/dark */}
         <motion.div
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 opacity-10 dark:opacity-15"
           style={{
-            background: `radial-gradient(circle at 20% 30%, rgba(20, 184, 166, 0.4) 0%, transparent 50%),
-                         radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.3) 0%, transparent 50%)`,
+            background: `radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                         radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.2) 0%, transparent 50%)`,
           }}
           animate={{
             backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
@@ -69,7 +78,7 @@ export default function PremiumFinalCTA() {
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 rounded-full bg-teal-400/20"
+            className="absolute w-2 h-2 rounded-full bg-blue-400/20 dark:bg-blue-400/30"
             style={{
               left: `${10 + i * 12}%`,
               top: `${20 + i * 8}%`,
@@ -88,18 +97,44 @@ export default function PremiumFinalCTA() {
 
         {/* Световые лучи */}
         <motion.div
-          className="absolute inset-0 opacity-5"
+          className="absolute inset-0 opacity-5 dark:opacity-10"
           style={{
             background: `conic-gradient(
               from 0deg at 50% 50%,
-              rgba(20, 184, 166, 0.3) 0deg,
-              rgba(139, 92, 246, 0.2) 120deg,
-              rgba(59, 130, 246, 0.2) 240deg,
-              rgba(20, 184, 166, 0.3) 360deg
+              rgba(59, 130, 246, 0.2) 0deg,
+              rgba(139, 92, 246, 0.15) 120deg,
+              rgba(99, 102, 241, 0.15) 240deg,
+              rgba(59, 130, 246, 0.2) 360deg
             )`,
           }}
           animate={{ rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        />
+
+        {/* Декоративные формы */}
+        <motion.div
+          className="absolute top-10 right-10 w-32 h-32 rounded-full bg-blue-200/20 dark:bg-blue-600/10 blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-indigo-200/20 dark:bg-indigo-600/10 blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.2, 0.5, 0.2],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
         />
       </div>
 
@@ -113,16 +148,16 @@ export default function PremiumFinalCTA() {
           {/* Бейдж */}
           <motion.div
             variants={fade}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 backdrop-blur-md border border-teal-400/30 rounded-full px-6 py-3 text-sm font-medium text-white mb-8"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500/15 to-indigo-500/15 dark:from-blue-500/20 dark:to-indigo-500/20 backdrop-blur-md border border-blue-200/50 dark:border-blue-400/30 rounded-full px-6 py-3 text-sm font-medium text-blue-700 dark:text-blue-200 mb-8"
           >
-            <Sparkles className="w-4 h-4 text-teal-300" />
+            <Target className="w-4 h-4 text-blue-600 dark:text-blue-300" />
             {t("final_cta_badge")}
           </motion.div>
 
           {/* Заголовок */}
           <motion.h2
             variants={fade}
-            className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 dark:from-white dark:via-blue-200 dark:to-white bg-clip-text text-transparent mb-6"
           >
             {t("final_cta_title")}
           </motion.h2>
@@ -131,7 +166,7 @@ export default function PremiumFinalCTA() {
           <motion.p
             variants={fade}
             custom={1}
-            className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8"
+            className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8"
           >
             {t("final_cta_lead")}
           </motion.p>
@@ -140,17 +175,19 @@ export default function PremiumFinalCTA() {
           <motion.div
             variants={fade}
             custom={2}
-            className="flex flex-wrap justify-center gap-6 mb-12"
+            className="flex flex-wrap justify-center gap-4 mb-12"
           >
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                className="flex items-center gap-3 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20"
+                className="flex items-center gap-3 bg-white/80 dark:bg-slate-800/60 backdrop-blur-md rounded-full px-4 py-3 border border-slate-200/60 dark:border-slate-700/50 shadow-sm hover:shadow-md transition-all duration-300"
                 whileHover={{ scale: 1.05, y: -2 }}
                 transition={{ duration: 0.2 }}
               >
-                <feature.icon className="w-4 h-4 text-teal-300" />
-                <span className="text-white text-sm font-medium">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 flex items-center justify-center">
+                  <feature.icon className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-slate-700 dark:text-slate-200 text-sm font-medium">
                   {feature.text}
                 </span>
               </motion.div>
@@ -162,10 +199,9 @@ export default function PremiumFinalCTA() {
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button
                 onClick={() => setOpen(true)}
-                className="group relative inline-flex items-center gap-4 h-16 px-10 text-lg font-bold text-white rounded-2xl shadow-2xl overflow-hidden"
+                className="group relative inline-flex items-center gap-4 h-16 px-10 text-lg font-bold text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 overflow-hidden"
                 style={{
-                  background:
-                    "linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%)",
+                  background: "linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #8b5cf6 100%)",
                 }}
               >
                 {/* Блестящий эффект */}
@@ -185,22 +221,19 @@ export default function PremiumFinalCTA() {
               </Button>
             </motion.div>
 
-            {/* Дополнительная информация */}
+            {/* Гарантии */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className="mt-6 flex items-center justify-center gap-4 text-slate-400 text-sm"
+              className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4 text-slate-500 dark:text-slate-400 text-sm"
             >
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>Без кредитной карты</span>
-              </div>
-              <div className="w-px h-4 bg-slate-600" />
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>Отмена в любой момент</span>
-              </div>
+              {guarantees.map((guarantee, index) => (
+                <div key={index} className="flex items-center gap-2 bg-white/50 dark:bg-slate-800/30 rounded-full px-3 py-1">
+                  <guarantee.icon className="w-3 h-3 text-blue-500" />
+                  <span>{guarantee.text}</span>
+                </div>
+              ))}
             </motion.div>
           </motion.div>
         </motion.div>
@@ -215,7 +248,7 @@ export default function PremiumFinalCTA() {
           {[...Array(3)].map((_, i) => (
             <motion.div
               key={i}
-              className="w-2 h-2 rounded-full bg-teal-400/30"
+              className="w-2 h-2 rounded-full bg-blue-400/40 dark:bg-blue-400/60"
               animate={{
                 scale: [1, 1.5, 1],
                 opacity: [0.5, 1, 0.5],
