@@ -126,3 +126,76 @@
 .bb {
   border: 2px solid red;
 }
+
+
+
+/* Анимация для плавающих частиц */
+@keyframes float {
+  0% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-30px) scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.3;
+  }
+}
+
+.animate-float {
+  animation: float infinite ease-in-out;
+}
+
+/* Стили и анимации для фоновых орбов */
+.orb {
+  position: absolute;
+  border-radius: 9999px;
+  opacity: 0.15;
+  filter: blur(48px); /* blur-3xl */
+  will-change: transform; /* Подсказка браузеру */
+}
+
+.orb-1 {
+  background: linear-gradient(45deg, rgba(249, 115, 22, 0.25), transparent);
+  width: 250px;
+  height: 250px;
+  left: 10%;
+  top: 15%;
+  animation: bob-1 12s infinite ease-in-out;
+}
+
+.orb-2 {
+  background: linear-gradient(45deg, rgba(20, 184, 166, 0.2), transparent);
+  width: 330px;
+  height: 330px;
+  left: 35%;
+  top: 30%;
+  animation: bob-2 16s infinite ease-in-out;
+}
+
+.orb-3 {
+  background: linear-gradient(45deg, rgba(139, 92, 246, 0.2), transparent);
+  width: 410px;
+  height: 410px;
+  left: 60%;
+  top: 45%;
+  animation: bob-3 20s infinite ease-in-out;
+}
+
+@keyframes bob-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -25px) scale(1.1); }
+}
+@keyframes bob-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-30px, 20px) scale(1.05); }
+}
+@keyframes bob-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(25px, 35px) scale(1.1); }
+}
+
+

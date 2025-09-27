@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import { motion, Variants } from "framer-motion";
 import { useI18n } from "@/providers/I18nProvider";
 import {
@@ -13,18 +13,17 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-// Исправленные типы для анимаций
+// Упрощенные варианты анимаций
 const fade: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  show: (i: number = 0) => ({
+  hidden: { opacity: 0, y: 20 },
+  show: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.8,
-      ease: "easeOut", // Исправлено: строка вместо массива чисел
-      delay: 0.1 * i,
+    transition: { 
+      duration: 0.6, 
+      ease: [0.25, 0.46, 0.45, 0.94] 
     },
-  }),
+  },
 };
 
 const stagger: Variants = {
@@ -32,24 +31,33 @@ const stagger: Variants = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      ease: "easeOut", // Добавлено easing
+      staggerChildren: 0.1,
+      ease: "easeOut",
     },
   },
 };
 
-export default function SimpleForBusiness() {
+// Статические позиции для фоновых элементов
+const FLOATING_POSITIONS = [
+  { left: "10%", top: "20%" },
+  { left: "85%", top: "30%" },
+  { left: "15%", top: "70%" },
+  { left: "90%", top: "60%" },
+  { left: "50%", top: "15%" },
+  { left: "75%", top: "80%" },
+];
+
+export default function OptimizedForBusiness() {
   const { t } = useI18n();
 
-  // Данные для карточек с поддержкой двух языков
-  const items = [
+  // Используем useMemo для предотвращения ненужных ререндеров
+  const items = useMemo(() => [
     {
       title: t("step1_title"),
       desc: t("step1_desc"),
       icon: Rocket,
       accent: "from-orange-500 to-amber-500",
-      gradient:
-        "bg-gradient-to-br from-orange-500/10 to-amber-500/10 dark:from-orange-500/5 dark:to-amber-500/5",
+      gradient: "bg-gradient-to-br from-orange-500/10 to-amber-500/10 dark:from-orange-500/5 dark:to-amber-500/5",
       features: [t("step1_feature1"), t("step1_feature2"), t("step1_feature3")],
     },
     {
@@ -57,8 +65,7 @@ export default function SimpleForBusiness() {
       desc: t("step2_desc"),
       icon: MousePointerClick,
       accent: "from-teal-500 to-emerald-500",
-      gradient:
-        "bg-gradient-to-br from-teal-500/10 to-emerald-500/10 dark:from-teal-500/5 dark:to-emerald-500/5",
+      gradient: "bg-gradient-to-br from-teal-500/10 to-emerald-500/10 dark:from-teal-500/5 dark:to-emerald-500/5",
       features: [t("step2_feature1"), t("step2_feature2"), t("step2_feature3")],
     },
     {
@@ -66,103 +73,61 @@ export default function SimpleForBusiness() {
       desc: t("step3_desc"),
       icon: Boxes,
       accent: "from-purple-500 to-indigo-500",
-      gradient:
-        "bg-gradient-to-br from-purple-500/10 to-indigo-500/10 dark:from-purple-500/5 dark:to-indigo-500/5",
+      gradient: "bg-gradient-to-br from-purple-500/10 to-indigo-500/10 dark:from-purple-500/5 dark:to-indigo-500/5",
       features: [t("step3_feature1"), t("step3_feature2"), t("step3_feature3")],
     },
-  ];
-  const FLOATING_POSITIONS = [
-    { left: "10%", top: "20%" },
-    { left: "85%", top: "30%" },
-    { left: "15%", top: "70%" },
-    { left: "90%", top: "60%" },
-    { left: "50%", top: "15%" },
-    { left: "25%", top: "40%" },
-    { left: "75%", top: "80%" },
-    { left: "40%", top: "25%" },
-    { left: "60%", top: "65%" },
-    { left: "20%", top: "85%" },
-    { left: "80%", top: "45%" },
-    { left: "35%", top: "55%" },
-  ];
+  ], [t]);
 
-  return (
-    <section id="product" className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 overflow-hidden">
+  // Упрощенный фон компонент
+  const BackgroundElements = () => (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Статический градиентный фон */}
+      <div 
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          background: `radial-gradient(circle at 20% 30%, rgba(249,115,22,0.2) 0%, transparent 50%),
+                       radial-gradient(circle at 80% 70%, rgba(20,184,166,0.15) 0%, transparent 50%),
+                       radial-gradient(circle at 40% 10%, rgba(139,92,246,0.15) 0%, transparent 50%)`,
+        }}
+      />
+      
+      {/* Статические точки вместо анимированных */}
       {FLOATING_POSITIONS.map((position, i) => (
-        <motion.div
+        <div
           key={i}
-          className="absolute w-3 h-3 rounded-full bg-gradient-to-r from-teal-400/30 to-emerald-400/20"
+          className="absolute w-2 h-2 rounded-full bg-teal-400/10"
           style={position}
-          animate={{
-            y: [0, -30, 0],
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.8, 0.3],
-          }}
-          transition={{
-            duration: 4 + (i % 3),
-            repeat: Infinity,
-            delay: i * 0.3,
-          }}
         />
       ))}
-      {/* Анимированный фон */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Градиентные орбы */}
-        {[...Array(3)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full opacity-20 blur-3xl"
-            style={{
-              background: `linear-gradient(45deg, ${
-                i === 0
-                  ? "rgba(249, 115, 22, 0.3)"
-                  : i === 1
-                  ? "rgba(20, 184, 166, 0.2)"
-                  : "rgba(139, 92, 246, 0.25)"
-              }, transparent)`,
-              width: `${300 + i * 100}px`,
-              height: `${300 + i * 100}px`,
-              left: `${i * 30}%`,
-              top: `${20 + i * 20}%`,
-            }}
-            animate={{
-              x: [0, 50, 0],
-              y: [0, -30, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 15 + i * 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
 
-        {/* Сетка */}
-        <div
-          className="absolute inset-0 opacity-[0.02] dark:opacity-[0.01]"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(0, 122, 110, 0.4) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0, 122, 110, 0.4) 1px, transparent 1px)
-            `,
-            backgroundSize: "50px 50px",
-          }}
-        />
-      </div>
+      {/* Упрощенная сетка */}
+      <div
+        className="absolute inset-0 opacity-[0.01]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 122, 110, 0.3) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(0, 122, 110, 0.3) 1px, transparent 1px)`,
+          backgroundSize: "80px 80px",
+        }}
+      />
+    </div>
+  );
+
+  return (
+    <section id="product" className="relative py-16 md:py-24 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 overflow-hidden">
+      <BackgroundElements />
 
       <div className="relative mx-auto max-w-7xl px-4">
-        {/* Заголовок */}
+        {/* Оптимизированный заголовок */}
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-16"
+          viewport={{ once: true, margin: "-50px" }}
+          className="text-center mb-12"
         >
           <motion.div
             variants={fade}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500/15 to-emerald-500/15 dark:from-teal-500/10 dark:to-emerald-500/10 backdrop-blur-md border border-teal-200/30 dark:border-teal-500/20 rounded-full px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 mb-6"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500/15 to-emerald-500/15 dark:from-teal-500/10 dark:to-emerald-500/10 backdrop-blur-md border border-teal-200/30 dark:border-teal-500/20 rounded-full px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 mb-4"
           >
             <Zap className="w-4 h-4 text-teal-600 dark:text-teal-400" />
             {t("business_badge")}
@@ -170,173 +135,52 @@ export default function SimpleForBusiness() {
 
           <motion.h2
             variants={fade}
-            className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 dark:from-slate-100 dark:via-slate-200 dark:to-slate-100 bg-clip-text text-transparent mb-6"
+            className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 dark:from-slate-100 dark:via-slate-200 dark:to-slate-100 bg-clip-text text-transparent mb-4"
           >
             {t("next_title")}
           </motion.h2>
 
           <motion.p
             variants={fade}
-            custom={1}
-            className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed"
           >
             {t("next_lead")}
           </motion.p>
         </motion.div>
 
-        {/* Карточки */}
+        {/* Оптимизированные карточки */}
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid lg:grid-cols-3 gap-8"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid lg:grid-cols-3 gap-6"
         >
           {items.map((item, index) => (
-            <motion.div
+            <OptimizedBusinessCard
               key={index}
-              variants={fade}
-              custom={index + 2}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              whileHover={{
-                y: -8,
-                scale: 1.02,
-                transition: { duration: 0.3 },
-              }}
-              whileTap={{ scale: 0.98 }}
-              className="group relative"
-            >
-              {/* Внешнее свечение */}
-              <motion.div
-                className="absolute -inset-4 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{
-                  background: `linear-gradient(45deg, 
-                    ${
-                      index === 0
-                        ? "rgba(249, 115, 22, 0.1)"
-                        : index === 1
-                        ? "rgba(20, 184, 166, 0.1)"
-                        : "rgba(139, 92, 246, 0.1)"
-                    }, 
-                    transparent)`,
-                  filter: "blur(20px)",
-                }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              />
-
-              {/* Основная карточка */}
-              <div
-                className={`relative rounded-2xl ${item.gradient} border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-md p-8 shadow-sm hover:shadow-2xl transition-all duration-500 group-hover:border-slate-300/70 dark:group-hover:border-slate-600/70`}
-              >
-                {/* Верхний акцент */}
-                <div
-                  className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${item.accent} rounded-t-2xl`}
-                />
-
-                {/* Иконка */}
-                <motion.div
-                  className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${item.accent} shadow-lg mb-6`}
-                  whileHover={{
-                    scale: 1.1,
-                    rotate: 5,
-                    transition: { duration: 0.2 },
-                  }}
-                >
-                  <item.icon className="h-7 w-7 text-white" />
-                </motion.div>
-
-                {/* Заголовок */}
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
-                  {item.title}
-                </h3>
-
-                {/* Описание */}
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-                  {item.desc}
-                </p>
-
-                {/* Особенности */}
-                <div className="space-y-2 mb-6">
-                  {item.features.map((feature, i) => (
-                    <motion.div
-                      key={i}
-                      className="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300"
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.5 + i * 0.1, ease: "easeOut" }}
-                    >
-                      <motion.div
-                        className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.accent}`}
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          delay: i * 0.5,
-                          ease: "easeInOut",
-                        }}
-                      />
-                      {feature}
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Дополнительные элементы для третьей карточки */}
-                {index === 2 && (
-                  <motion.div
-                    className="flex -space-x-3 mt-4"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: 0.8, ease: "easeOut" }}
-                  >
-                    <div className="w-10 h-10 rounded-full bg-teal-500/20 border-2 border-white dark:border-slate-800 flex items-center justify-center">
-                      <MessageCircle className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-                    </div>
-                    <div className="w-10 h-10 rounded-full bg-emerald-500/20 border-2 border-white dark:border-slate-800 flex items-center justify-center">
-                      <Bot className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-                    </div>
-                    <div className="w-10 h-10 rounded-full bg-purple-500/20 border-2 border-white dark:border-slate-800 flex items-center justify-center">
-                      <Sparkles className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* Стрелка при наведении */}
-                <motion.div
-                  className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  whileHover={{ x: 5 }}
-                >
-                  <ArrowRight className="w-5 h-5 text-slate-400 dark:text-slate-500" />
-                </motion.div>
-              </div>
-            </motion.div>
+              item={item}
+              index={index}
+            />
           ))}
         </motion.div>
 
-        {/* Нижний CTA */}
+        {/* Упрощенный CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.6, ease: "easeOut" }}
-          className="text-center mt-16"
+          transition={{ delay: 0.3 }}
+          className="text-center mt-12"
         >
           <motion.button
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative px-8 py-4 bg-gradient-to-r from-teal-500 to-emerald-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="px-6 py-3 bg-gradient-to-r from-teal-500 to-emerald-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
           >
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12"
-              initial={{ x: "-100%" }}
-              whileHover={{ x: "200%" }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
-            />
-            <span className="relative flex items-center gap-3">
+            <span className="flex items-center gap-2">
               {t("business_cta")}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4" />
             </span>
           </motion.button>
         </motion.div>
@@ -344,3 +188,76 @@ export default function SimpleForBusiness() {
     </section>
   );
 }
+
+// Вынесенный оптимизированный компонент карточки
+const OptimizedBusinessCard = ({ item, index }: { item: any; index: number }) => {
+  return (
+    <motion.div
+      variants={fade}
+      whileHover={{ y: -4, scale: 1.01 }}
+      transition={{ duration: 0.2 }}
+      className="group relative"
+    >
+      {/* Основная карточка */}
+      <div
+        className={`relative rounded-xl ${item.gradient} border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-sm p-6 shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col`}
+      >
+        {/* Верхний акцент */}
+        <div
+          className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${item.accent} rounded-t-xl`}
+        />
+
+        {/* Иконка */}
+        <motion.div
+          className={`inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${item.accent} shadow-md mb-4`}
+          whileHover={{ scale: 1.05 }}
+        >
+          <item.icon className="h-6 w-6 text-white" />
+        </motion.div>
+
+        {/* Заголовок */}
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
+          {item.title}
+        </h3>
+
+        {/* Описание */}
+        <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-sm">
+          {item.desc}
+        </p>
+
+        {/* Особенности */}
+        <div className="space-y-2 mb-4 flex-1">
+          {item.features.map((feature: string, i: number) => (
+            <div
+              key={i}
+              className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300"
+            >
+              <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${item.accent} flex-shrink-0`} />
+              <span>{feature}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Дополнительные элементы для третьей карточки */}
+        {index === 2 && (
+          <div className="flex -space-x-2 mt-2">
+            <div className="w-8 h-8 rounded-full bg-teal-500/20 border-2 border-white dark:border-slate-800 flex items-center justify-center">
+              <MessageCircle className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+            </div>
+            <div className="w-8 h-8 rounded-full bg-emerald-500/20 border-2 border-white dark:border-slate-800 flex items-center justify-center">
+              <Bot className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            </div>
+            <div className="w-8 h-8 rounded-full bg-purple-500/20 border-2 border-white dark:border-slate-800 flex items-center justify-center">
+              <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+            </div>
+          </div>
+        )}
+
+        {/* Стрелка при наведении */}
+        <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          <ArrowRight className="w-4 h-4 text-slate-400 dark:text-slate-500" />
+        </div>
+      </div>
+    </motion.div>
+  );
+};
