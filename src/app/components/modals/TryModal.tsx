@@ -23,7 +23,11 @@ import {
   CalendarDays,
   Loader2,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Rocket,
+  Star,
+  Sparkles,
+  PartyPopper
 } from "lucide-react";
 
 export default function ModernTryModal({
@@ -45,10 +49,8 @@ export default function ModernTryModal({
 
   // Функция для форматирования номера телефона в реальном времени
   const formatPhoneInput = (value: string) => {
-    // Удаляем все нецифровые символы
     const cleaned = value.replace(/\D/g, '');
     
-    // Форматируем ввод
     if (cleaned.length <= 1) return `+7 ${cleaned}`;
     if (cleaned.length <= 4) return `+7 ${cleaned.slice(1)}`;
     if (cleaned.length <= 7) return `+7 ${cleaned.slice(1, 4)} ${cleaned.slice(4)}`;
@@ -61,13 +63,11 @@ export default function ModernTryModal({
     setPhone(formatted);
   };
 
-  // Функция для получения минимальной даты (сегодня)
   const getTodayDate = () => {
     const today = new Date();
     return today.toISOString().split('T')[0];
   };
 
-  // Функция проверки даты
   const validateDate = (selectedDate: string) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -86,11 +86,9 @@ export default function ModernTryModal({
   };
 
   const handleSubmit = async () => {
-    // Сбрасываем статус
     setSubmitStatus("idle");
     setErrorMessage("");
 
-    // Базовая валидация
     if (!name.trim()) {
       setErrorMessage("Введите ваше имя");
       return;
@@ -137,7 +135,6 @@ export default function ModernTryModal({
 
       if (result.success) {
         setSubmitStatus("success");
-        // Очищаем форму после успешной отправки
         setTimeout(() => {
           setName("");
           setPhone("");
@@ -145,7 +142,7 @@ export default function ModernTryModal({
           setTime("");
           setSubmitStatus("idle");
           onOpenChange(false);
-        }, 2000);
+        }, 4000);
       } else {
         setSubmitStatus("error");
         setErrorMessage(result.message || "Произошла ошибка при отправке");
@@ -179,11 +176,39 @@ export default function ModernTryModal({
     </motion.button>
   );
 
+  // Анимированные звезды для успешного состояния
+  const Confetti = () => (
+    <div className="absolute inset-0 pointer-events-none">
+      {[...Array(20)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-2 h-2 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"
+          initial={{ 
+            scale: 0,
+            opacity: 0,
+            x: Math.random() * 400 - 200,
+            y: Math.random() * 400 - 200,
+          }}
+          animate={{ 
+            scale: [0, 1, 0],
+            opacity: [0, 1, 0],
+            rotate: [0, 180, 360],
+          }}
+          transition={{ 
+            duration: 2,
+            delay: i * 0.1,
+            repeat: Infinity,
+            repeatDelay: 2
+          }}
+        />
+      ))}
+    </div>
+  );
+
   return (
     <Dialog open={open} onOpenChange={(v) => {
       if (!isSubmitting) {
         onOpenChange(v);
-        // Сбрасываем форму при закрытии
         if (!v) {
           setName("");
           setPhone("");
@@ -199,13 +224,21 @@ export default function ModernTryModal({
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
-          className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden"
+          className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden relative"
         >
+          {/* Конфетти для успешного состояния */}
+          {submitStatus === "success" && <Confetti />}
+
           {/* Верхний градиентный акцент */}
           <motion.div
             className="h-2 bg-gradient-to-r from-teal-400 via-emerald-500 to-teal-400"
             initial={{ backgroundPosition: "0% 50%" }}
-            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+            animate={{ 
+              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              ...(submitStatus === "success" && {
+                background: "linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff)"
+              })
+            }}
             transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
           />
 
@@ -221,60 +254,142 @@ export default function ModernTryModal({
           </motion.button>
 
           <div className="p-6">
-            <DialogHeader className="text-center mb-6">
+            {submitStatus === "success" ? (
+              // ЭКРАН УСПЕХА - ПРАЗДНИЧНЫЙ
               <motion.div
-                initial={{ y: -10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                className="flex justify-center mb-3"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center py-8"
               >
-                <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
-                  <MessageCircle className="w-6 h-6 text-white" />
-                </div>
+                {/* Анимированная иконка успеха */}
+                <motion.div
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                  className="w-20 h-20 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-emerald-500/25"
+                >
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.2, type: "spring" }}
+                  >
+                    <PartyPopper className="w-10 h-10 text-white" />
+                  </motion.div>
+                </motion.div>
+
+                {/* Вращающиеся звезды вокруг */}
+                <motion.div
+                  className="absolute top-8 left-8"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  <Star className="w-6 h-6 text-yellow-400 fill-current" />
+                </motion.div>
+                <motion.div
+                  className="absolute bottom-8 right-8"
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                >
+                  <Sparkles className="w-5 h-5 text-blue-400" />
+                </motion.div>
+
+                {/* Заголовок успеха */}
+                <motion.h3
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="text-3xl font-bold bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 bg-clip-text text-transparent mb-4"
+                >
+                  🎉 Ура! Заявка отправлена!
+                </motion.h3>
+
+                {/* Описание успеха */}
+                <motion.p
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  className="text-slate-600 dark:text-slate-400 mb-2 text-lg"
+                >
+                  <strong>Мы свяжемся с вами в ближайшее время!</strong>
+                </motion.p>
+
+                <motion.p
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                  className="text-slate-500 dark:text-slate-500 text-sm mb-6"
+                >
+                  Готовы показать вам новое поколение CRM-систем
+                </motion.p>
+
+                {/* Анимированный прогресс бар */}
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ delay: 0.6, duration: 3, ease: "linear" }}
+                  className="h-2 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full mb-2"
+                />
+
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.7 }}
+                  className="text-xs text-slate-400"
+                >
+                  Автоматически закроется через несколько секунд...
+                </motion.p>
               </motion.div>
-              <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent">
-                {submitStatus === "success" ? "Успешно!" : t("modal_title")}
-              </DialogTitle>
-              <DialogDescription className="text-slate-600 dark:text-slate-400 mt-2">
-                {submitStatus === "success" 
-                  ? "Мы свяжемся с вами в ближайшее время!" 
-                  : tab === "form" ? t("modal_hint_form") : t("modal_hint_schedule")
-                }
-              </DialogDescription>
-            </DialogHeader>
-
-            {/* Сообщение об успехе/ошибке */}
-            <AnimatePresence>
-              {submitStatus === "success" && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="mb-4 p-3 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl flex items-center gap-3"
-                >
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-                  <span className="text-emerald-700 dark:text-emerald-300 text-sm">
-                    Заявка успешно отправлена!
-                  </span>
-                </motion.div>
-              )}
-
-              {errorMessage && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl flex items-center gap-3"
-                >
-                  <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400" />
-                  <span className="text-red-700 dark:text-red-300 text-sm">
-                    {errorMessage}
-                  </span>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {submitStatus !== "success" && (
+            ) : (
+              // ОСНОВНОЙ КОНТЕНТ ФОРМЫ
               <>
+                <DialogHeader className="text-center mb-6">
+                  <motion.div
+                    initial={{ y: -10, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    className="flex justify-center mb-3"
+                  >
+                    <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
+                      <Rocket className="w-6 h-6 text-white" />
+                    </div>
+                  </motion.div>
+                  <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent">
+                    {t("modal_title")}
+                  </DialogTitle>
+                  <DialogDescription className="text-slate-600 dark:text-slate-400 mt-2">
+                    {tab === "form" ? t("modal_hint_form") : t("modal_hint_schedule")}
+                  </DialogDescription>
+                  
+                  {/* Краткое описание CRM */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="mt-4 p-3 bg-gradient-to-r from-blue-50 to-teal-50 dark:from-blue-900/20 dark:to-teal-900/20 rounded-lg border border-blue-100 dark:border-blue-800"
+                  >
+                    <p className="text-xs text-slate-600 dark:text-slate-400 text-center">
+                      <strong>Raycon CRM</strong> — умный мультичат для вашего бизнеса. 
+                      Объединяем все каналы коммуникации в одной платформе.
+                    </p>
+                  </motion.div>
+                </DialogHeader>
+
+                {/* Сообщение об ошибке */}
+                <AnimatePresence>
+                  {errorMessage && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl flex items-center gap-3"
+                    >
+                      <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400" />
+                      <span className="text-red-700 dark:text-red-300 text-sm">
+                        {errorMessage}
+                      </span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 {/* Табы */}
                 <motion.div
                   className="flex gap-3 mb-6"
@@ -319,7 +434,7 @@ export default function ModernTryModal({
                             onChange={handlePhoneChange}
                             className="pl-10 py-3 rounded-xl border-slate-200 dark:border-slate-700 focus:border-teal-500"
                             disabled={isSubmitting}
-                            maxLength={18} // +7 777 123 45 67
+                            maxLength={18}
                           />
                         </div>
                       </div>
@@ -406,21 +521,34 @@ export default function ModernTryModal({
                           transition={{ duration: 1.2, ease: "easeInOut" }}
                         />
                       )}
+                      
                       <span className="relative flex items-center justify-center gap-2">
                         {isSubmitting ? (
                           <>
                             <Loader2 className="w-4 h-4 animate-spin" />
-                            Отправка...
+                            Отправляем...
                           </>
                         ) : (
                           <>
-                            {tab === "form" ? t("ok") : t("book")}
-                            <Send className="w-4 h-4" />
+                            <Rocket className="w-4 h-4" />
+                            <span className="bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent font-semibold">
+                              {tab === "form" ? "🚀 Получить демо" : "🎯 Записаться на созвон"}
+                            </span>
                           </>
                         )}
                       </span>
                     </Button>
                   </motion.div>
+                  
+                  {/* Дополнительная информация */}
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="text-center text-xs text-slate-500 dark:text-slate-400 mt-3"
+                  >
+                    Присоединяйтесь к новому поколению CRM-систем
+                  </motion.p>
                 </DialogFooter>
               </>
             )}
