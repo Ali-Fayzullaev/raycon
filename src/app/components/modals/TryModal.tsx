@@ -531,24 +531,14 @@ export default function ModernTryModal({
                         ) : (
                           <>
                             <Rocket className="w-4 h-4" />
-                            <span className="bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent font-semibold">
-                              {tab === "form" ? "🚀 Получить демо" : "🎯 Записаться на созвон"}
+                            <span className="bg-gradient-to-r mx-0 from-white to-white/90 bg-clip-text text-transparent font-semibold">
+                              {tab === "form" ? "Получать сообщения с WhatsApp, Instagram и сайта в одном месте" : "Получить консультацию за 7 минут"}
                             </span>
                           </>
                         )}
                       </span>
                     </Button>
                   </motion.div>
-                  
-                  {/* Дополнительная информация */}
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                    className="text-center text-xs text-slate-500 dark:text-slate-400 mt-3"
-                  >
-                    Присоединяйтесь к новому поколению CRM-систем
-                  </motion.p>
                 </DialogFooter>
               </>
             )}

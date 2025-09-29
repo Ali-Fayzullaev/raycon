@@ -9,7 +9,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     hero_bul_1: "Интеллектуальная CRM с AI-ассистентом",
     hero_bul_2: "Интеграция за 20 минут",
     hero_bul_3: "WhatsApp + чат-бот в одном пакете",
-    hero_cta: "Начать бесплатный",
+    hero_cta: "Запустить CRM в тестовом режиме",
     hero_trial_note: "14 дней полного доступа без ограничений",
     hero_video_alt: "Демонстрация возможностей Raycon CRM",
 
@@ -35,7 +35,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     theme_dark: "Тёмная",
     next_lead: "Интуитивный интерфейс и мощные функции в одном решении",
     business_badge: "Эффективный рабочий процесс",
-    business_cta: "Начать использовать бесплатно",
+    business_cta: "Запустить CRM в тестовом режиме",
     next_title: "Простота для бизнеса",
     // Шаги
     step1_title: "Быстрый старт",
@@ -73,7 +73,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     for_group_c_2: "Встроенный чат-бот",
     for_group_c_3: "Простое внедрение",
     for_badge: "Целевая аудитория",
-    for_cta: "Подобрать решение",
+    for_cta: "Подобрать, что подойдет именно Вам",
     for_subtitle:
       "Универсальное решение для бизнеса любого масштаба и направлений",
 
@@ -93,7 +93,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     roadmap_subtitle:
       "Быстрое внедрение и мгновенный результат для вашего бизнеса",
     roadmap_badge: "Процесс внедрения",
-    roadmap_cta: "Начать сейчас",
+    roadmap_cta: "Перейти к внедрению",
     roadmap_hint: "Первый результат уже через 20 минут",
     roadmap_time: "20 минут до результата",
     roadmap_support: "Персональный менеджер",
@@ -305,7 +305,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     footer_contact_location: "Адрес",
 
     footer_cta_title: "Начните бесплатно",
-    footer_cta_description: "14 дней полного доступа. Без кредитной карты.",
+    footer_cta_description: "Забрать 14 дней бестелесно. Без кредитной карты.",
     footer_cta_button: "Начать trial",
 
     footer_feature_quick: "За 20 минут",

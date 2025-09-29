@@ -15,6 +15,8 @@ import {
   MessageCircle,
   User,
   ChevronDown,
+  Phone, // Новый импорт
+  Mail, // Новый импорт
 } from "lucide-react";
 import {
   Sheet,
@@ -26,6 +28,17 @@ import {
 import Image from "next/image";
 import ModernTryModal from "../modals/TryModal";
 import Link from "next/link";
+import SITE from "@/lib/site"; // Импорт констант сайта
+
+// --- Новые импорты для Dropdown Menu (предполагаем, что они доступны) ---
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+// ------------------------------------------------------------------------
 
 const NavItem = ({
   href,
@@ -68,6 +81,102 @@ const NavItem = ({
   </motion.a>
 );
 
+// --- НОВЫЙ КОМПОНЕНТ: Dropdown для контактов ---
+const ContactDropdown = () => (
+  <DropdownMenu>
+    <DropdownMenuTrigger asChild>
+      <motion.div
+        className="cursor-pointer"
+        whileHover={{ scale: 1.05, y: -1 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        <Button
+          variant="outline"
+          className="rounded-full px-4 py-2 text-sm font-medium bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group"
+        >
+          <Phone className="h-4 w-4 mr-2 text-teal-600 dark:text-teal-400" />
+          Контакты
+          <ChevronDown className="ml-1 h-3 w-3 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+        </Button>
+      </motion.div>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent className="w-56 dark:bg-slate-800 dark:border-slate-700 shadow-xl rounded-xl p-2 z-[60]">
+      {/* Отдел продаж */}
+      <DropdownMenuItem asChild>
+        <a
+          href={SITE.contacts.sales.tel}
+          className="flex items-center gap-3 p-2 rounded-lg hover:bg-teal-500/10 transition-colors"
+        >
+          <Phone className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+          <div>
+            <p className="text-sm font-medium">{SITE.contacts.sales.label}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              {SITE.contacts.sales.phone}
+            </p>
+          </div>
+        </a>
+      </DropdownMenuItem>
+
+      {/* Поддержка */}
+      <DropdownMenuItem asChild>
+        <a
+          href={SITE.contacts.support.tel}
+          className="flex items-center gap-3 p-2 rounded-lg hover:bg-teal-500/10 transition-colors"
+        >
+          <Phone className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+          <div>
+            <p className="text-sm font-medium">{SITE.contacts.support.label}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              {SITE.contacts.support.phone}
+            </p>
+          </div>
+        </a>
+      </DropdownMenuItem>
+      
+      <DropdownMenuSeparator className="dark:bg-slate-700" />
+      
+      {/* Email */}
+      <DropdownMenuItem asChild>
+        <a
+          href={SITE.email}
+          className="flex items-center gap-3 p-2 rounded-lg hover:bg-teal-500/10 transition-colors"
+        >
+          <Mail className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+          <p className="text-sm font-medium">Email</p>
+        </a>
+      </DropdownMenuItem>
+
+      {/* WhatsApp */}
+      <DropdownMenuItem asChild>
+        <a
+          href={SITE.whatsApp}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-3 p-2 rounded-lg hover:bg-teal-500/10 transition-colors"
+        >
+          {/* Заменяем на более подходящий значок для WhatsApp, если доступен. Пока используем Rocket, чтобы избежать ошибки импорта. Лучше использовать значок WhatsApp. */}
+           <MessageCircle className="h-4 w-4 text-green-600 dark:text-green-400" /> 
+          <p className="text-sm font-medium">WhatsApp</p>
+        </a>
+      </DropdownMenuItem>
+
+      {/* Instagram (Лучше использовать значок Instagram/Camera. Пока используем Sparkles.) */}
+      <DropdownMenuItem asChild>
+        <a
+          href={SITE.instagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-3 p-2 rounded-lg hover:bg-teal-500/10 transition-colors"
+        >
+          <Sparkles className="h-4 w-4 text-fuchsia-600 dark:text-fuchsia-400" />
+          <p className="text-sm font-medium">Instagram</p>
+        </a>
+      </DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
+);
+// ---------------------------------------------------
+
 export default function ModernHeader() {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
@@ -90,6 +199,45 @@ export default function ModernHeader() {
     { href: "#pricing", icon: BadgePercent, label: "Тарифы" },
   ];
 
+  // Массив контактов для мобильного меню
+  const mobileContacts = [
+    {
+      href: SITE.contacts.sales.tel,
+      icon: Phone,
+      label: SITE.contacts.sales.label,
+      subLabel: SITE.contacts.sales.phone,
+      color: "text-teal-600 dark:text-teal-400",
+    },
+    {
+      href: SITE.contacts.support.tel,
+      icon: Phone,
+      label: SITE.contacts.support.label,
+      subLabel: SITE.contacts.support.phone,
+      color: "text-emerald-600 dark:text-emerald-400",
+    },
+    {
+      href: SITE.email,
+      icon: Mail,
+      label: "Email",
+      subLabel: "info@yourdomain.com",
+      color: "text-blue-600 dark:text-blue-400",
+    },
+    {
+      href: SITE.whatsApp,
+      icon: MessageCircle,
+      label: "WhatsApp",
+      subLabel: "Напишите нам",
+      color: "text-green-600 dark:text-green-400",
+    },
+    {
+      href: SITE.instagram,
+      icon: Sparkles, // В идеале иконка Instagram
+      label: "Instagram",
+      subLabel: "@raycon.kz",
+      color: "text-fuchsia-600 dark:text-fuchsia-400",
+    },
+  ];
+
   return (
     <motion.header
       className="sticky top-0 z-50 border-b bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl supports-[backdrop-filter]:bg-white/80 transition-all duration-300"
@@ -98,11 +246,13 @@ export default function ModernHeader() {
       transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       <motion.div
-        className={`w-full  px-4 md:px-6 py-3 flex items-center justify-between transition-all duration-300 ${
+        className={`w-full max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between transition-all duration-300 ${
           isScrolled ? "py-2" : "py-3"
         }`}
         animate={{
-          boxShadow: isScrolled ? "0 4px 20px rgba(0, 122, 110, 0.1)" : "none",
+          boxShadow: isScrolled
+            ? "0 4px 20px rgba(0, 122, 110, 0.1)"
+            : "none",
         }}
       >
         {/* ЛОГО */}
@@ -147,13 +297,17 @@ export default function ModernHeader() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.5 }}
         >
+          {/* НОВЫЙ КОМПОНЕНТ КОНТАКТОВ */}
+          <ContactDropdown />
+          {/* --------------------------- */}
+          
           <LanguageSwitcher />
           <ThemeToggle />
 
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Link
               href="https://web.raycon.kz/ru/login"
-              className="hidden lg:inline-flex gap-2 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 border border-green-300 rounded-2xl"
+              className="hidden lg:inline-flex gap-2 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 border border-slate-300 dark:border-slate-700 rounded-2xl transition-colors duration-200"
             >
               <Button
                 variant="ghost"
@@ -215,6 +369,7 @@ export default function ModernHeader() {
               </SheetTitle>
             </SheetHeader>
 
+            {/* Основная навигация */}
             <div className="mt-8 space-y-2">
               {navItems.map((item) => (
                 <motion.a
@@ -228,10 +383,40 @@ export default function ModernHeader() {
                     <item.icon className="h-5 w-5 text-teal-600 dark:text-teal-400" />
                   </div>
                   <span className="font-medium">{item.label}</span>
-                  <ChevronDown className="h-4 w-4 ml-auto transform rotate-270 text-slate-400" />
+                  <ChevronDown className="h-4 w-4 ml-auto transform -rotate-90 text-slate-400" />
                 </motion.a>
               ))}
             </div>
+            
+            {/* НОВЫЙ БЛОК КОНТАКТОВ В МОБИЛЬНОМ МЕНЮ */}
+            <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 px-4 mb-3">
+                    Свяжитесь с нами
+                </h3>
+                <div className="space-y-1">
+                    {mobileContacts.map((contact, index) => (
+                        <motion.a
+                            key={index}
+                            href={contact.href}
+                            target={contact.label === "Email" ? "_self" : "_blank"}
+                            rel="noopener noreferrer"
+                            onClick={() => setOpen(false)}
+                            className="flex items-center gap-3 py-2 px-4 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group"
+                            whileHover={{ x: 3 }}
+                        >
+                            <div className={`p-2 rounded-lg bg-slate-100 dark:bg-slate-800 transition-colors`}>
+                                <contact.icon className={`h-5 w-5 ${contact.color}`} />
+                            </div>
+                            <div>
+                                <p className="text-sm font-medium">{contact.label}</p>
+                                <p className="text-xs text-slate-500 dark:text-slate-400">{contact.subLabel}</p>
+                            </div>
+                        </motion.a>
+                    ))}
+                </div>
+            </div>
+            {/* КОНЕЦ НОВОГО БЛОКА КОНТАКТОВ */}
+
 
             <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
               <div className="flex items-center justify-center gap-4 mb-6">
@@ -242,11 +427,11 @@ export default function ModernHeader() {
               <div className="space-y-3 mx-3">
                 <Link
                   href="https://web.raycon.kz/ru/login"
-                  className="w-full justify-center gap-2 border-slate-300 dark:border-slate-600 mb-3"
+                  className="w-full justify-center gap-2"
                 >
                   <Button
                     variant="outline"
-                    className="w-full justify-center gap-2 border-slate-300 dark:border-slate-600"
+                    className="w-full justify-center gap-2 border-slate-300 dark:border-slate-600 hover:border-teal-400 dark:hover:border-teal-400 transition-colors"
                   >
                     <User className="h-4 w-4" />
                     Войти
@@ -257,7 +442,10 @@ export default function ModernHeader() {
                   className="mt-3"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => setOpenModal(true)}
+                  onClick={() => {
+                    setOpenModal(true);
+                    setOpen(false); // Закрыть мобильное меню при открытии модала
+                  }}
                 >
                   <Button className="w-full bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-lg shadow-teal-500/25">
                     <MessageCircle className="h-4 w-4 mr-2" />

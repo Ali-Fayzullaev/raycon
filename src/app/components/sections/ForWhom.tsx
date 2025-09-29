@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { useI18n } from "@/providers/I18nProvider";
 import {
@@ -17,6 +17,7 @@ import {
   Zap,
   ArrowRight,
 } from "lucide-react";
+import ModernTryModal from "../modals/TryModal";
 
 // Оптимизированные варианты анимаций
 const fade: Variants = {
@@ -54,6 +55,7 @@ const FLOATING_POSITIONS = [
 
 export default function OptimizedForWhom() {
   const { t } = useI18n();
+  const [open, setOpen] = useState(false)
 
   // Используем useMemo для оптимизации
   const groups = useMemo(() => [
@@ -133,6 +135,7 @@ export default function OptimizedForWhom() {
           backgroundSize: '60px 60px'
         }}
       />
+      <ModernTryModal open={open} onOpenChange={setOpen}/>
     </div>
   );
 
@@ -196,6 +199,7 @@ export default function OptimizedForWhom() {
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
           className="text-center mt-12"
+          onClick={() => setOpen(true)}
         >
           <motion.button
             whileHover={{ scale: 1.02 }}
@@ -267,6 +271,7 @@ const OptimizedGroupCard = ({ group, index }: { group: any; index: number }) => 
           <ArrowRight className="w-4 h-4 text-slate-400 dark:text-slate-500" />
         </div>
       </div>
+      
     </motion.div>
   );
 };
