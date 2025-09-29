@@ -5,6 +5,7 @@ import { ArrowRight, CheckCircle2, Sparkles, Zap, MessageCircle, Bot } from "luc
 import { useI18n } from "@/providers/I18nProvider";
 import ModernTryModal from "../modals/TryModal";
 import "../../css/hero.css"
+import AnimatedBackground from "../Animated/AnimatedBackground.client";
 
 // --- Варианты анимаций для Framer Motion ---
 const containerVariants: Variants = {
@@ -25,50 +26,11 @@ const itemVariants: Variants = {
 
 // --- Компоненты ---
 
-// ИЗМЕНЕНИЕ: Компонент фона теперь управляет звёздами, авророй и орбами через CSS
-const AnimatedBackground = React.memo(() => {
-  // Генерируем звёзды для тёмной темы
-  const stars = Array.from({ length: 100 }).map((_, i) => (
-    <div
-      key={i}
-      className="star"
-      style={{
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-        width: `${Math.random() * 2 + 1}px`,
-        height: `${Math.random() * 2 + 1}px`,
-        animationDuration: `${Math.random() * 5 + 5}s`,
-        animationDelay: `${Math.random() * 5}s`,
-      }}
-    />
-  ));
-
-  return (
-    <div className="absolute inset-0 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:bg-gradient-to-br dark:from-slate-900 dark:via-black dark:to-blue-950">
-      {/* --- Светлая тема --- */}
-      <div className="absolute inset-0 block dark:hidden">
-        <div className="light-orb orb-1" />
-        <div className="light-orb orb-2" />
-        <div className="light-orb orb-3" />
-        <div className="absolute inset-0 opacity-[0.03] grid-pattern" />
-      </div>
-      
-      {/* --- Тёмная тема (Ночное небо) --- */}
-      <div className="absolute inset-0 hidden dark:block">
-        {stars}
-        <div className="aurora-orb orb-1" />
-        <div className="aurora-orb orb-2" />
-        <div className="aurora-orb orb-3" />
-        <div className="absolute inset-0 opacity-[0.04] grid-pattern-dark" />
-      </div>
-    </div>
-  );
-});
 
 
 function PhoneFrameVideo({
   src = "/demo.mp4",
-  poster = "/demo-poster.jpg",
+  poster = "/favicon.png",
   className = "",
 }) {
   return (

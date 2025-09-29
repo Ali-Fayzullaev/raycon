@@ -66,6 +66,7 @@ export default function PremiumFooter() {
   return (
     <footer className="relative border-t overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-teal-50/60 dark:from-slate-950 dark:via-slate-950 dark:to-teal-950/20">
       {/* Верхняя тонкая фирменная линия */}
+      
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#007A6E] via-[#19B69F] to-[#007A6E]" />
 
       {/* Деликатный анимированный фон — зелёные акценты */}
@@ -82,16 +83,6 @@ export default function PremiumFooter() {
           animate={{ backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"] }}
           transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
         />
-        {/* частицы */}
-        {[...Array(14)].map((_, i) => (
-          <motion.span
-            key={i}
-            className="absolute w-1 h-1 rounded-full bg-teal-400/25 dark:bg-emerald-400/30"
-            style={{ left: `${8 + i * 6}%`, top: `${18 + (i % 5) * 16}%` }}
-            animate={{ y: [0, -18, 0], opacity: [0.3, 0.8, 0.3] }}
-            transition={{ duration: 3 + (i % 2), repeat: Infinity, delay: i * 0.25 }}
-          />
-        ))}
       </div>
 
       {/* Контент */}

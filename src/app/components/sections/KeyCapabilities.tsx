@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import { motion, Variants } from "framer-motion";
 import { useI18n } from "@/providers/I18nProvider";
 import {
@@ -11,20 +11,19 @@ import {
   TrendingUp,
   PieChart,
   Zap,
-  Sparkles,
   ArrowRight,
   Shield,
-  Clock,
   Users,
 } from "lucide-react";
 
+// Оптимизированные анимации
 const fade: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  show: (i: number = 0) => ({
+  hidden: { opacity: 0, y: 20 },
+  show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: "easeOut", delay: 0.1 * i },
-  }),
+    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
 };
 
 const stagger: Variants = {
@@ -32,7 +31,7 @@ const stagger: Variants = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.1,
       ease: "easeOut",
     },
   },
@@ -46,27 +45,36 @@ const Chip = ({
   delay?: number;
 }) => (
   <motion.span
-    className="inline-flex items-center gap-2 rounded-full border border-slate-200/50 dark:border-slate-700/50 bg-white/80 dark:bg-slate-800/50 backdrop-blur-sm px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-teal-300/50 dark:hover:border-teal-500/50 transition-all duration-300 group"
-    whileHover={{ scale: 1.05, y: -2 }}
-    whileTap={{ scale: 0.95 }}
-    initial={{ opacity: 0, y: 10 }}
+    className="inline-flex items-center gap-2 rounded-full border border-slate-200/50 dark:border-slate-700/50 bg-white/80 dark:bg-slate-800/50 backdrop-blur-sm px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-teal-300/50 transition-all duration-200 group"
+    whileHover={{ scale: 1.02, y: -1 }}
+    initial={{ opacity: 0, y: 5 }}
     whileInView={{ opacity: 1, y: 0 }}
-    transition={{ delay, duration: 0.4 }}
+    transition={{ delay, duration: 0.3 }}
   >
     {children}
   </motion.span>
 );
 
-export default function ModernKeyCapabilities() {
+// Упрощенные позиции для фона
+const FLOATING_POSITIONS = [
+  { left: "10%", top: "20%" },
+  { left: "85%", top: "30%" },
+  { left: "15%", top: "70%" },
+  { left: "90%", top: "60%" },
+  { left: "50%", top: "15%" },
+  { left: "75%", top: "80%" },
+];
+
+export default function OptimizedKeyCapabilities() {
   const { t } = useI18n();
 
-  const cards = [
+  // Используем useMemo для оптимизации
+  const cards = useMemo(() => [
     {
       title: t("cap1_title"),
       description: t("cap1_desc"),
       accent: "from-orange-500 to-amber-500",
-      gradient:
-        "bg-gradient-to-br from-orange-500/10 to-amber-500/10 dark:from-orange-500/5 dark:to-amber-500/5",
+      gradient: "bg-gradient-to-br from-orange-500/10 to-amber-500/10 dark:from-orange-500/5 dark:to-amber-500/5",
       icon: MessagesSquare,
       features: [t("cap1_feature1"), t("cap1_feature2"), t("cap1_feature3")],
       chips: [
@@ -80,8 +88,7 @@ export default function ModernKeyCapabilities() {
       title: t("cap2_title"),
       description: t("cap2_desc"),
       accent: "from-teal-500 to-emerald-500",
-      gradient:
-        "bg-gradient-to-br from-teal-500/10 to-emerald-500/10 dark:from-teal-500/5 dark:to-emerald-500/5",
+      gradient: "bg-gradient-to-br from-teal-500/10 to-emerald-500/10 dark:from-teal-500/5 dark:to-emerald-500/5",
       icon: Bot,
       features: [t("cap2_feature1"), t("cap2_feature2"), t("cap2_feature3")],
       chips: [
@@ -95,8 +102,7 @@ export default function ModernKeyCapabilities() {
       title: t("cap3_title"),
       description: t("cap3_desc"),
       accent: "from-purple-500 to-indigo-500",
-      gradient:
-        "bg-gradient-to-br from-purple-500/10 to-indigo-500/10 dark:from-purple-500/5 dark:to-indigo-500/5",
+      gradient: "bg-gradient-to-br from-purple-500/10 to-indigo-500/10 dark:from-purple-500/5 dark:to-indigo-500/5",
       icon: BarChart3,
       features: [t("cap3_feature1"), t("cap3_feature2"), t("cap3_feature3")],
       chips: [
@@ -106,100 +112,67 @@ export default function ModernKeyCapabilities() {
       ],
       stats: { value: "+45%", label: t("cap3_stat") },
     },
-  ];
+  ], [t]);
 
-  const FLOATING_POSITIONS = [
-    { left: "10%", top: "20%" },
-    { left: "85%", top: "30%" },
-    { left: "15%", top: "70%" },
-    { left: "90%", top: "60%" },
-    { left: "50%", top: "15%" },
-    { left: "25%", top: "40%" },
-    { left: "75%", top: "80%" },
-    { left: "40%", top: "25%" },
-    { left: "60%", top: "65%" },
-    { left: "20%", top: "85%" },
-    { left: "80%", top: "45%" },
-    { left: "35%", top: "55%" },
-  ];
-
-  return (
-    <section id="features" className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 overflow-hidden">
+  // Оптимизированный фон
+  const BackgroundElements = () => (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Статический градиент */}
+      <div 
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          background: `radial-gradient(circle at 20% 30%, rgba(249,115,22,0.15) 0%, transparent 50%),
+                       radial-gradient(circle at 80% 70%, rgba(20,184,166,0.1) 0%, transparent 50%),
+                       radial-gradient(circle at 40% 10%, rgba(139,92,246,0.1) 0%, transparent 50%)`,
+        }}
+      />
+      
+      {/* Упрощенные анимированные точки */}
       {FLOATING_POSITIONS.map((position, i) => (
         <motion.div
           key={i}
-          className="absolute w-3 h-3 rounded-full bg-gradient-to-r from-teal-400/30 to-emerald-400/20"
+          className="absolute w-2 h-2 rounded-full bg-teal-400/20"
           style={position}
           animate={{
-            y: [0, -30, 0],
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.8, 0.3],
+            y: [0, -15, 0],
+            opacity: [0.4, 0.7, 0.4],
           }}
           transition={{
-            duration: 4 + (i % 3),
+            duration: 3,
             repeat: Infinity,
-            delay: i * 0.3,
+            ease: "easeInOut",
           }}
         />
       ))}
-      {/* Анимированный фон */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Плавающие градиентные орбы */}
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full opacity-10 blur-3xl"
-            style={{
-              background: `linear-gradient(45deg, ${
-                i % 3 === 0
-                  ? "rgba(249, 115, 22, 0.3)"
-                  : i % 3 === 1
-                  ? "rgba(20, 184, 166, 0.2)"
-                  : "rgba(139, 92, 246, 0.25)"
-              }, transparent)`,
-              width: `${200 + i * 60}px`,
-              height: `${200 + i * 60}px`,
-              left: `${i * 20}%`,
-              top: `${10 + i * 15}%`,
-            }}
-            animate={{
-              x: [0, 30, 0],
-              y: [0, -20, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 15 + i * 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
 
-        {/* Сетка */}
-        <div
-          className="absolute inset-0 opacity-[0.02] dark:opacity-[0.01]"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(0, 122, 110, 0.3) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0, 122, 110, 0.3) 1px, transparent 1px)
-            `,
-            backgroundSize: "40px 40px",
-          }}
-        />
-      </div>
+      {/* Упрощенная сетка */}
+      <div
+        className="absolute inset-0 opacity-[0.01]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 122, 110, 0.2) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(0, 122, 110, 0.2) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
+        }}
+      />
+    </div>
+  );
+
+  return (
+    <section id="features" className="relative py-16 md:py-24 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 overflow-hidden">
+      <BackgroundElements />
 
       <div className="relative mx-auto max-w-7xl px-4">
-        {/* Заголовок */}
+        {/* Оптимизированный заголовок */}
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-16"
+          viewport={{ once: true, margin: "-50px" }}
+          className="text-center mb-12"
         >
           <motion.div
             variants={fade}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500/15 to-emerald-500/15 dark:from-teal-500/10 dark:to-emerald-500/10 backdrop-blur-md border border-teal-200/30 dark:border-teal-500/20 rounded-full px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 mb-6"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500/15 to-emerald-500/15 dark:from-teal-500/10 dark:to-emerald-500/10 backdrop-blur-md border border-teal-200/30 dark:border-teal-500/20 rounded-full px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 mb-4"
           >
             <Zap className="w-4 h-4 text-teal-600 dark:text-teal-400" />
             {t("capabilities_badge")}
@@ -207,55 +180,48 @@ export default function ModernKeyCapabilities() {
 
           <motion.h2
             variants={fade}
-            className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 dark:from-slate-100 dark:via-slate-200 dark:to-slate-100 bg-clip-text text-transparent mb-6"
+            className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 dark:from-slate-100 dark:via-slate-200 dark:to-slate-100 bg-clip-text text-transparent mb-4"
           >
             {t("capabilities_title")}
           </motion.h2>
 
           <motion.p
             variants={fade}
-            custom={1}
-            className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed"
           >
             {t("capabilities_subtitle")}
           </motion.p>
         </motion.div>
 
-        {/* Карточки возможностей */}
+        {/* Оптимизированные карточки */}
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid lg:grid-cols-3 gap-8"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid lg:grid-cols-3 gap-6"
         >
           {cards.map((card, index) => (
-            <CapabilityCard key={index} card={card} index={index} />
+            <OptimizedCapabilityCard key={index} card={card} index={index} />
           ))}
         </motion.div>
 
-        {/* CTA секция */}
+        {/* Упрощенная CTA секция */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.6, ease: "easeOut" }}
-          className="text-center mt-16"
+          transition={{ delay: 0.3 }}
+          className="text-center mt-12"
         >
           <motion.button
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative px-8 py-4 bg-gradient-to-r from-teal-500 to-emerald-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="px-6 py-3 bg-gradient-to-r from-teal-500 to-emerald-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
           >
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12"
-              initial={{ x: "-100%" }}
-              whileHover={{ x: "200%" }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
-            />
-            <span className="relative flex items-center gap-3">
+            <span className="flex items-center gap-2">
               {t("capabilities_cta")}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4" />
             </span>
           </motion.button>
         </motion.div>
@@ -264,126 +230,79 @@ export default function ModernKeyCapabilities() {
   );
 }
 
-function CapabilityCard({ card, index }: { card: any; index: number }) {
+// Оптимизированный компонент карточки
+const OptimizedCapabilityCard = ({ card, index }: { card: any; index: number }) => {
   return (
     <motion.div
       variants={fade}
-      custom={index + 2}
-      whileHover={{
-        y: -8,
-        scale: 1.02,
-        transition: { duration: 0.3 },
-      }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={{ y: -4, scale: 1.01 }}
+      transition={{ duration: 0.2 }}
       className="group relative"
     >
-      {/* Внешнее свечение */}
-      <motion.div
-        className="absolute -inset-4 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{
-          background: `linear-gradient(45deg, 
-            ${
-              index === 0
-                ? "rgba(249, 115, 22, 0.1)"
-                : index === 1
-                ? "rgba(20, 184, 166, 0.1)"
-                : "rgba(139, 92, 246, 0.1)"
-            }, 
-            transparent)`,
-          filter: "blur(20px)",
-        }}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-      />
-
       {/* Основная карточка */}
       <div
-        className={`relative rounded-2xl ${card.gradient} border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-md p-8 shadow-lg hover:shadow-2xl transition-all duration-500 group-hover:border-slate-300/70 dark:group-hover:border-slate-600/70 h-full flex flex-col`}
+        className={`relative rounded-xl ${card.gradient} border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-sm p-6 shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col`}
       >
         {/* Верхний акцент */}
         <div
-          className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${card.accent} rounded-t-2xl`}
+          className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${card.accent} rounded-t-xl`}
         />
 
         {/* Заголовок с иконкой */}
-        <div className="flex items-start justify-between mb-6">
-          <div className="flex items-center gap-4">
-            <motion.div
-              className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${card.accent} shadow-lg`}
-              whileHover={{
-                scale: 1.1,
-                rotate: 5,
-                transition: { duration: 0.2 },
-              }}
-            >
-              <card.icon className="h-7 w-7 text-white" />
-            </motion.div>
-            <div>
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-                {card.title}
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 mt-1 text-sm">
-                {card.description}
-              </p>
-            </div>
+        <div className="flex items-start gap-3 mb-4">
+          <div className={`inline-flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br ${card.accent} shadow-md`}>
+            <card.icon className="h-5 w-5 text-white" />
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+              {card.title}
+            </h3>
+            <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+              {card.description}
+            </p>
           </div>
         </div>
 
         {/* Статистика */}
-        <motion.div
-          className="flex items-center gap-3 mb-6 p-3 rounded-xl bg-white/50 dark:bg-slate-800/30 backdrop-blur-sm"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ delay: index * 0.2 + 0.3 }}
-        >
+        <div className="flex items-center gap-2 mb-4 p-2 rounded-lg bg-white/50 dark:bg-slate-800/30">
           <div
-            className={`text-2xl font-black bg-gradient-to-br ${card.accent} bg-clip-text text-transparent`}
+            className={`text-xl font-black bg-gradient-to-br ${card.accent} bg-clip-text text-transparent`}
           >
             {card.stats.value}
           </div>
           <div className="text-sm text-slate-600 dark:text-slate-400">
             {card.stats.label}
           </div>
-        </motion.div>
+        </div>
 
         {/* Особенности */}
-        <div className="space-y-3 mb-6 flex-1">
+        <div className="space-y-2 mb-4 flex-1">
           {card.features.map((feature: string, i: number) => (
-            <motion.div
+            <div
               key={i}
-              className="flex items-center gap-3 text-slate-700 dark:text-slate-300"
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.2 + i * 0.1 }}
+              className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300"
             >
-              <motion.div
-                className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.accent}`}
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
-              />
+              <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${card.accent} flex-shrink-0`} />
               <span className="font-medium">{feature}</span>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Чипы */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1">
           {card.chips.map((chip: any, i: number) => (
-            <Chip key={i} delay={index * 0.1 + i * 0.05}>
-              <chip.icon className={`h-4 w-4 ${chip.color}`} />
+            <Chip key={i} delay={i * 0.05}>
+              <chip.icon className={`h-3 w-3 ${chip.color}`} />
               {chip.text}
             </Chip>
           ))}
         </div>
 
         {/* Стрелка при наведении */}
-        <motion.div
-          className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          whileHover={{ x: 3 }}
-        >
-          <ArrowRight className="w-5 h-5 text-slate-400 dark:text-slate-500" />
-        </motion.div>
+        <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          <ArrowRight className="w-4 h-4 text-slate-400 dark:text-slate-500" />
+        </div>
       </div>
     </motion.div>
   );
-}
+};
