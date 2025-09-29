@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import LogoMark from "../branding/LogoMark";
 import { Button } from "@/components/ui/button";
 import LanguageSwitcher from "../common/LanguageSwitcher";
 import ThemeToggle from "../common/ThemeToggle";
@@ -25,6 +24,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Image from "next/image";
+import ModernTryModal from "../modals/TryModal";
+import Link from "next/link";
 
 const NavItem = ({
   href,
@@ -50,7 +51,7 @@ const NavItem = ({
     <span className="opacity-90 group-hover:opacity-100 transition-opacity">
       {children}
     </span>
-    
+
     {/* Анимированная подчёркивающая линия */}
     <motion.span
       className="absolute inset-x-3 -bottom-1 h-0.5 bg-gradient-to-r from-teal-400 to-emerald-500 rounded-full"
@@ -58,7 +59,7 @@ const NavItem = ({
       whileHover={{ width: "calc(100% - 24px)", opacity: 1 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
     />
-    
+
     {/* Свечение при наведении */}
     <motion.div
       className="absolute inset-0 rounded-lg bg-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -70,6 +71,7 @@ const NavItem = ({
 export default function ModernHeader() {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   // Эффект для отслеживания скролла
@@ -100,9 +102,7 @@ export default function ModernHeader() {
           isScrolled ? "py-2" : "py-3"
         }`}
         animate={{
-          boxShadow: isScrolled
-            ? "0 4px 20px rgba(0, 122, 110, 0.1)"
-            : "none"
+          boxShadow: isScrolled ? "0 4px 20px rgba(0, 122, 110, 0.1)" : "none",
         }}
       >
         {/* ЛОГО */}
@@ -149,27 +149,28 @@ export default function ModernHeader() {
         >
           <LanguageSwitcher />
           <ThemeToggle />
-          
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Button
-              variant="ghost"
-              className="hidden lg:inline-flex gap-2 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400"
+
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <Link
+              href="https://web.raycon.kz/ru/login"
+              className="hidden lg:inline-flex gap-2 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 border border-green-300 rounded-2xl"
             >
-              <User className="h-4 w-4" />
-              Войти
-            </Button>
+              <Button
+                variant="ghost"
+                className="hidden lg:inline-flex gap-2 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 rounded-2xl"
+              >
+                <User className="h-4 w-4" />
+                Войти
+              </Button>
+            </Link>
           </motion.div>
-          
+
           <motion.div
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => setOpenModal(true)}
           >
-            <Button
-              className="bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 transition-all duration-300 group relative overflow-hidden"
-            >
+            <Button className="bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 transition-all duration-300 group relative overflow-hidden">
               {/* Анимированный блеск */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12"
@@ -213,7 +214,7 @@ export default function ModernHeader() {
                 </span>
               </SheetTitle>
             </SheetHeader>
-            
+
             <div className="mt-8 space-y-2">
               {navItems.map((item) => (
                 <motion.a
@@ -237,20 +238,28 @@ export default function ModernHeader() {
                 <LanguageSwitcher />
                 <ThemeToggle />
               </div>
-              
-              <div className="space-y-3">
-                <Button
-                  variant="outline"
-                  className="w-full justify-center gap-2 border-slate-300 dark:border-slate-600"
+
+              <div className="space-y-3 mx-3">
+                <Link
+                  href="https://web.raycon.kz/ru/login"
+                  className="w-full justify-center gap-2 border-slate-300 dark:border-slate-600 mb-3"
                 >
-                  <User className="h-4 w-4" />
-                  Войти
-                </Button>
-                
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Button
-                    className="w-full bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-lg shadow-teal-500/25"
+                    variant="outline"
+                    className="w-full justify-center gap-2 border-slate-300 dark:border-slate-600"
                   >
+                    <User className="h-4 w-4" />
+                    Войти
+                  </Button>
+                </Link>
+
+                <motion.div
+                  className="mt-3"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setOpenModal(true)}
+                >
+                  <Button className="w-full bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-lg shadow-teal-500/25">
                     <MessageCircle className="h-4 w-4 mr-2" />
                     {t("hero_cta")}
                   </Button>
@@ -260,6 +269,7 @@ export default function ModernHeader() {
           </SheetContent>
         </Sheet>
       </motion.div>
+      <ModernTryModal open={openModal} onOpenChange={setOpenModal} />
     </motion.header>
   );
 }
