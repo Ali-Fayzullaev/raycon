@@ -132,9 +132,9 @@ const ContactDropdown = () => (
           </div>
         </a>
       </DropdownMenuItem>
-      
+
       <DropdownMenuSeparator className="dark:bg-slate-700" />
-      
+
       {/* Email */}
       <DropdownMenuItem asChild>
         <a
@@ -155,7 +155,7 @@ const ContactDropdown = () => (
           className="flex items-center gap-3 p-2 rounded-lg hover:bg-teal-500/10 transition-colors"
         >
           {/* Заменяем на более подходящий значок для WhatsApp, если доступен. Пока используем Rocket, чтобы избежать ошибки импорта. Лучше использовать значок WhatsApp. */}
-           <MessageCircle className="h-4 w-4 text-green-600 dark:text-green-400" /> 
+          <MessageCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
           <p className="text-sm font-medium">WhatsApp</p>
         </a>
       </DropdownMenuItem>
@@ -250,9 +250,7 @@ export default function ModernHeader() {
           isScrolled ? "py-2" : "py-3"
         }`}
         animate={{
-          boxShadow: isScrolled
-            ? "0 4px 20px rgba(0, 122, 110, 0.1)"
-            : "none",
+          boxShadow: isScrolled ? "0 4px 20px rgba(0, 122, 110, 0.1)" : "none",
         }}
       >
         {/* ЛОГО */}
@@ -300,7 +298,7 @@ export default function ModernHeader() {
           {/* НОВЫЙ КОМПОНЕНТ КОНТАКТОВ */}
           <ContactDropdown />
           {/* --------------------------- */}
-          
+
           <LanguageSwitcher />
           <ThemeToggle />
 
@@ -387,36 +385,39 @@ export default function ModernHeader() {
                 </motion.a>
               ))}
             </div>
-            
+
             {/* НОВЫЙ БЛОК КОНТАКТОВ В МОБИЛЬНОМ МЕНЮ */}
             <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 px-4 mb-3">
-                    Свяжитесь с нами
-                </h3>
-                <div className="space-y-1">
-                    {mobileContacts.map((contact, index) => (
-                        <motion.a
-                            key={index}
-                            href={contact.href}
-                            target={contact.label === "Email" ? "_self" : "_blank"}
-                            rel="noopener noreferrer"
-                            onClick={() => setOpen(false)}
-                            className="flex items-center gap-3 py-2 px-4 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group"
-                            whileHover={{ x: 3 }}
-                        >
-                            <div className={`p-2 rounded-lg bg-slate-100 dark:bg-slate-800 transition-colors`}>
-                                <contact.icon className={`h-5 w-5 ${contact.color}`} />
-                            </div>
-                            <div>
-                                <p className="text-sm font-medium">{contact.label}</p>
-                                <p className="text-xs text-slate-500 dark:text-slate-400">{contact.subLabel}</p>
-                            </div>
-                        </motion.a>
-                    ))}
-                </div>
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 px-4 mb-3">
+                Свяжитесь с нами
+              </h3>
+              <div className="space-y-1">
+                {mobileContacts.map((contact, index) => (
+                  <motion.a
+                    key={index}
+                    href={contact.href}
+                    target={contact.label === "Email" ? "_self" : "_blank"}
+                    rel="noopener noreferrer"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center gap-3 py-2 px-4 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group"
+                    whileHover={{ x: 3 }}
+                  >
+                    <div
+                      className={`p-2 rounded-lg bg-slate-100 dark:bg-slate-800 transition-colors`}
+                    >
+                      <contact.icon className={`h-5 w-5 ${contact.color}`} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium">{contact.label}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">
+                        {contact.subLabel}
+                      </p>
+                    </div>
+                  </motion.a>
+                ))}
+              </div>
             </div>
             {/* КОНЕЦ НОВОГО БЛОКА КОНТАКТОВ */}
-
 
             <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
               <div className="flex items-center justify-center gap-4 mb-6">

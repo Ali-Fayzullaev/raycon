@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { useI18n } from "@/providers/I18nProvider";
 import {
@@ -13,6 +13,7 @@ import {
   Clock,
   Users,
 } from "lucide-react";
+import ModernTryModal from "../modals/TryModal";
 
 // Добавлен CSS класс для оптимизации GPU-рендеринга
 // Tailwind.config должен содержать 'will-change-transform': 'transform'
@@ -45,7 +46,6 @@ const stagger: Variants = {
 // --- ОСНОВНОЙ КОМПОНЕНТ ---
 export default function OptimizedOnboardingRoadmap() {
   const { t } = useI18n();
-
   // Используем useMemo для предотвращения ненужных ререндеров
   const steps = useMemo(() => [
     {
@@ -158,6 +158,7 @@ export default function OptimizedOnboardingRoadmap() {
 }
 
 // --- ДЕСКТОП КОМПОНЕНТ ---
+
 const DesktopRoadmap = ({ steps }: { steps: any[] }) => (
   <motion.div
     initial="hidden"
@@ -409,6 +410,7 @@ const OptimizedMobileStep = ({ step, index }: { step: any; index: number }) => (
 );
 
 // --- CTA СЕКЦИЯ ---
+
 const OptimizedCTA = ({ t }: { t: any }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
@@ -418,7 +420,10 @@ const OptimizedCTA = ({ t }: { t: any }) => (
     className={`${willChangeTransform} text-center mt-12`}
   >
     <div className="inline-flex flex-col sm:flex-row gap-3 items-center">
+      <a href="#pricing">
+
       <motion.button
+        
         whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(16, 185, 129, 0.3), 0 4px 6px -2px rgba(16, 185, 129, 0.15)" }} // Улучшен эффект наведения
         whileTap={{ scale: 0.95 }} // Более выразительный тап
         className="px-6 py-3 bg-gradient-to-r from-teal-500 to-emerald-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
@@ -428,6 +433,8 @@ const OptimizedCTA = ({ t }: { t: any }) => (
           <Play className="w-4 h-4" />
         </span>
       </motion.button>
+
+      </a>
 
       <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
         <div className="flex items-center gap-1 bg-white/50 dark:bg-slate-800/50 rounded-full px-2 py-1">
