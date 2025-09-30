@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,12 +12,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useI18n } from "@/providers/I18nProvider";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  X, 
-  Calendar, 
-  Clock, 
-  User, 
-  Phone, 
+import {
+  X,
+  Calendar,
+  Clock,
+  User,
+  Phone,
   MessageCircle,
   Send,
   CalendarDays,
@@ -27,7 +27,10 @@ import {
   Rocket,
   Star,
   Sparkles,
-  PartyPopper
+  PartyPopper,
+  MessageSquare,
+  Instagram,
+  Globe,
 } from "lucide-react";
 
 export default function ModernTryModal({
@@ -44,18 +47,33 @@ export default function ModernTryModal({
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isClient, setIsClient] = useState(false);
+
+  // Фикс для hydration mismatch
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Функция для форматирования номера телефона в реальном времени
   const formatPhoneInput = (value: string) => {
-    const cleaned = value.replace(/\D/g, '');
-    
+    const cleaned = value.replace(/\D/g, "");
+
     if (cleaned.length <= 1) return `+7 ${cleaned}`;
     if (cleaned.length <= 4) return `+7 ${cleaned.slice(1)}`;
-    if (cleaned.length <= 7) return `+7 ${cleaned.slice(1, 4)} ${cleaned.slice(4)}`;
-    if (cleaned.length <= 9) return `+7 ${cleaned.slice(1, 4)} ${cleaned.slice(4, 7)} ${cleaned.slice(7)}`;
-    return `+7 ${cleaned.slice(1, 4)} ${cleaned.slice(4, 7)} ${cleaned.slice(7, 9)} ${cleaned.slice(9, 11)}`;
+    if (cleaned.length <= 7)
+      return `+7 ${cleaned.slice(1, 4)} ${cleaned.slice(4)}`;
+    if (cleaned.length <= 9)
+      return `+7 ${cleaned.slice(1, 4)} ${cleaned.slice(4, 7)} ${cleaned.slice(
+        7
+      )}`;
+    return `+7 ${cleaned.slice(1, 4)} ${cleaned.slice(4, 7)} ${cleaned.slice(
+      7,
+      9
+    )} ${cleaned.slice(9, 11)}`;
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,7 +83,7 @@ export default function ModernTryModal({
 
   const getTodayDate = () => {
     const today = new Date();
-    return today.toISOString().split('T')[0];
+    return today.toISOString().split("T")[0];
   };
 
   const validateDate = (selectedDate: string) => {
@@ -94,7 +112,7 @@ export default function ModernTryModal({
       return;
     }
 
-    if (!phone.trim() || phone.replace(/\D/g, '').length < 11) {
+    if (!phone.trim() || phone.replace(/\D/g, "").length < 11) {
       setErrorMessage("Введите корректный номер телефона");
       return;
     }
@@ -117,17 +135,17 @@ export default function ModernTryModal({
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/submit-request', {
-        method: 'POST',
+      const response = await fetch("/api/submit-request", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           type: tab,
           name: name.trim(),
           phone: phone.trim(),
-          date: tab === 'schedule' ? date : undefined,
-          time: tab === 'schedule' ? time : undefined,
+          date: tab === "schedule" ? date : undefined,
+          time: tab === "schedule" ? time : undefined,
         }),
       });
 
@@ -155,7 +173,15 @@ export default function ModernTryModal({
     }
   };
 
-  const TabButton = ({ value, icon: Icon, children }: { value: typeof tab, icon: any, children: React.ReactNode }) => (
+  const TabButton = ({
+    value,
+    icon: Icon,
+    children,
+  }: {
+    value: typeof tab;
+    icon: any;
+    children: React.ReactNode;
+  }) => (
     <motion.button
       onClick={() => {
         setTab(value);
@@ -176,49 +202,86 @@ export default function ModernTryModal({
     </motion.button>
   );
 
-  // Анимированные звезды для успешного состояния
-  const Confetti = () => (
-    <div className="absolute inset-0 pointer-events-none">
-      {[...Array(20)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-2 h-2 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"
-          initial={{ 
-            scale: 0,
-            opacity: 0,
-            x: Math.random() * 400 - 200,
-            y: Math.random() * 400 - 200,
-          }}
-          animate={{ 
-            scale: [0, 1, 0],
-            opacity: [0, 1, 0],
-            rotate: [0, 180, 360],
-          }}
-          transition={{ 
-            duration: 2,
-            delay: i * 0.1,
-            repeat: Infinity,
-            repeatDelay: 2
-          }}
-        />
-      ))}
-    </div>
-  );
+  // Анимированные звезды для успешного состояния - с фиксом hydration
+  const Confetti = () => {
+    if (!isClient) return null; // Не рендерим на сервере
+
+    return (
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"
+            initial={{
+              scale: 0,
+              opacity: 0,
+            }}
+            animate={{
+              scale: [0, 1, 0],
+              opacity: [0, 1, 0],
+              rotate: [0, 180, 360],
+              x: [0, (Math.random() - 0.5) * 200, 0],
+              y: [0, (Math.random() - 0.5) * 200, 0],
+            }}
+            transition={{
+              duration: 2.5,
+              delay: i * 0.15,
+              repeat: Infinity,
+              repeatDelay: 3,
+            }}
+          />
+        ))}
+      </div>
+    );
+  };
+
+  // Красивая кнопка с иконками мессенджеров
+  const SubmitButtonContent = () => {
+    if (isSubmitting) {
+      return (
+        <>
+          <Loader2 className="w-4 h-4 animate-spin" />
+          Отправляем...
+        </>
+      );
+    }
+
+    if (tab === "form") {
+      return (
+        <div className="flex items-center gap-3">
+
+          <span className="text-[12px] font-semibold text-left flex-1">
+            Получать сообщения с WhatsApp, Instagram и сайта в одном месте
+          </span>
+        </div>
+      );
+    }
+
+    return (
+      <div className="flex items-center gap-2">
+        <Clock className="w-4 h-4" />
+        <span className="font-semibold">Получить консультацию за 7 минут</span>
+      </div>
+    );
+  };
 
   return (
-    <Dialog open={open} onOpenChange={(v) => {
-      if (!isSubmitting) {
-        onOpenChange(v);
-        if (!v) {
-          setName("");
-          setPhone("");
-          setDate("");
-          setTime("");
-          setErrorMessage("");
-          setSubmitStatus("idle");
+    <Dialog
+      open={open}
+      onOpenChange={(v) => {
+        if (!isSubmitting) {
+          onOpenChange(v);
+          if (!v) {
+            setName("");
+            setPhone("");
+            setDate("");
+            setTime("");
+            setErrorMessage("");
+            setSubmitStatus("idle");
+          }
         }
-      }
-    }}>
+      }}
+    >
       <DialogContent className="sm:max-w-md p-0 overflow-hidden border-0 bg-transparent">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -233,11 +296,12 @@ export default function ModernTryModal({
           <motion.div
             className="h-2 bg-gradient-to-r from-teal-400 via-emerald-500 to-teal-400"
             initial={{ backgroundPosition: "0% 50%" }}
-            animate={{ 
+            animate={{
               backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
               ...(submitStatus === "success" && {
-                background: "linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff)"
-              })
+                background:
+                  "linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff)",
+              }),
             }}
             transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
           />
@@ -278,20 +342,32 @@ export default function ModernTryModal({
                 </motion.div>
 
                 {/* Вращающиеся звезды вокруг */}
-                <motion.div
-                  className="absolute top-8 left-8"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                >
-                  <Star className="w-6 h-6 text-yellow-400 fill-current" />
-                </motion.div>
-                <motion.div
-                  className="absolute bottom-8 right-8"
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                >
-                  <Sparkles className="w-5 h-5 text-blue-400" />
-                </motion.div>
+                {isClient && (
+                  <>
+                    <motion.div
+                      className="absolute top-8 left-8"
+                      animate={{ rotate: 360 }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                    >
+                      <Star className="w-6 h-6 text-yellow-400 fill-current" />
+                    </motion.div>
+                    <motion.div
+                      className="absolute bottom-8 right-8"
+                      animate={{ rotate: -360 }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                    >
+                      <Sparkles className="w-5 h-5 text-blue-400" />
+                    </motion.div>
+                  </>
+                )}
 
                 {/* Заголовок успеха */}
                 <motion.h3
@@ -356,9 +432,11 @@ export default function ModernTryModal({
                     {t("modal_title")}
                   </DialogTitle>
                   <DialogDescription className="text-slate-600 dark:text-slate-400 mt-2">
-                    {tab === "form" ? t("modal_hint_form") : t("modal_hint_schedule")}
+                    {tab === "form"
+                      ? t("modal_hint_form")
+                      : t("modal_hint_schedule")}
                   </DialogDescription>
-                  
+
                   {/* Краткое описание CRM */}
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -367,8 +445,9 @@ export default function ModernTryModal({
                     className="mt-4 p-3 bg-gradient-to-r from-blue-50 to-teal-50 dark:from-blue-900/20 dark:to-teal-900/20 rounded-lg border border-blue-100 dark:border-blue-800"
                   >
                     <p className="text-xs text-slate-600 dark:text-slate-400 text-center">
-                      <strong>Raycon CRM</strong> — умный мультичат для вашего бизнеса. 
-                      Объединяем все каналы коммуникации в одной платформе.
+                      <strong>Raycon CRM</strong> — умный мультичат для вашего
+                      бизнеса. Объединяем все каналы коммуникации в одной
+                      платформе.
                     </p>
                   </motion.div>
                 </DialogHeader>
@@ -501,14 +580,14 @@ export default function ModernTryModal({
                 </AnimatePresence>
 
                 <DialogFooter className="mt-6">
-                  <motion.div 
+                  <motion.div
                     className="w-full"
                     whileHover={!isSubmitting ? { scale: 1.02 } : {}}
                     whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                   >
                     <Button
                       onClick={handleSubmit}
-                      className="w-full bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white py-3 rounded-xl shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 transition-all duration-300 relative overflow-hidden group disabled:opacity-70 disabled:cursor-not-allowed"
+                      className="w-full bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white py-4 rounded-xl shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 transition-all duration-300 relative overflow-hidden group disabled:opacity-70 disabled:cursor-not-allowed min-h-[60px]"
                       size="lg"
                       disabled={isSubmitting}
                     >
@@ -521,21 +600,9 @@ export default function ModernTryModal({
                           transition={{ duration: 1.2, ease: "easeInOut" }}
                         />
                       )}
-                      
-                      <span className="relative flex items-center justify-center gap-2">
-                        {isSubmitting ? (
-                          <>
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                            Отправляем...
-                          </>
-                        ) : (
-                          <>
-                            <Rocket className="w-4 h-4" />
-                            <span className="bg-gradient-to-r mx-0 from-white to-white/90 bg-clip-text text-transparent font-semibold">
-                              {tab === "form" ? "Получать сообщения с WhatsApp, Instagram и сайта в одном месте" : "Получить консультацию за 7 минут"}
-                            </span>
-                          </>
-                        )}
+
+                      <span className="relative flex items-center justify-center w-full">
+                        <SubmitButtonContent />
                       </span>
                     </Button>
                   </motion.div>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { useI18n } from "@/providers/I18nProvider";
 import {
@@ -15,6 +15,7 @@ import {
   Shield,
   Users,
 } from "lucide-react";
+import ModernTryModal from "../modals/TryModal";
 
 // Оптимизированные анимации
 const fade: Variants = {
@@ -67,7 +68,7 @@ const FLOATING_POSITIONS = [
 
 export default function OptimizedKeyCapabilities() {
   const { t } = useI18n();
-
+  const [open, setOpen] = useState(false)
   // Используем useMemo для оптимизации
   const cards = useMemo(() => [
     {
@@ -218,6 +219,7 @@ export default function OptimizedKeyCapabilities() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="px-6 py-3 bg-gradient-to-r from-teal-500 to-emerald-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+            onClick={() => setOpen(true)}
           >
             <span className="flex items-center gap-2">
               {t("capabilities_cta")}
@@ -226,6 +228,8 @@ export default function OptimizedKeyCapabilities() {
           </motion.button>
         </motion.div>
       </div>
+
+      <ModernTryModal open={open} onOpenChange={setOpen}/>
     </section>
   );
 }

@@ -16,7 +16,8 @@ import {
   User,
   ChevronDown,
   Phone, // Новый импорт
-  Mail, // Новый импорт
+  Mail,
+  Instagram, // Новый импорт
 } from "lucide-react";
 import {
   Sheet,
@@ -168,7 +169,7 @@ const ContactDropdown = () => (
           rel="noopener noreferrer"
           className="flex items-center gap-3 p-2 rounded-lg hover:bg-teal-500/10 transition-colors"
         >
-          <Sparkles className="h-4 w-4 text-fuchsia-600 dark:text-fuchsia-400" />
+          <Instagram className="h-4 w-4 text-fuchsia-600 dark:text-fuchsia-400" />
           <p className="text-sm font-medium">Instagram</p>
         </a>
       </DropdownMenuItem>
@@ -351,7 +352,7 @@ export default function ModernHeader() {
           </SheetTrigger>
           <SheetContent
             side="right"
-            className="w-[85%] sm:w-[380px] dark:bg-slate-900 dark:text-slate-100 border-l border-slate-200 dark:border-slate-700"
+            className="w-[85%] sm:w-[380px] overflow-y-auto overflow-x-hidden pb-5  dark:bg-slate-900 dark:text-slate-100 border-l border-slate-200 dark:border-slate-700"
           >
             <SheetHeader>
               <SheetTitle className="flex items-center gap-3">

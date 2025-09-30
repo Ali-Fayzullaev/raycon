@@ -46,6 +46,8 @@ export default function AdaptiveFinalCTA() {
   const guarantees = [
     { icon: Shield, text: t("final_guarantee_security") },
     { icon: Clock, text: t("final_guarantee_cancel") },
+    { icon: Users, text: t("Уже более 50 компании с нами") },
+    { icon: Users, text: t("Клиенты видят результаты уже через 2 часа после внедрения") },
   ];
 
   return (

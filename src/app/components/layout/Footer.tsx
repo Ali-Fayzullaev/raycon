@@ -214,7 +214,8 @@ export default function PremiumFooter() {
                     </div>
                   ))}
                 </div>
-
+                  <a href="#pricing">
+                    
                 <Button
                   className="w-full text-white font-semibold py-3 rounded-xl shadow-lg hover:opacity-95 transition-all duration-300 group"
                   style={{ background: "linear-gradient(90deg, #007A6E 0%, #19B69F 100%)" }}
@@ -224,6 +225,7 @@ export default function PremiumFooter() {
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </Button>
+                  </a>
               </div>
             </div>
           </motion.div>

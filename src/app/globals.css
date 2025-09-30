@@ -199,3 +199,28 @@
 }
 
 
+
+
+ /* Скроллбар умумий стили */
+::-webkit-scrollbar {
+  width: 10px; /* Скроллбарнинг кенглиги */
+  height: 10px; /* Горизонтал скроллбар баландлиги */
+}
+
+/* Скроллбар йўли (фон) */
+::-webkit-scrollbar-track {
+  background: #ffffff; /* Орқа фон ранги */
+  border-radius: 0px;
+}
+
+/* Скроллбарнинг ўзи (ҳаракатланувчи қисм) */
+::-webkit-scrollbar-thumb {
+  background: #00BC83; /* Скроллбар ранги */
+  border-radius: 10px; 
+}
+
+/* Скроллбарни ҳовер қилганда */
+::-webkit-scrollbar-thumb:hover {
+  background: #61eeac;
+}
+
