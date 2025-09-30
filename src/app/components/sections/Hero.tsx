@@ -8,6 +8,13 @@ import {
   Zap,
   MessageCircle,
   Bot,
+  ChevronLeft,
+  ChevronRight,
+  Monitor,
+  Tablet,
+  Laptop,
+  Watch,
+  Smartphone,
 } from "lucide-react";
 import { useI18n } from "@/providers/I18nProvider";
 import ModernTryModal from "../modals/TryModal";
@@ -31,241 +38,211 @@ const itemVariants: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
-function PhoneFrameVideo({
-  src = "/demo.mp4",
-  poster = "/favicon.png",
-  className = "",
-}) {
+// Конфигурация устройств
+const devices = [
+  {
+    id: "imac",
+    name: "iMac",
+    frame: "/frame/iMac.png",
+    content: "/logo.png", // Заменим на логотип
+    icon: Monitor,
+    aspect: "aspect-[16/10]",
+    maxWidth: "max-w-[600px]",
+    scale: 0.9,
+    contentStyle: "rounded-[8px] scale-[0.78]",
+    type: "image"
+  },
+  {
+    id: "macbook",
+    name: "MacBook Pro",
+    frame: "/frame/MacBookPro.png",
+    content: "/logo.png",
+    icon: Laptop,
+    aspect: "aspect-[16/10]",
+    maxWidth: "max-w-[500px]",
+    scale: 0.85,
+    contentStyle: "rounded-[6px] scale-[0.76]",
+    type: "image"
+  },
+  {
+    id: "ipad",
+    name: "iPad Pro",
+    frame: "/frame/iPadpro12.png",
+    content: "/logo.png",
+    icon: Tablet,
+    aspect: "aspect-[4/3]",
+    maxWidth: "max-w-[400px]",
+    scale: 0.8,
+    contentStyle: "rounded-[12px] scale-[0.82]",
+    type: "image"
+  },
+  {
+    id: "iphone",
+    name: "iPhone 14 Pro",
+    frame: "/frame/iPhone14pro.png",
+    content: "/logo.png",
+    icon: Smartphone,
+    aspect: "aspect-[9/19.5]",
+    maxWidth: "max-w-[200px]",
+    scale: 0.75,
+    contentStyle: "rounded-[178px] scale-[0.93]",
+    type: "image"
+  },
+  {
+    id: "watch",
+    name: "Apple Watch",
+    frame: "/frame/iWatch.png",
+    content: "/logo.png",
+    icon: Watch,
+    aspect: "aspect-[1/1]",
+    maxWidth: "max-w-[200px]",
+    scale: 0.7,
+    contentStyle: "rounded-[32px] scale-[0.78]",
+    type: "image"
+  },
+];
+
+function DeviceCarousel() {
+  const [currentDevice, setCurrentDevice] = useState(0);
+
+  const nextDevice = () => {
+    setCurrentDevice((prev: number) => (prev + 1) % devices.length);
+  };
+
+  const prevDevice = () => {
+    setCurrentDevice((prev: number) => (prev - 1 + devices.length) % devices.length);
+  };
+
+  const selectDevice = (index: number) => {
+    setCurrentDevice(index);
+  };
+
+  const currentDeviceConfig = devices[currentDevice];
+
   return (
     <motion.div
       variants={itemVariants}
-      initial={{ ...itemVariants.hidden, scale: 0.9, rotateY: 15 }}
-      animate={{ ...itemVariants.show, scale: 1, rotateY: 0 }}
-      transition={{ delay: 0.4, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={`relative w-full max-w-[360px] md:max-w-[400px] mx-auto ${className}`}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.4, duration: 0.8 }}
+      className="relative w-full max-w-4xl mx-auto"
     >
-      {/* Анимированная подсветка */}
-      <motion.div
-        className="absolute inset-0 rounded-[42px] opacity-60"
-        animate={{
-          background: [
-            "radial-gradient(circle at 30% 30%, rgba(120,119,198,0.3) 0%, transparent 50%)",
-            "radial-gradient(circle at 70% 70%, rgba(255,119,198,0.3) 0%, transparent 50%)",
-            "radial-gradient(circle at 50% 20%, rgba(120,219,255,0.3) 0%, transparent 50%)",
-            "radial-gradient(circle at 30% 30%, rgba(120,119,198,0.3) 0%, transparent 50%)",
-          ],
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      />
+      {/* Основной контейнер устройства */}
+      <div className="relative">
+        {/* Анимированная подсветка фона */}
+        <motion.div
+          className="absolute inset-0 rounded-3xl opacity-40"
+          animate={{
+            background: [
+              "radial-gradient(circle at 30% 30%, rgba(120,119,198,0.3) 0%, transparent 50%)",
+              "radial-gradient(circle at 70% 70%, rgba(255,119,198,0.3) 0%, transparent 50%)",
+              "radial-gradient(circle at 50% 20%, rgba(120,219,255,0.3) 0%, transparent 50%)",
+              "radial-gradient(circle at 30% 30%, rgba(120,119,198,0.3) 0%, transparent 50%)",
+            ],
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
 
-      {/* Внешняя тень с анимацией */}
-      <motion.div
-        className="absolute inset-0 rounded-[42px] opacity-30"
-        animate={{
-          boxShadow: [
-            "0 0 60px -20px rgba(79, 70, 229, 0.6)",
-            "0 0 80px -20px rgba(236, 72, 153, 0.6)",
-            "0 0 60px -20px rgba(14, 165, 233, 0.6)",
-            "0 0 60px -20px rgba(79, 70, 229, 0.6)",
-          ],
-        }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      {/* Основной контейнер телефона */}
-      <div className="relative aspect-[9/16] rounded-[40px] p-[12px] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 shadow-2xl border border-white/10 backdrop-blur-sm">
-        {/* Металлический блеск */}
-        <div className="absolute inset-0 rounded-[40px] overflow-hidden">
+        {/* Контейнер устройства */}
+        <div className={`relative mx-auto ${currentDeviceConfig.maxWidth}`}>
           <motion.div
-            className="absolute inset-0 opacity-20"
-            animate={{
-              background: [
-                "linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)",
-                "linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.15) 60%, transparent 80%)",
-                "linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)",
-              ],
-            }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            key={currentDeviceConfig.id}
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className={`relative ${currentDeviceConfig.aspect} ${currentDeviceConfig.maxWidth} mx-auto`}
+          >
+            {/* Рамка устройства */}
+            <div className="relative w-full h-full">
+              <img
+                src={currentDeviceConfig.frame}
+                alt={currentDeviceConfig.name}
+                className="w-full h-full object-contain drop-shadow-2xl"
+              />
+              
+              {/* Контент (логотип) */}
+              <div className={`absolute inset-0 flex items-center justify-center ${currentDeviceConfig.contentStyle}`}>
+                <img
+                  src={currentDeviceConfig.content}
+                  alt="Raycon CRM"
+                  className="w-full h-full object-contain bg-gradient-to-br from-slate-50 to-slate-100"
+                />
+                
+                {/* Градиент поверх контента */}
+                <motion.div
+                  className="absolute inset-0 pointer-events-none opacity-10"
+                  animate={{
+                    background: [
+                      "linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 50%, transparent 100%)",
+                      "linear-gradient(135deg, rgba(236,72,153,0.1) 0%, rgba(239,68,68,0.1) 50%, transparent 100%)",
+                      "linear-gradient(135deg, rgba(14,165,233,0.1) 0%, rgba(34,197,94,0.1) 50%, transparent 100%)",
+                      "linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 50%, transparent 100%)",
+                    ],
+                  }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Навигационные кнопки */}
+        <button
+          onClick={prevDevice}
+          className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 shadow-lg z-20"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        
+        <button
+          onClick={nextDevice}
+          className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 shadow-lg z-20"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+      </div>
+
+      {/* Индикаторы устройств */}
+      <div className="flex justify-center items-center gap-4 mt-8">
+        {devices.map((device, index: number) => (
+          <motion.button
+            key={device.id}
+            onClick={() => selectDevice(index)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className={`flex items-center gap-2 px-4 py-3 rounded-xl backdrop-blur-md border transition-all duration-300 ${
+              index === currentDevice
+                ? "bg-white/20 border-white/30 text-white shadow-lg"
+                : "bg-white/5 border-white/10 text-white/60 hover:bg-white/10"
+            }`}
+          >
+            <device.icon className="w-4 h-4" />
+            <span className="text-sm font-medium hidden sm:block">
+              {device.name}
+            </span>
+          </motion.button>
+        ))}
+      </div>
+
+      {/* Индикатор прогресса */}
+      <div className="flex justify-center items-center gap-2 mt-6">
+        {devices.map((_, index: number) => (
+          <button
+            key={index}
+            onClick={() => selectDevice(index)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              index === currentDevice
+                ? "w-6 bg-white"
+                : "bg-white/30 hover:bg-white/50"
+            }`}
           />
-        </div>
-
-        {/* Внутренняя рамка с градиентом */}
-        <div className="relative h-full w-full rounded-[32px] p-[8px] bg-gradient-to-br from-slate-800 via-slate-700 to-slate-800 border border-white/20 shadow-inner">
-          {/* Акцентная подсветка краев */}
-          <div className="absolute inset-0 rounded-[32px] border border-white/5" />
-          <div className="absolute -inset-[1px] rounded-[33px] border border-transparent bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-pink-500/30 opacity-50 blur-[1px]" />
-
-          {/* Контентная область */}
-          <div className="relative h-full w-full rounded-[26px] overflow-hidden bg-black border border-white/10">
-            {/* ВИДЕО - ДОЛЖНО БЫТЬ ПЕРВЫМ И БЕЗ Z-INDEX */}
-            <video
-              src={src}
-              poster={poster}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              className="absolute inset-0 w-full h-full rounded-[26px] object-cover bg-black"
-            />
-
-            {/* Динамический градиент поверх видео - с пониженной прозрачностью */}
-            <motion.div
-              className="absolute inset-0 rounded-[26px] pointer-events-none opacity-20"
-              animate={{
-                background: [
-                  "linear-gradient(135deg, rgba(59,130,246,0.05) 0%, rgba(139,92,246,0.05) 50%, transparent 100%)",
-                  "linear-gradient(135deg, rgba(236,72,153,0.05) 0%, rgba(239,68,68,0.05) 50%, transparent 100%)",
-                  "linear-gradient(135deg, rgba(14,165,233,0.05) 0%, rgba(34,197,94,0.05) 50%, transparent 100%)",
-                  "linear-gradient(135deg, rgba(59,130,246,0.05) 0%, rgba(139,92,246,0.05) 50%, transparent 100%)",
-                ],
-              }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            />
-
-            {/* Верхняя часть телефона (динамик) */}
-            <div className="absolute top-3 left-1/2 -translate-x-1/2 z-10">
-              <div className="relative">
-                <div className="h-6 w-32 rounded-full bg-black/95 border border-white/10 shadow-lg backdrop-blur-sm">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="h-1 w-16 rounded-full bg-slate-700/80 border border-white/5" />
-                  </div>
-                </div>
-                {/* Анимированный индикатор звука */}
-                <motion.div
-                  className="absolute -top-1 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-gradient-to-r from-blue-400 to-purple-400"
-                  animate={{
-                    opacity: [0.3, 1, 0.3],
-                    scale: [0.8, 1.2, 0.8],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Боковые кнопки с анимацией */}
-            <div className="absolute -left-1 top-24 z-10">
-              <div className="relative">
-                <div className="h-12 w-1 rounded-r bg-gradient-to-b from-slate-600 to-slate-700 border-r border-white/10 shadow-lg" />
-                <motion.div
-                  className="absolute -left-0.5 top-1/2 -translate-y-1/2 w-1 h-4 rounded-l bg-blue-400/80"
-                  animate={{
-                    opacity: [0.5, 1, 0.5],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-              </div>
-            </div>
-
-            <div className="absolute -right-1 top-32 z-10">
-              <div className="relative">
-                <div className="h-20 w-1 rounded-l bg-gradient-to-b from-slate-600 to-slate-700 border-l border-white/10 shadow-lg" />
-                <motion.div
-                  className="absolute -right-0.5 top-1/3 w-1 h-6 rounded-r bg-purple-400/80"
-                  animate={{
-                    opacity: [0.5, 1, 0.5],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Индикатор загрузки/процесса */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10">
-              <motion.div
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/80 backdrop-blur-sm border border-white/10"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 }}
-              >
-                <motion.div
-                  className="w-2 h-2 rounded-full bg-green-400"
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [0.7, 1, 0.7],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-                <span className="text-xs text-white/80 font-medium">
-                  Демо • Raycon CRM
-                </span>
-                <motion.div
-                  className="w-1 h-1 rounded-full bg-white/60"
-                  animate={{ opacity: [0.3, 1, 0.3] }}
-                  transition={{
-                    duration: 1,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-              </motion.div>
-            </div>
-
-            {/* Наложение с градиентом по краям - УМЕНЬШАЕМ ПРОЗРАЧНОСТЬ */}
-            <div
-              className="absolute inset-0 rounded-[26px] pointer-events-none opacity-30"
-              style={{
-                background: `
-                  radial-gradient(ellipse at 20% 20%, transparent 70%, rgba(0,0,0,0.2) 100%),
-                  radial-gradient(ellipse at 80% 80%, transparent 70%, rgba(0,0,0,0.2) 100%),
-                  radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(0,0,0,0.1) 80%)
-                `,
-              }}
-            />
-
-            {/* Анимированные угловые акценты */}
-            <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-blue-400/50 rounded-tl-lg z-10" />
-            <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-purple-400/50 rounded-tr-lg z-10" />
-            <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-pink-400/50 rounded-bl-lg z-10" />
-            <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-green-400/50 rounded-br-lg z-10" />
-
-            {/* Блестящие частицы - УМЕНЬШАЕМ КОЛИЧЕСТВО И ПРОЗРАЧНОСТЬ */}
-            <div className="absolute inset-0 rounded-[26px] pointer-events-none">
-              {[...Array(8)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-[1px] h-[1px] bg-white rounded-full"
-                  style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                  }}
-                  animate={{
-                    opacity: [0, 0.3, 0],
-                    scale: [0, 1, 0],
-                  }}
-                  transition={{
-                    duration: 3 + Math.random() * 2,
-                    delay: Math.random() * 4,
-                    repeat: Infinity,
-                    repeatDelay: Math.random() * 6,
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </motion.div>
   );
 }
 
-// Ваш основной компонент ModernHero остается почти без изменений
+// Ваш основной компонент ModernHero
 export default function ModernHero() {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
@@ -317,7 +294,7 @@ export default function ModernHero() {
             </motion.p>
 
             <motion.div variants={itemVariants} className="space-y-4 mb-10">
-              {bulletPoints.map((item, index) => (
+              {bulletPoints.map((item, index: number) => (
                 <div key={index} className="flex items-center gap-4 group">
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
@@ -370,8 +347,8 @@ export default function ModernHero() {
             </motion.div>
           </div>
 
-          {/* Правая колонка - Видеоблок */}
-          <PhoneFrameVideo />
+          {/* Правая колонка - Карусель устройств */}
+          <DeviceCarousel />
         </motion.div>
 
         <ModernTryModal open={open} onOpenChange={setOpen} />

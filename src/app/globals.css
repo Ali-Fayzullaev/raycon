@@ -201,26 +201,38 @@
 
 
 
- /* Скроллбар умумий стили */
 ::-webkit-scrollbar {
-  width: 10px; /* Скроллбарнинг кенглиги */
-  height: 10px; /* Горизонтал скроллбар баландлиги */
+  width: 10px;
+  height: 10px; 
 }
 
-/* Скроллбар йўли (фон) */
 ::-webkit-scrollbar-track {
-  background: #ffffff; /* Орқа фон ранги */
+  background: #ffffff; 
   border-radius: 0px;
 }
 
-/* Скроллбарнинг ўзи (ҳаракатланувчи қисм) */
 ::-webkit-scrollbar-thumb {
-  background: #00BC83; /* Скроллбар ранги */
+  background: #00BC83; 
   border-radius: 10px; 
 }
 
-/* Скроллбарни ҳовер қилганда */
 ::-webkit-scrollbar-thumb:hover {
   background: #61eeac;
 }
 
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) skewX(-12deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-12deg);
+  }
+}
+
+.animate-shine {
+  animation: shine 3s infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
