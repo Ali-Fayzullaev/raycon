@@ -98,6 +98,16 @@ export default function PremiumFAQ() {
       a: t("faq_a11"),
       category: "customization",
     },
+    {
+      q: t("faq_q12"),
+      a: t("faq_a12"),
+      category: "customization",
+    },
+    {
+      q: t("faq_q13"),
+      a: t("faq_a13"),
+      category: "customization",
+    },
   ];
 
   const FLOATING_POSITIONS = [
