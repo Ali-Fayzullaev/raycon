@@ -200,7 +200,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     results_subtitle: "Превращаем обычные показатели в невероятные достижения",
     results_badge: "Невероятная эффективность",
     results_cta: "Хочу такие же результаты",
-    results_hint: "Первый прорыв уже через 14 дней",
+    results_hint: "Первый прорыв уже через  2 часа",
 
     res1_title: "Взрывной рост",
     res1_desc: "Преодолеваем все ожидания по продажам",
@@ -296,6 +296,18 @@ export const dict: Record<Lang, Record<string, string>> = {
     faq_q13: "Можно ли подключиться в рассрочку или кредит?",
     faq_a13:
       "Нет, так как ценовая политика Raycon CRM ориентирована на доступные цены. ",
+
+    faq_category_all: "Все вопросы",
+    faq_category_implementation: "Внедрение",
+    faq_category_technical: "Технические",
+    faq_category_features: "Функции",
+    faq_category_integration: "Интеграция",
+    faq_category_pricing: "Цены и оплата",
+    faq_category_security: "Безопасность",
+    faq_category_trial: "Пробный период",
+    faq_category_support: "Поддержка",
+    faq_category_updates: "Обновления",
+    faq_category_customization: "Настройка",
 
     final_cta_title: "Готовы к прорыву?",
     final_cta_lead:
@@ -537,7 +549,7 @@ export const dict: Record<Lang, Record<string, string>> = {
       "Кәдімгі көрсеткіштерді керемет жетістіктерге айналдырамыз",
     results_badge: "Керемет тиімділік",
     results_cta: "Мен де осындай нәтижелерді қалаймын",
-    results_hint: "Алғашқры жетістік 14 күн ішінде",
+    results_hint: "Алғашқры жетістік 2 сағат ішінде",
 
     res1_title: "Жарылыс өсуі",
     res1_desc: "Сатылымдар бойынша барлық күткенді асамыз",
@@ -633,6 +645,17 @@ export const dict: Record<Lang, Record<string, string>> = {
     faq_a13:
       "Жоқ, себебі Raycon CRM-нің баға саясаты қолжетімді бағаларға бағытталған.",
 
+    faq_category_all: "Барлық сұрақтар",
+    faq_category_implementation: "Енгізу",
+    faq_category_technical: "Техникалық",
+    faq_category_features: "Мүмкіндіктер",
+    faq_category_integration: "Интеграция",
+    faq_category_pricing: "Бағалар мен төлем",
+    faq_category_security: "Қауіпсіздік",
+    faq_category_trial: "Сынақ мерзімі",
+    faq_category_support: "Қолдау",
+    faq_category_updates: "Жаңартулар",
+    faq_category_customization: "Баптау",
     final_cta_title: "Секіруге дайынсыз ба?",
     final_cta_lead:
       "Бүгін-ақ сатылымдарды көбейтуді бастаңыз. Алғашқы нәтижелерді іске қосқаннан кейін 2 сағат ішінде көресіз.",

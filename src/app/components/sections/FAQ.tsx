@@ -15,6 +15,8 @@ import {
   MessageCircle,
   Mail,
   ArrowRight,
+  Sparkles,
+  Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -38,6 +40,18 @@ const stagger: Variants = {
   },
 };
 
+const pulse: Variants = {
+  hidden: { scale: 0.8, opacity: 0 },
+  show: { 
+    scale: 1, 
+    opacity: 1,
+    transition: { 
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  }
+};
+
 export default function PremiumFAQ() {
   const { t } = useI18n();
   const [searchQuery, setSearchQuery] = useState("");
@@ -47,6 +61,7 @@ export default function PremiumFAQ() {
       q: t("faq_q1"),
       a: t("faq_a1"),
       category: "implementation",
+      featured: true,
     },
     {
       q: t("faq_q2"),
@@ -57,6 +72,7 @@ export default function PremiumFAQ() {
       q: t("faq_q3"),
       a: t("faq_a3"),
       category: "features",
+      featured: true,
     },
     {
       q: t("faq_q4"),
@@ -67,6 +83,7 @@ export default function PremiumFAQ() {
       q: t("faq_q5"),
       a: t("faq_a5"),
       category: "pricing",
+      featured: true,
     },
     {
       q: t("faq_q6"),
@@ -77,6 +94,7 @@ export default function PremiumFAQ() {
       q: t("faq_q7"),
       a: t("faq_a7"),
       category: "trial",
+      featured: true,
     },
     {
       q: t("faq_q8"),
@@ -125,7 +143,7 @@ export default function PremiumFAQ() {
     { left: "35%", top: "55%" },
   ];
 
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory] = useState("all");
 
   // Фильтрация по поиску и категории
   const filteredItems = items.filter((item) => {
@@ -138,44 +156,75 @@ export default function PremiumFAQ() {
   });
 
   return (
-    <section  id="faq" className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800">
+    <section id="faq" className="relative py-20 md:py-28 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 overflow-hidden">
+      {/* Улучшенный анимированный фон */}
       {FLOATING_POSITIONS.map((position, i) => (
         <motion.div
           key={i}
-          className="absolute w-3 h-3 rounded-full bg-gradient-to-r from-teal-400/30 to-emerald-400/20"
+          className="absolute w-4 h-4 rounded-full bg-gradient-to-r from-teal-400/40 to-emerald-400/30 backdrop-blur-sm"
           style={position}
           animate={{
-            y: [0, -30, 0],
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.8, 0.3],
+            y: [0, -40, 0],
+            scale: [1, 1.3, 1],
+            opacity: [0.4, 0.9, 0.4],
+            rotate: [0, 180, 360],
           }}
           transition={{
-            duration: 4 + (i % 3),
+            duration: 6 + (i % 4),
             repeat: Infinity,
-            delay: i * 0.3,
+            delay: i * 0.4,
+            ease: "easeInOut",
           }}
         />
       ))}
+
+      {/* Добавляем сияющие элементы */}
+      <motion.div
+        className="absolute top-1/4 left-1/4 w-32 h-32 bg-teal-300/10 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.6, 0.3],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-emerald-300/10 rounded-full blur-3xl"
+        animate={{
+          scale: [1.2, 1, 1.2],
+          opacity: [0.4, 0.2, 0.4],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
       <div className="relative mx-auto max-w-4xl px-4">
-        {/* Заголовок */}
+        {/* Заголовок с улучшенной анимацией */}
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true }}
-          className="text-center mb-12"
+          viewport={{ once: true, margin: "-50px" }}
+          className="text-center mb-16"
         >
           <motion.div
-            variants={fade}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500/15 to-emerald-500/15 dark:from-teal-500/10 dark:to-emerald-500/10 backdrop-blur-md border border-teal-200/30 dark:border-teal-500/20 rounded-full px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 mb-6"
+            variants={pulse}
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 dark:from-teal-500/15 dark:to-emerald-500/15 backdrop-blur-lg border border-teal-200/40 dark:border-teal-500/30 rounded-2xl px-6 py-3 text-base font-semibold text-slate-700 dark:text-slate-300 mb-8 shadow-lg shadow-teal-500/10"
           >
-            <HelpCircle className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+            <Sparkles className="w-5 h-5 text-teal-600 dark:text-teal-400" />
             {t("faq_badge")}
+            <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
           </motion.div>
 
           <motion.h2
             variants={fade}
-            className="text-4xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 dark:from-slate-100 dark:via-slate-200 dark:to-slate-100 bg-clip-text text-transparent mb-6"
+            className="text-5xl md:text-6xl font-black tracking-tight bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 dark:from-slate-100 dark:via-slate-200 dark:to-slate-100 bg-clip-text text-transparent mb-8 leading-tight"
           >
             {t("faq_title")}
           </motion.h2>
@@ -183,26 +232,48 @@ export default function PremiumFAQ() {
           <motion.p
             variants={fade}
             custom={1}
-            className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed"
+            className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed font-light"
           >
             {t("faq_subtitle")}
           </motion.p>
         </motion.div>
-        {/* Аккордеон */}
+
+        {/* Поиск с улучшенным дизайном */}
+        <motion.div
+          variants={fade}
+          custom={2}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="mb-12"
+        >
+          <div className="relative max-w-2xl mx-auto">
+            <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 w-6 h-6 text-slate-400 z-10" />
+            <input
+              type="text"
+              placeholder={t("faq_search_placeholder")}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-16 pr-6 py-5 text-lg bg-white/90 dark:bg-slate-800/70 backdrop-blur-xl border-2 border-slate-200/60 dark:border-slate-700/60 rounded-2xl focus:border-teal-500/50 focus:ring-4 focus:ring-teal-500/20 transition-all duration-500 shadow-2xl shadow-slate-200/20 dark:shadow-slate-900/30 placeholder-slate-400 dark:placeholder-slate-500"
+            />
+          </div>
+        </motion.div>
+
+        {/* Аккордеон с улучшенным дизайном */}
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true }}
-          className="mb-8"
+          viewport={{ once: true, margin: "-50px" }}
+          className="mb-12"
         >
-          <div className="bg-white/80 dark:bg-slate-800/50 backdrop-blur-md rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-lg overflow-hidden">
+          <div className="bg-white/90 dark:bg-slate-800/70 backdrop-blur-xl rounded-3xl border-2 border-slate-200/50 dark:border-slate-700/50 shadow-2xl shadow-slate-200/30 dark:shadow-slate-900/30 overflow-hidden">
             <AnimatePresence mode="wait">
               {filteredItems.length > 0 ? (
                 <Accordion
                   type="single"
                   collapsible
-                  className="divide-y divide-slate-200/30 dark:divide-slate-700/30"
+                  className="divide-y divide-slate-200/40 dark:divide-slate-700/40"
                 >
                   {filteredItems.map((item, i) => (
                     <FAQItem key={i} item={item} index={i} />
@@ -213,13 +284,13 @@ export default function PremiumFAQ() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="text-center py-16 px-8"
+                  className="text-center py-20 px-8"
                 >
-                  <HelpCircle className="w-16 h-16 text-slate-300 dark:text-slate-600 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-slate-600 dark:text-slate-400 mb-2">
+                  <HelpCircle className="w-20 h-20 text-slate-300 dark:text-slate-600 mx-auto mb-6" />
+                  <h3 className="text-2xl font-semibold text-slate-600 dark:text-slate-400 mb-4">
                     {t("faq_no_results")}
                   </h3>
-                  <p className="text-slate-500 dark:text-slate-500">
+                  <p className="text-slate-500 dark:text-slate-500 text-lg">
                     {t("faq_no_results_desc")}
                   </p>
                 </motion.div>
@@ -228,7 +299,7 @@ export default function PremiumFAQ() {
           </div>
         </motion.div>
 
-        {/* CTA секция */}
+        {/* CTA секция с улучшенным дизайном */}
         <motion.div
           variants={fade}
           custom={4}
@@ -237,24 +308,28 @@ export default function PremiumFAQ() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <div className="bg-gradient-to-r from-teal-500/10 to-emerald-500/10 rounded-2xl p-8 backdrop-blur-md border border-teal-200/30 dark:border-teal-500/20">
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+          <div className="bg-gradient-to-r from-teal-500/15 to-emerald-500/15 rounded-3xl p-12 backdrop-blur-2xl border-2 border-teal-200/40 dark:border-teal-500/30 relative overflow-hidden">
+            {/* Декоративные элементы */}
+            <div className="absolute -top-20 -right-20 w-40 h-40 bg-teal-400/10 rounded-full blur-2xl"></div>
+            <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-emerald-400/10 rounded-full blur-2xl"></div>
+            
+            <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-6 relative z-10">
               {t("faq_cta_title")}
             </h3>
-            <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed relative z-10">
               {t("faq_cta_desc")}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group">
-                <MessageCircle className="w-4 h-4 mr-2" />
+            <div className="flex flex-col sm:flex-row gap-5 justify-center relative z-10">
+              <Button className="bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white px-10 py-6 rounded-2xl shadow-2xl shadow-teal-500/30 hover:shadow-3xl hover:shadow-teal-500/40 transition-all duration-500 group text-lg font-semibold">
+                <MessageCircle className="w-6 h-6 mr-3" />
                 {t("faq_cta_chat")}
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
               </Button>
               <Button
                 variant="outline"
-                className="px-8 py-3 rounded-xl border-slate-300 dark:border-slate-600 hover:bg-white/50 dark:hover:bg-slate-700/50"
+                className="px-10 py-6 rounded-2xl border-2 border-slate-300 dark:border-slate-600 hover:bg-white/60 dark:hover:bg-slate-700/60 hover:border-slate-400 dark:hover:border-slate-500 transition-all duration-500 text-lg font-semibold backdrop-blur-sm"
               >
-                <Mail className="w-4 h-4 mr-2" />
+                <Mail className="w-6 h-6 mr-3" />
                 {t("faq_cta_email")}
               </Button>
             </div>
@@ -269,20 +344,39 @@ function FAQItem({ item, index }: { item: any; index: number }) {
   return (
     <AccordionItem value={`item-${index}`} className="border-0">
       <motion.div variants={fade} className="group">
-        <AccordionTrigger className="px-6 py-5 hover:no-underline hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors duration-300 group-data-[state=open]:bg-white/30 dark:group-data-[state=open]:bg-slate-700/20">
-          <div className="flex w-full items-center gap-4 text-left">
-            <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-r from-teal-500 to-emerald-500 flex items-center justify-center">
-              <HelpCircle className="w-4 h-4 text-white" />
+        <AccordionTrigger className="px-8 py-7 hover:no-underline hover:bg-slate-50/70 dark:hover:bg-slate-700/40 transition-all duration-500 group-data-[state=open]:bg-white/40 dark:group-data-[state=open]:bg-slate-700/30 group-data-[state=open]:shadow-inner">
+          <div className="flex w-full items-center gap-6 text-left">
+            <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-r from-teal-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-teal-500/30 group-hover:shadow-xl group-hover:shadow-teal-500/40 transition-all duration-300">
+              {item.featured ? (
+                <Star className="w-6 h-6 text-white fill-white" />
+              ) : (
+                <HelpCircle className="w-6 h-6 text-white" />
+              )}
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-white text-left leading-relaxed group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
-                {item.q}
-              </h3>
+              <div className="flex items-center gap-4">
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white text-left leading-relaxed group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300">
+                  {item.q}
+                </h3>
+                {item.featured && (
+                  <span className="flex items-center gap-1 bg-amber-500/10 text-amber-600 dark:text-amber-400 px-3 py-1 rounded-full text-sm font-medium border border-amber-500/20">
+                    <Star className="w-3 h-3 fill-amber-500" />
+                    Важно
+                  </span>
+                )}
+              </div>
             </div>
+            <motion.div
+              className="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center group-hover:bg-teal-50 dark:group-hover:bg-teal-500/20 transition-colors duration-300"
+              animate={{ rotate: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ChevronDown className="w-5 h-5 text-slate-600 dark:text-slate-400 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300" />
+            </motion.div>
           </div>
         </AccordionTrigger>
-        <AccordionContent className="px-6 pb-5">
-          <div className="text-slate-700 dark:text-slate-300 leading-relaxed pl-12">
+        <AccordionContent className="px-8 pb-7">
+          <div className="text-slate-700 dark:text-slate-300 leading-relaxed pl-18 text-lg font-light">
             {item.a}
           </div>
         </AccordionContent>
