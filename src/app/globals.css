@@ -236,3 +236,7 @@
 .animate-spin-slow {
   animation: spin 3s linear infinite;
 }
+
+.bb {
+  border: 2px solid red;
+}

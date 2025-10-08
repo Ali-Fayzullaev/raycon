@@ -44,13 +44,13 @@ const devices = [
     id: "imac",
     name: "iMac",
     frame: "/frame/iMac.png",
-    content: "/logo.png", // Заменим на логотип
+    content: "/big-screeen.png",
     icon: Monitor,
     aspect: "aspect-[16/10]",
     maxWidth: "max-w-[600px]",
     scale: 0.9,
-    contentStyle: "rounded-[8px] scale-[0.78]",
-    type: "image"
+    contentStyle: "rounded-[8px] mb-23",
+    type: "image",
   },
   {
     id: "macbook",
@@ -62,31 +62,31 @@ const devices = [
     maxWidth: "max-w-[500px]",
     scale: 0.85,
     contentStyle: "rounded-[6px] scale-[0.76]",
-    type: "image"
+    type: "image",
   },
   {
     id: "ipad",
     name: "iPad Pro",
     frame: "/frame/iPadpro12.png",
-    content: "/logo.png",
+    content: "/sm-sc.png",
     icon: Tablet,
-    aspect: "aspect-[4/3]",
-    maxWidth: "max-w-[400px]",
+    aspect: "aspect-[16/16]",
+    maxWidth: "max-w-[300px]",
     scale: 0.8,
-    contentStyle: "rounded-[12px] scale-[0.82]",
-    type: "image"
+    contentStyle: "rounded-[12px] h-[100%] ",
+    type: "image",
   },
   {
     id: "iphone",
     name: "iPhone 14 Pro",
     frame: "/frame/iPhone14pro.png",
-    content: "/logo.png",
+    content: "/sm-sc.png",
     icon: Smartphone,
-    aspect: "aspect-[9/19.5]",
-    maxWidth: "max-w-[200px]",
+    aspect: "aspect-[16/16]",
+    maxWidth: "max-w-[300px]",
     scale: 0.75,
-    contentStyle: "rounded-[178px] scale-[0.93]",
-    type: "image"
+    contentStyle: "rounded-[178px] h-[100%] ",
+    type: "image",
   },
   {
     id: "watch",
@@ -98,7 +98,7 @@ const devices = [
     maxWidth: "max-w-[200px]",
     scale: 0.7,
     contentStyle: "rounded-[32px] scale-[0.78]",
-    type: "image"
+    type: "image",
   },
 ];
 
@@ -110,7 +110,9 @@ function DeviceCarousel() {
   };
 
   const prevDevice = () => {
-    setCurrentDevice((prev: number) => (prev - 1 + devices.length) % devices.length);
+    setCurrentDevice(
+      (prev: number) => (prev - 1 + devices.length) % devices.length
+    );
   };
 
   const selectDevice = (index: number) => {
@@ -131,17 +133,22 @@ function DeviceCarousel() {
       <div className="relative">
         {/* Анимированная подсветка фона */}
         <motion.div
-          className="absolute inset-0 rounded-3xl opacity-40"
-          animate={{
-            background: [
-              "radial-gradient(circle at 30% 30%, rgba(120,119,198,0.3) 0%, transparent 50%)",
-              "radial-gradient(circle at 70% 70%, rgba(255,119,198,0.3) 0%, transparent 50%)",
-              "radial-gradient(circle at 50% 20%, rgba(120,219,255,0.3) 0%, transparent 50%)",
-              "radial-gradient(circle at 30% 30%, rgba(120,119,198,0.3) 0%, transparent 50%)",
-            ],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
+  className="absolute inset-0 pointer-events-none opacity-10"
+  animate={{
+    background: [
+      "linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 50%, transparent 100%)",
+      "linear-gradient(135deg, rgba(236,72,153,0.1) 0%, rgba(239,68,68,0.1) 50%, transparent 100%)",
+      "linear-gradient(135deg, rgba(14,165,233,0.1) 0%, rgba(34,197,94,0.1) 50%, transparent 100%)",
+      "linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 50%, transparent 100%)",
+    ],
+  }}
+  transition={{
+    duration: 8,
+    repeat: Infinity,
+    ease: "easeInOut",
+  }}
+/>
+
 
         {/* Контейнер устройства */}
         <div className={`relative mx-auto ${currentDeviceConfig.maxWidth}`}>
@@ -153,52 +160,37 @@ function DeviceCarousel() {
             className={`relative ${currentDeviceConfig.aspect} ${currentDeviceConfig.maxWidth} mx-auto`}
           >
             {/* Рамка устройства */}
-            <div className="relative w-full h-full">
-              <img
-                src={currentDeviceConfig.frame}
-                alt={currentDeviceConfig.name}
-                className="w-full h-full object-contain drop-shadow-2xl"
-              />
-              
-              {/* Контент (логотип) */}
-              <div className={`absolute inset-0 flex items-center justify-center ${currentDeviceConfig.contentStyle}`}>
-                <img
-                  src={currentDeviceConfig.content}
-                  alt="Raycon CRM"
-                  className="w-full h-full object-contain bg-gradient-to-br from-slate-50 to-slate-100"
-                />
-                
-                {/* Градиент поверх контента */}
-                <motion.div
-                  className="absolute inset-0 pointer-events-none opacity-10"
-                  animate={{
-                    background: [
-                      "linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 50%, transparent 100%)",
-                      "linear-gradient(135deg, rgba(236,72,153,0.1) 0%, rgba(239,68,68,0.1) 50%, transparent 100%)",
-                      "linear-gradient(135deg, rgba(14,165,233,0.1) 0%, rgba(34,197,94,0.1) 50%, transparent 100%)",
-                      "linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 50%, transparent 100%)",
-                    ],
-                  }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                />
-              </div>
-            </div>
+            <div className="relative flex items-center justify-center w-full h-full">
+  <img
+    src={currentDeviceConfig.frame}
+    alt={currentDeviceConfig.name}
+    className="w-full h-full object-contain drop-shadow-2xl"
+  />
+  <div className="absolute inset-0 flex items-center justify-center">
+    <img
+      src={currentDeviceConfig.content}
+      alt="Raycon CRM"
+      className={`rounded-lg scale-75 object-contain ${currentDeviceConfig.contentStyle}`}
+    />
+  </div>
+</div>
+
           </motion.div>
         </div>
 
         {/* Навигационные кнопки */}
         <button
           onClick={prevDevice}
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 shadow-lg z-20"
+          className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 border-gray-100 backdrop-blur-md border  rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 shadow-lg z-20"
         >
-          <ChevronLeft className="w-6 h-6" />
+          <ChevronLeft className="w-6 h-6 text-black" />
         </button>
-        
+
         <button
           onClick={nextDevice}
-          className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 shadow-lg z-20"
+          className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 border-gray-100 backdrop-blur-md border rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 shadow-lg z-20"
         >
-          <ChevronRight className="w-6 h-6" />
+          <ChevronRight className="w-6 h-6 text-black" />
         </button>
       </div>
 
@@ -210,10 +202,10 @@ function DeviceCarousel() {
             onClick={() => selectDevice(index)}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className={`flex items-center gap-2 px-4 py-3 rounded-xl backdrop-blur-md border transition-all duration-300 ${
+            className={`flex items-center gap-2 px-4 py-3 border-2 border-gray-600 text-gray-700 rounded-xl backdrop-blur-md transition-all duration-300 ${
               index === currentDevice
-                ? "bg-white/20 border-white/30 text-white shadow-lg"
-                : "bg-white/5 border-white/10 text-white/60 hover:bg-white/10"
+                ? "bg-white/20  text-green-300 shadow-lg border-green-300 border-2"
+                : "border-2 border-gray-600 text-gray-700  backdrop-blur-md   hover:bg-white/10"
             }`}
           >
             <device.icon className="w-4 h-4" />
