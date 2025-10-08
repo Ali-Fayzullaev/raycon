@@ -133,22 +133,21 @@ function DeviceCarousel() {
       <div className="relative">
         {/* Анимированная подсветка фона */}
         <motion.div
-  className="absolute inset-0 pointer-events-none opacity-10"
-  animate={{
-    background: [
-      "linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 50%, transparent 100%)",
-      "linear-gradient(135deg, rgba(236,72,153,0.1) 0%, rgba(239,68,68,0.1) 50%, transparent 100%)",
-      "linear-gradient(135deg, rgba(14,165,233,0.1) 0%, rgba(34,197,94,0.1) 50%, transparent 100%)",
-      "linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 50%, transparent 100%)",
-    ],
-  }}
-  transition={{
-    duration: 8,
-    repeat: Infinity,
-    ease: "easeInOut",
-  }}
-/>
-
+          className="absolute inset-0 pointer-events-none opacity-10"
+          animate={{
+            background: [
+              "linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 50%, transparent 100%)",
+              "linear-gradient(135deg, rgba(236,72,153,0.1) 0%, rgba(239,68,68,0.1) 50%, transparent 100%)",
+              "linear-gradient(135deg, rgba(14,165,233,0.1) 0%, rgba(34,197,94,0.1) 50%, transparent 100%)",
+              "linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 50%, transparent 100%)",
+            ],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
         {/* Контейнер устройства */}
         <div className={`relative mx-auto ${currentDeviceConfig.maxWidth}`}>
@@ -161,20 +160,19 @@ function DeviceCarousel() {
           >
             {/* Рамка устройства */}
             <div className="relative flex items-center justify-center w-full h-full">
-  <img
-    src={currentDeviceConfig.frame}
-    alt={currentDeviceConfig.name}
-    className="w-full h-full object-contain drop-shadow-2xl"
-  />
-  <div className="absolute inset-0 flex items-center justify-center">
-    <img
-      src={currentDeviceConfig.content}
-      alt="Raycon CRM"
-      className={`rounded-lg scale-75 object-contain ${currentDeviceConfig.contentStyle}`}
-    />
-  </div>
-</div>
-
+              <img
+                src={currentDeviceConfig.frame}
+                alt={currentDeviceConfig.name}
+                className="w-full h-full object-contain drop-shadow-2xl"
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <img
+                  src={currentDeviceConfig.content}
+                  alt="Raycon CRM"
+                  className={`rounded-lg scale-75 object-contain ${currentDeviceConfig.contentStyle}`}
+                />
+              </div>
+            </div>
           </motion.div>
         </div>
 
@@ -275,7 +273,31 @@ export default function ModernHero() {
               variants={itemVariants}
               className="text-4xl md:text-5xl xl:text-6xl font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white mb-6"
             >
-              {t("hero_title_1")}
+              {t("hero_title_part1")}{" "}
+              <a
+                href="#multichat"
+                className="inline-flex items-center group relative"
+              >
+                <span className="relative">
+                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white px-3 py-1 pb-2 rounded-2xl text-2xl md:text-3xl xl:text-4xl font-bold hover:shadow-lg hover:shadow-blue-500/25 dark:hover:shadow-blue-400/25 transform group-hover:scale-105 transition-all duration-300">
+                    {t("hero_title_part2")}
+                    <svg
+                      className="w-4 h-4 ml-3 inline-block transform group-hover:translate-x-1 transition-transform duration-300"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+
+                  <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
+                </span>
+              </a>{" "}
+              {t("hero_title_part3")}
             </motion.h1>
 
             <motion.p

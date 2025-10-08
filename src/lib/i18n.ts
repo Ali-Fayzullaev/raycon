@@ -4,6 +4,9 @@ export const dict: Record<Lang, Record<string, string>> = {
   ru: {
     // Hero
     hero_title_1: "Raycon CRM — умный мультичат для вашего бизнеса",
+    hero_title_part1: "Raycon CRM — умный",
+    hero_title_part2: "мультичат",
+    hero_title_part3: "для вашего бизнеса",
     hero_title_2:
       "Объединяем все каналы коммуникации в одной платформе. Превращаем диалоги в продажи.",
     hero_bul_1: "Интеллектуальная CRM с AI-ассистентом",
@@ -336,6 +339,10 @@ export const dict: Record<Lang, Record<string, string>> = {
   kk: {
     // Hero
     hero_title_1: "Raycon CRM — бизнес үшін ақылды мультичат",
+
+    hero_title_part1: "Raycon CRM — бизнес үшін ақылды",
+    hero_title_part2: "мультичат",
+    hero_title_part3: "",
     hero_title_2:
       "Барлық байланыс арналарын бір платформада біріктіреміз. Сөйлесулерді сатылымға айналдырамыз.",
     hero_bul_1: "AI-көмекшісі бар интеллектуалды CRM",

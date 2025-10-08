@@ -240,3 +240,14 @@
 .bb {
   border: 2px solid red;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Или если хотите кастомную анимацию */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
