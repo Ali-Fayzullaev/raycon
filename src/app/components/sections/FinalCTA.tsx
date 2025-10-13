@@ -47,11 +47,17 @@ export default function AdaptiveFinalCTA() {
     { icon: Shield, text: t("final_guarantee_security") },
     { icon: Clock, text: t("final_guarantee_cancel") },
     { icon: Users, text: t("Уже более 50 компании с нами") },
-    { icon: Users, text: t("Клиенты видят результаты уже через 2 часа после внедрения") },
+    {
+      icon: Users,
+      text: t("Клиенты видят результаты уже через 2 часа после внедрения"),
+    },
   ];
 
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50/60 dark:from-slate-900 dark:via-slate-900 dark:to-emerald-900/15">
+    <section
+      id="multichat"
+      className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50/60 dark:from-slate-900 dark:via-slate-900 dark:to-emerald-900/15"
+    >
       {/* ФОН (зелёная палитра) */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Мягкие радиальные пятна */}
@@ -112,7 +118,12 @@ export default function AdaptiveFinalCTA() {
       </div>
 
       <div className="relative mx-auto max-w-6xl px-4 text-center">
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-100px" }}>
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {/* Бейдж */}
           <motion.div
             variants={fade}
@@ -140,7 +151,11 @@ export default function AdaptiveFinalCTA() {
           </motion.p>
 
           {/* Особенности */}
-          <motion.div variants={fade} custom={2} className="flex flex-wrap justify-center gap-4 mb-12">
+          <motion.div
+            variants={fade}
+            custom={2}
+            className="flex flex-wrap justify-center gap-4 mb-12"
+          >
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -164,7 +179,10 @@ export default function AdaptiveFinalCTA() {
               <Button
                 onClick={() => setOpen(true)}
                 className="group relative inline-flex items-center gap-4 h-16 px-10 text-lg font-bold text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 overflow-hidden"
-                style={{ background: "linear-gradient(135deg, #007A6E 0%, #19B69F 100%)" }}
+                style={{
+                  background:
+                    "linear-gradient(135deg, #007A6E 0%, #19B69F 100%)",
+                }}
               >
                 {/* Блеск */}
                 <motion.div
@@ -189,7 +207,10 @@ export default function AdaptiveFinalCTA() {
               className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4 text-slate-500 dark:text-slate-400 text-sm"
             >
               {guarantees.map((g, i) => (
-                <div key={i} className="flex items-center gap-2 bg-white/50 dark:bg-slate-800/30 rounded-full px-3 py-1">
+                <div
+                  key={i}
+                  className="flex items-center gap-2 bg-white/50 dark:bg-slate-800/30 rounded-full px-3 py-1"
+                >
                   <g.icon className="w-3 h-3 text-teal-600" />
                   <span>{g.text}</span>
                 </div>

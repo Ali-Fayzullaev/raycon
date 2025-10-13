@@ -237,28 +237,7 @@ export default function PremiumFAQ() {
             {t("faq_subtitle")}
           </motion.p>
         </motion.div>
-
-        {/* Поиск с улучшенным дизайном */}
-        <motion.div
-          variants={fade}
-          custom={2}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="mb-12"
-        >
-          <div className="relative max-w-2xl mx-auto">
-            <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 w-6 h-6 text-slate-400 z-10" />
-            <input
-              type="text"
-              placeholder={t("faq_search_placeholder")}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-16 pr-6 py-5 text-lg bg-white/90 dark:bg-slate-800/70 backdrop-blur-xl border-2 border-slate-200/60 dark:border-slate-700/60 rounded-2xl focus:border-teal-500/50 focus:ring-4 focus:ring-teal-500/20 transition-all duration-500 shadow-2xl shadow-slate-200/20 dark:shadow-slate-900/30 placeholder-slate-400 dark:placeholder-slate-500"
-            />
-          </div>
-        </motion.div>
-
+        
         {/* Аккордеон с улучшенным дизайном */}
         <motion.div
           variants={stagger}
@@ -366,13 +345,6 @@ function FAQItem({ item, index }: { item: any; index: number }) {
                 )}
               </div>
             </div>
-            <motion.div
-              className="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center group-hover:bg-teal-50 dark:group-hover:bg-teal-500/20 transition-colors duration-300"
-              animate={{ rotate: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <ChevronDown className="w-5 h-5 text-slate-600 dark:text-slate-400 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300" />
-            </motion.div>
           </div>
         </AccordionTrigger>
         <AccordionContent className="px-8 pb-7">

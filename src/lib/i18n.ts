@@ -367,7 +367,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     hero_bul_1: "AI-көмекшісі бар интеллектуалды CRM",
     hero_bul_2: "10 минутта интеграция",
     hero_bul_3: "WhatsApp бір интерфейсте",
-    hero_cta: "Тегін бастау",
+    hero_cta: "CRM-ді сынақ режимінде іске қосыңыз",
     hero_trial_note: "14 күн шектеусіз толық қол жетімділік",
     hero_video_alt: "Raycon CRM мүмкіндіктерінің демонстрациясы",
 

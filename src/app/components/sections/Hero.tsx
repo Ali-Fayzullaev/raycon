@@ -334,7 +334,7 @@ export default function ModernHero() {
                 className="group relative px-8 py-4 bg-gradient-to-r from-teal-500 to-emerald-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 animate-shine" />
-                <span className="relative flex items-center gap-3">
+                <span className="relative   flex items-center">
                   {t("hero_cta")}
                   <motion.div
                     animate={{ x: [0, 4, 0] }}
