@@ -106,6 +106,7 @@ export default function OptimizedPricing() {
         t("plan_pro_f3"),
         t("plan_pro_f4"),
         t("plan_pro_f5"),
+        t("plan_pro_f6"),
       ],
       stats: [
         { icon: Users, value: "20", label: t("plan_stat_managers") },
@@ -129,7 +130,6 @@ export default function OptimizedPricing() {
         t("plan_mini_f3"),
         t("plan_mini_f4"),
         t("plan_mini_f5"),
-        t("plan_mini_f6"),
       ],
       stats: [
         { icon: Users, value: "10", label: t("plan_stat_managers") },
@@ -158,6 +158,8 @@ export default function OptimizedPricing() {
         t("plan_ent_f4"),
         t("plan_ent_f5"),
         t("plan_ent_f6"),
+        t("plan_ent_f7"),
+        t("plan_ent_f8"),
       ],
       stats: [
         { icon: Shield, value: "99.9%", label: t("plan_stat_uptime") },

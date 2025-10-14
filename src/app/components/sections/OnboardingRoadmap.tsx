@@ -74,62 +74,56 @@ export default function CrazyRoadmap() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [isMounted]);
 
-  const steps = useMemo<Step[]>(() => [
-  {
-    tag: t("roadmap_1_tag"),
-    title: t("roadmap_1_title"),
-    desc: t("roadmap_1_desc"),
-    Icon: CalendarClock,
-    accent: "from-emerald-500 to-green-500",
-    darkAccent: "from-emerald-600 to-green-600",
-    gradient: theme === 'dark' 
-      ? "bg-gradient-to-br from-emerald-600/20 to-green-600/20"
-      : "bg-gradient-to-br from-emerald-500/10 to-green-500/10",
-    duration: lang === "ru" ? "15 минут" : "15 минут",
-    features: [
-      t("feature_1"),
-      t("feature_2"),
-      t("feature_3"),
+  const steps = useMemo<Step[]>(
+    () => [
+      {
+        tag: t("roadmap_1_tag"),
+        title: t("roadmap_1_title"),
+        desc: t("roadmap_1_desc"),
+        Icon: CalendarClock,
+        accent: "from-emerald-500 to-green-500",
+        darkAccent: "from-emerald-600 to-green-600",
+        gradient:
+          theme === "dark"
+            ? "bg-gradient-to-br from-emerald-600/20 to-green-600/20"
+            : "bg-gradient-to-br from-emerald-500/10 to-green-500/10",
+        duration: lang === "ru" ? "15 минут" : "15 минут",
+        features: [t("feature_1"), t("feature_2"), t("feature_3")],
+        progress: 33,
+      },
+      {
+        tag: t("roadmap_2_tag"),
+        title: t("roadmap_2_title"),
+        desc: t("roadmap_2_desc"),
+        Icon: Video,
+        accent: "from-teal-500 to-emerald-500",
+        darkAccent: "from-teal-600 to-emerald-600",
+        gradient:
+          theme === "dark"
+            ? "bg-gradient-to-br from-teal-600/20 to-emerald-600/20"
+            : "bg-gradient-to-br from-teal-500/10 to-emerald-500/10",
+        duration: lang === "ru" ? "20 минут" : "20 минут",
+        features: [t("feature_4"), t("feature_5"), t("feature_6")],
+        progress: 66,
+      },
+      {
+        tag: t("roadmap_3_tag"),
+        title: t("roadmap_3_title"),
+        desc: t("roadmap_3_desc"),
+        Icon: Rocket,
+        accent: "from-green-500 to-lime-500",
+        darkAccent: "from-green-600 to-lime-600",
+        gradient:
+          theme === "dark"
+            ? "bg-gradient-to-br from-green-600/20 to-lime-600/20"
+            : "bg-gradient-to-br from-green-500/10 to-lime-500/10",
+        duration: lang === "ru" ? "Мгновенно" : "Дереу",
+        features: [t("feature_7"), t("feature_8"), t("feature_9")],
+        progress: 100,
+      },
     ],
-    progress: 33,
-  },
-  {
-    tag: t("roadmap_2_tag"),
-    title: t("roadmap_2_title"),
-    desc: t("roadmap_2_desc"),
-    Icon: Video,
-    accent: "from-teal-500 to-emerald-500",
-    darkAccent: "from-teal-600 to-emerald-600",
-    gradient: theme === 'dark'
-      ? "bg-gradient-to-br from-teal-600/20 to-emerald-600/20"
-      : "bg-gradient-to-br from-teal-500/10 to-emerald-500/10",
-    duration: lang === "ru" ? "20 минут" : "20 минут",
-    features: [
-      t("feature_4"),
-      t("feature_5"),
-      t("feature_6"),
-    ],
-    progress: 66,
-  },
-  {
-    tag: t("roadmap_3_tag"),
-    title: t("roadmap_3_title"),
-    desc: t("roadmap_3_desc"),
-    Icon: Rocket,
-    accent: "from-green-500 to-lime-500",
-    darkAccent: "from-green-600 to-lime-600",
-    gradient: theme === 'dark'
-      ? "bg-gradient-to-br from-green-600/20 to-lime-600/20"
-      : "bg-gradient-to-br from-green-500/10 to-lime-500/10",
-    duration: lang === "ru" ? "Мгновенно" : "Дереу",
-    features: [
-      t("feature_7"),
-      t("feature_8"),
-      t("feature_9"),
-    ],
-    progress: 100,
-  },
-], [theme, lang, t]);
+    [theme, lang, t]
+  );
 
   // Цвета для разных тем
   const themeColors = {
@@ -160,7 +154,7 @@ export default function CrazyRoadmap() {
       textSecondary: "text-slate-500",
       progressBg: "bg-slate-200/50",
       badgeBg: "bg-slate-100/50",
-    }
+    },
   };
 
   const colors = themeColors[theme];
@@ -168,13 +162,17 @@ export default function CrazyRoadmap() {
   if (!isMounted) {
     // Рендерим простую версию для SSR без анимаций
     return (
-      <div className={`relative w-full overflow-hidden ${colors.bg} ${colors.text} transition-colors duration-300`}>
+      <div
+        className={`relative w-full overflow-hidden ${colors.bg} ${colors.text} transition-colors duration-300`}
+      >
         <section className="relative py-20 md:py-32">
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full backdrop-blur-md border bg-emerald-500/10 border-emerald-500/30 text-emerald-700 mb-6">
                 <Zap className="w-4 h-4" />
-                <span className="text-sm font-semibold">{t("roadmap_badge")}</span>
+                <span className="text-sm font-semibold">
+                  {t("roadmap_badge")}
+                </span>
               </div>
               <h1 className="text-5xl md:text-7xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-600">
                 {t("roadmap_title")}
@@ -185,18 +183,21 @@ export default function CrazyRoadmap() {
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {steps.map((step, index) => (
-                <div key={index} className={`rounded-2xl backdrop-blur-xl border-2 p-8 ${step.gradient} ${colors.border} ${colors.cardBg}`}>
+                <div
+                  key={index}
+                  className={`rounded-2xl backdrop-blur-xl border-2 p-8 ${step.gradient} ${colors.border} ${colors.cardBg}`}
+                >
                   <div className="flex flex-col h-full">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${step.accent} flex items-center justify-center mb-6 shadow-xl`}>
+                    <div
+                      className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${step.accent} flex items-center justify-center mb-6 shadow-xl`}
+                    >
                       <step.Icon className="w-8 h-8 text-white" />
                     </div>
                     <div className="flex-1">
                       <div className="text-xs font-bold uppercase tracking-widest mb-2 text-emerald-600">
                         {step.tag}
                       </div>
-                      <h3 className="text-2xl font-black mb-3">
-                        {step.title}
-                      </h3>
+                      <h3 className="text-2xl font-black mb-3">{step.title}</h3>
                       <p className="text-sm leading-relaxed mb-4 text-slate-600">
                         {step.desc}
                       </p>
@@ -212,7 +213,9 @@ export default function CrazyRoadmap() {
   }
 
   return (
-    <div className={`relative w-full overflow-hidden ${colors.bg} ${colors.text} transition-colors duration-300`}>
+    <div
+      className={`relative w-full overflow-hidden ${colors.bg} ${colors.text} transition-colors duration-300`}
+    >
       {/* Cursor Glow Effect - только на клиенте */}
       {isMounted && (
         <motion.div
@@ -230,8 +233,12 @@ export default function CrazyRoadmap() {
       <div
         className="absolute inset-0"
         style={{
-          background: `linear-gradient(${colors.grid}_1px,transparent_1px),linear-gradient(90deg,${colors.grid}_1px,transparent_1px)`,
+          backgroundImage: `
+          linear-gradient(${colors.grid} 1px, transparent 1px),
+          linear-gradient(90deg, ${colors.grid} 1px, transparent 1px)
+        `,
           backgroundSize: "50px 50px",
+          backgroundRepeat: "repeat",
         }}
       />
 
@@ -261,26 +268,27 @@ export default function CrazyRoadmap() {
       />
 
       {/* Floating Particles - только на клиенте */}
-      {isMounted && Array.from({ length: 15 }).map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-2 h-2 rounded-full bg-emerald-400/30"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            x: [0, 20, 0],
-            opacity: [0.3, 1, 0.3],
-          }}
-          transition={{
-            duration: 3 + Math.random() * 4,
-            repeat: Infinity,
-            delay: Math.random() * 2,
-          }}
-        />
-      ))}
+      {isMounted &&
+        Array.from({ length: 15 }).map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 rounded-full bg-emerald-400/30"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              x: [0, 20, 0],
+              opacity: [0.3, 1, 0.3],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 4,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
 
       <section className="relative py-20 md:py-32">
         <div className="max-w-7xl mx-auto px-4">
@@ -295,19 +303,21 @@ export default function CrazyRoadmap() {
             <motion.div
               variants={fade}
               className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full backdrop-blur-md border bg-emerald-500/10 border-emerald-500/30 ${
-                theme === 'dark' ? 'text-emerald-300' : 'text-emerald-700'
+                theme === "dark" ? "text-emerald-300" : "text-emerald-700"
               } mb-6`}
             >
               <Zap className="w-4 h-4" />
-              <span className="text-sm font-semibold">{t("roadmap_badge")}</span>
+              <span className="text-sm font-semibold">
+                {t("roadmap_badge")}
+              </span>
             </motion.div>
 
             <motion.h1
               variants={fade}
               className={`text-5xl md:text-7xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r ${
-                theme === 'dark' 
-                  ? 'from-emerald-400 via-green-400 to-emerald-400' 
-                  : 'from-emerald-600 via-green-600 to-emerald-600'
+                theme === "dark"
+                  ? "from-emerald-400 via-green-400 to-emerald-400"
+                  : "from-emerald-600 via-green-600 to-emerald-600"
               }`}
             >
               {t("roadmap_title")}
@@ -356,11 +366,15 @@ export default function CrazyRoadmap() {
               transition={{ delay: 0.6 }}
               className="flex justify-center gap-8 mt-8"
             >
-              <div className={`flex items-center gap-2 ${colors.textSecondary}`}>
+              <div
+                className={`flex items-center gap-2 ${colors.textSecondary}`}
+              >
                 <Clock className="w-4 h-4 text-emerald-400" />
                 <span className="text-sm">{t("roadmap_hint")}</span>
               </div>
-              <div className={`flex items-center gap-2 ${colors.textSecondary}`}>
+              <div
+                className={`flex items-center gap-2 ${colors.textSecondary}`}
+              >
                 <Users className="w-4 h-4 text-emerald-400" />
                 <span className="text-sm">{t("roadmap_support")}</span>
               </div>
@@ -391,7 +405,10 @@ interface CrazyMobileLayoutProps {
   colors: any;
 }
 
-const CrazyDesktopLayout: React.FC<CrazyDesktopLayoutProps> = ({ steps, colors }) => {
+const CrazyDesktopLayout: React.FC<CrazyDesktopLayoutProps> = ({
+  steps,
+  colors,
+}) => {
   return (
     <motion.div
       initial="hidden"
@@ -475,7 +492,13 @@ const CrazyDesktopLayout: React.FC<CrazyDesktopLayoutProps> = ({ steps, colors }
   );
 };
 
-const CrazyStepCard: React.FC<CrazyStepCardProps> = ({ step, index, isFirst, isLast, colors }) => {
+const CrazyStepCard: React.FC<CrazyStepCardProps> = ({
+  step,
+  index,
+  isFirst,
+  isLast,
+  colors,
+}) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -531,7 +554,9 @@ const CrazyStepCard: React.FC<CrazyStepCardProps> = ({ step, index, isFirst, isL
         <div className="mb-6 relative z-10">
           <motion.div
             className={`text-xs font-bold uppercase tracking-widest mb-2 ${
-              colors.text === 'text-white' ? 'text-emerald-300' : 'text-emerald-600'
+              colors.text === "text-white"
+                ? "text-emerald-300"
+                : "text-emerald-600"
             }`}
           >
             {step.tag}
@@ -577,7 +602,9 @@ const CrazyStepCard: React.FC<CrazyStepCardProps> = ({ step, index, isFirst, isL
         </motion.div>
 
         {/* Progress Bar */}
-        <div className={`relative h-2 ${colors.progressBg} rounded-full overflow-hidden`}>
+        <div
+          className={`relative h-2 ${colors.progressBg} rounded-full overflow-hidden`}
+        >
           <motion.div
             className={`h-full bg-gradient-to-r ${step.accent} rounded-full relative`}
             initial={{ width: 0 }}
@@ -635,7 +662,10 @@ const CrazyStepCard: React.FC<CrazyStepCardProps> = ({ step, index, isFirst, isL
   );
 };
 
-const CrazyMobileLayout: React.FC<CrazyMobileLayoutProps> = ({ steps, colors }) => {
+const CrazyMobileLayout: React.FC<CrazyMobileLayoutProps> = ({
+  steps,
+  colors,
+}) => {
   return (
     <motion.div
       variants={stagger}
@@ -661,7 +691,9 @@ const CrazyMobileLayout: React.FC<CrazyMobileLayoutProps> = ({ steps, colors }) 
 
           <div className="flex gap-4">
             {/* Icon */}
-            <div className={`w-14 h-14 rounded-xl bg-gradient-to-r ${step.accent} flex items-center justify-center flex-shrink-0 shadow-lg relative`}>
+            <div
+              className={`w-14 h-14 rounded-xl bg-gradient-to-r ${step.accent} flex items-center justify-center flex-shrink-0 shadow-lg relative`}
+            >
               <step.Icon className="w-7 h-7 text-white" />
             </div>
 
@@ -669,7 +701,9 @@ const CrazyMobileLayout: React.FC<CrazyMobileLayoutProps> = ({ steps, colors }) 
             <div className="flex-1">
               <motion.div
                 className={`text-xs font-bold uppercase tracking-wide mb-1 ${
-                  colors.text === 'text-white' ? 'text-emerald-300' : 'text-emerald-600'
+                  colors.text === "text-white"
+                    ? "text-emerald-300"
+                    : "text-emerald-600"
                 }`}
               >
                 {step.tag}
@@ -698,7 +732,9 @@ const CrazyMobileLayout: React.FC<CrazyMobileLayoutProps> = ({ steps, colors }) 
 
               {/* Duration & Progress */}
               <div className="flex items-center justify-between">
-                <div className={`flex items-center gap-2 text-xs ${colors.textSecondary}`}>
+                <div
+                  className={`flex items-center gap-2 text-xs ${colors.textSecondary}`}
+                >
                   <Clock className="w-3 h-3 text-emerald-400" />
                   <span>{step.duration}</span>
                 </div>
@@ -707,7 +743,9 @@ const CrazyMobileLayout: React.FC<CrazyMobileLayoutProps> = ({ steps, colors }) 
                 </span>
               </div>
 
-              <div className={`h-1.5 ${colors.progressBg} rounded-full mt-2 overflow-hidden`}>
+              <div
+                className={`h-1.5 ${colors.progressBg} rounded-full mt-2 overflow-hidden`}
+              >
                 <motion.div
                   className={`h-full bg-gradient-to-r ${step.accent}`}
                   initial={{ width: 0 }}

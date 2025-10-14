@@ -183,14 +183,14 @@ export const dict: Record<Lang, Record<string, string>> = {
     plan_pro_f3: "Расширенная аналитика",
     plan_pro_f4: "Приоритетная поддержка",
     plan_pro_f5: "Интеграции с CRM",
+    plan_pro_f6: "##",
 
     // FEATURES: Mini
     plan_mini_f1: "До 10 менеджеров",
     plan_mini_f2: "WhatsApp + бот",
     plan_mini_f3: "Базовая аналитика",
     plan_mini_f4: "Стандартная поддержка",
-    plan_mini_f5: "Готовые шаблоны",
-    plan_mini_f6: "AI-помощник",
+    plan_mini_f5: "Интеграции с CRM",
 
     // FEATURES: Enterprise
     plan_ent_f1: "Неограниченно менеджеров",
@@ -198,7 +198,9 @@ export const dict: Record<Lang, Record<string, string>> = {
     plan_ent_f3: "Кастомная разработка",
     plan_ent_f4: "Личный менеджер",
     plan_ent_f5: "Обучение команды",
-    plan_ent_f6: "Доступ к API",
+    plan_ent_f6: "##",
+    plan_ent_f7: "##",
+    plan_ent_f8: "##",
 
     // STATS labels / values
     plan_stat_managers: "менеджеров",
@@ -329,9 +331,9 @@ export const dict: Record<Lang, Record<string, string>> = {
     final_guarantee_security: "Без кредитной карты",
     final_guarantee_cancel: "Отмена в любой момент",
     final_feature_quick: "20 минутта баптау",
-    final_feature_trial: "14 күн тегін",
-    final_feature_fast: "Сол күні іске қосу",
-    final_feature_support: "Жеке менеджер",
+    final_feature_trial: "14 дней бесплатно",
+    final_feature_fast: "Запуск в тот же день",
+    final_feature_support: "Персональный менеджер",
 
     footer_tagline: "CRM для роста бизнеса",
     footer_description:
@@ -542,15 +544,15 @@ export const dict: Record<Lang, Record<string, string>> = {
     plan_pro_f2: "Барлық мессенджерлер",
     plan_pro_f3: "Кеңейтілген аналитика",
     plan_pro_f4: "Басым қолдау",
-    plan_pro_f5: "CRM интеграциялары",
+    plan_pro_f5: "CRM интеграциясы",
+    plan_pro_f6: "##",
 
     // FEATURES: Mini
     plan_mini_f1: "10 менеджерге дейін",
     plan_mini_f2: "WhatsApp + бот",
     plan_mini_f3: "Негізгі аналитика",
     plan_mini_f4: "Стандартты қолдау",
-    plan_mini_f5: "Дайын үлгілер",
-    plan_mini_f6: "AI көмекші",
+    plan_mini_f5: "CRM интеграциялары",
 
     // FEATURES: Enterprise
     plan_ent_f1: "Шектеусіз менеджер",
@@ -558,7 +560,9 @@ export const dict: Record<Lang, Record<string, string>> = {
     plan_ent_f3: "Кастомды әзірлеу",
     plan_ent_f4: "Жеке менеджер",
     plan_ent_f5: "Команданы оқыту",
-    plan_ent_f6: "API қолжетімділігі",
+    plan_ent_f6: "##",
+    plan_ent_f7: "##",
+    plan_ent_f8: "##",
 
     // STATS labels / values
     plan_stat_managers: "менеджер",

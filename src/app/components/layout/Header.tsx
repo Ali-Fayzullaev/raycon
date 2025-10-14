@@ -247,7 +247,7 @@ export default function ModernHeader() {
       transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       <motion.div
-        className={`w-full max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between transition-all duration-300 ${
+        className={`w-full  mx-auto px-4 md:px-6 py-3 flex items-center justify-between transition-all duration-300 ${
           isScrolled ? "py-2" : "py-3"
         }`}
         animate={{
