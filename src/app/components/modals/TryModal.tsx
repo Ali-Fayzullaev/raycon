@@ -18,19 +18,14 @@ import {
   Clock,
   User,
   Phone,
-  MessageCircle,
   Send,
   CalendarDays,
   Loader2,
-  CheckCircle2,
   AlertCircle,
   Rocket,
   Star,
   Sparkles,
   PartyPopper,
-  MessageSquare,
-  Instagram,
-  Globe,
 } from "lucide-react";
 
 export default function ModernTryModal({
@@ -165,7 +160,7 @@ export default function ModernTryModal({
         setSubmitStatus("error");
         setErrorMessage(result.message || "Произошла ошибка при отправке");
       }
-    } catch (error) {
+    } catch {
       setSubmitStatus("error");
       setErrorMessage("Ошибка сети. Пожалуйста, попробуйте еще раз.");
     } finally {
@@ -179,7 +174,7 @@ export default function ModernTryModal({
     children,
   }: {
     value: typeof tab;
-    icon: any;
+    icon: React.ComponentType<{ className?: string }>;
     children: React.ReactNode;
   }) => (
     <motion.button

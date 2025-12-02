@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion, Variants } from "framer-motion";
+import Image from "next/image";
 import {
   ArrowRight,
   CheckCircle2,
@@ -13,8 +14,6 @@ import {
   Monitor,
   Tablet,
   Laptop,
-  Watch,
-  Smartphone,
 } from "lucide-react";
 import { useI18n } from "@/providers/I18nProvider";
 import ModernTryModal from "../modals/TryModal";
@@ -75,31 +74,7 @@ const devices = [
     scale: 0.8,
     contentStyle: "rounded-[12px] h-[100%] ",
     type: "image",
-  },
-  {
-    id: "iphone",
-    name: "iPhone 14 Pro",
-    frame: "/frame/iPhone14pro.png",
-    content: "/sm-sc.png",
-    icon: Smartphone,
-    aspect: "aspect-[16/16]",
-    maxWidth: "max-w-[300px]",
-    scale: 0.75,
-    contentStyle: "rounded-[178px] h-[100%] ",
-    type: "image",
-  },
-  {
-    id: "watch",
-    name: "Apple Watch",
-    frame: "/frame/iWatch.png",
-    content: "/logo.png",
-    icon: Watch,
-    aspect: "aspect-[1/1]",
-    maxWidth: "max-w-[200px]",
-    scale: 0.7,
-    contentStyle: "rounded-[32px] scale-[0.78]",
-    type: "image",
-  },
+  }
 ];
 
 function DeviceCarousel() {
@@ -160,15 +135,19 @@ function DeviceCarousel() {
           >
             {/* Рамка устройства */}
             <div className="relative flex items-center justify-center w-full h-full">
-              <img
+              <Image
                 src={currentDeviceConfig.frame}
                 alt={currentDeviceConfig.name}
+                width={600}
+                height={400}
                 className="w-full h-full object-contain drop-shadow-2xl"
               />
               <div className="absolute inset-0 flex items-center justify-center">
-                <img
+                <Image
                   src={currentDeviceConfig.content}
                   alt="Raycon CRM"
+                  width={400}
+                  height={300}
                   className={`rounded-lg scale-75 object-contain ${currentDeviceConfig.contentStyle}`}
                 />
               </div>

@@ -4,10 +4,9 @@ import { Button } from "@/components/ui/button";
 import LanguageSwitcher from "../common/LanguageSwitcher";
 import ThemeToggle from "../common/ThemeToggle";
 import { useI18n } from "@/providers/I18nProvider";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Menu,
-  X,
   Rocket,
   PanelsTopLeft,
   Sparkles,
@@ -48,7 +47,7 @@ const NavItem = ({
 }: {
   href: string;
   children: React.ReactNode;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
 }) => (
   <motion.a
     href={href}

@@ -19,7 +19,7 @@ export default function Stat({
     >
       <div
         className="text-3xl font-extrabold text-[--primary]"
-        style={{ ["--primary" as any]: "#007A6E" }}
+        style={{ "--primary": "#007A6E" } as React.CSSProperties}
       >
         {value}
       </div>

@@ -2,7 +2,7 @@
 import React from "react";
 import { useI18n } from "@/providers/I18nProvider";
 import { motion, AnimatePresence } from "framer-motion";
-import { Languages, Globe } from "lucide-react";
+import { Globe } from "lucide-react";
 
 export default function LanguageSwitcher() {
   const { lang, setLang, t } = useI18n();
@@ -53,7 +53,7 @@ export default function LanguageSwitcher() {
                 <motion.button
                   key={language.code}
                   onClick={() => {
-                    setLang(language.code as any);
+                    setLang(language.code as "ru" | "kk");
                     setIsOpen(false);
                   }}
                   className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${
