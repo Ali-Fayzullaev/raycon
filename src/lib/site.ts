@@ -4,6 +4,7 @@ const SITE = {
   instagram: "https://www.instagram.com/raycon.kz", // замените your_instagram на ваш логин
   email: "mailto:info@yourdomain.com", // замените на реальный email
   whatsApp: "https://wa.me/77078469999", // международный формат без "+"
+  whatsAppFaq: "https://wa.me/77078465555", // международный формат без "+"
 
   contacts: {
     sales: {

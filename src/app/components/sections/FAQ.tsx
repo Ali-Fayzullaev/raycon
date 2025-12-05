@@ -19,6 +19,7 @@ import {
   Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SITE from "@/lib/site";
 
 const fade: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -299,11 +300,13 @@ export default function PremiumFAQ() {
               {t("faq_cta_desc")}
             </p>
             <div className="flex flex-col sm:flex-row gap-5 justify-center relative z-10">
+              <a href={SITE.whatsAppFaq}>
               <Button className="bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white px-10 py-6 rounded-2xl shadow-2xl shadow-teal-500/30 hover:shadow-3xl hover:shadow-teal-500/40 transition-all duration-500 group text-lg font-semibold">
                 <MessageCircle className="w-6 h-6 mr-3" />
                 {t("faq_cta_chat")}
                 <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
               </Button>
+              </a>
               <Button
                 variant="outline"
                 className="px-10 py-6 rounded-2xl border-2 border-slate-300 dark:border-slate-600 hover:bg-white/60 dark:hover:bg-slate-700/60 hover:border-slate-400 dark:hover:border-slate-500 transition-all duration-500 text-lg font-semibold backdrop-blur-sm"

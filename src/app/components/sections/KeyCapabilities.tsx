@@ -16,6 +16,7 @@ import {
   Users,
 } from "lucide-react";
 import ModernTryModal from "../modals/TryModal";
+import SITE from "@/lib/site";
 
 // Оптимизированные анимации
 const fade: Variants = {
@@ -215,6 +216,8 @@ export default function OptimizedKeyCapabilities() {
           transition={{ delay: 0.3 }}
           className="text-center mt-12"
         >
+          <a href={SITE.whatsAppFaq}>
+
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -226,6 +229,7 @@ export default function OptimizedKeyCapabilities() {
               <ArrowRight className="w-4 h-4" />
             </span>
           </motion.button>
+          </a>
         </motion.div>
       </div>
 

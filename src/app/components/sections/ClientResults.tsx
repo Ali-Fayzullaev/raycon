@@ -17,6 +17,7 @@ import {
   Users,
   CheckCircle2,
 } from "lucide-react";
+import SITE from "@/lib/site";
 
 // Оптимизированные easing функции
 const EASE = {
@@ -226,6 +227,7 @@ export default function OptimizedClientResults() {
           transition={{ delay: 0.3 }}
           className="text-center mt-12"
         >
+          <a href={SITE.whatsAppFaq}>
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -236,6 +238,7 @@ export default function OptimizedClientResults() {
               <Zap className="w-4 h-4" />
             </span>
           </motion.button>
+          </a>
 
           <p className="text-slate-600 dark:text-slate-400 flex items-center justify-center gap-2 text-sm">
             <CheckCircle2 className="w-4 h-4 text-emerald-500" />

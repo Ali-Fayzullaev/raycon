@@ -18,6 +18,7 @@ import {
 import { useTheme } from "@/providers/ThemeProvider";
 
 import { useI18n } from "@/providers/I18nProvider";
+import SITE from "@/lib/site";
 
 const fade: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -349,7 +350,8 @@ export default function CrazyRoadmap() {
             transition={{ delay: 0.4 }}
             className="text-center mt-20"
           >
-            <motion.button
+           <a href={SITE.whatsAppFaq}>
+             <motion.button
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.95 }}
               className="px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2 mx-auto shadow-2xl transform transition-all bg-gradient-to-r from-emerald-600 to-green-600 text-white hover:shadow-emerald-500/50"
@@ -358,6 +360,7 @@ export default function CrazyRoadmap() {
               {t("roadmapbtn")}
               <ArrowRight className="w-5 h-5" />
             </motion.button>
+           </a>
 
             {/* Stats */}
             <motion.div

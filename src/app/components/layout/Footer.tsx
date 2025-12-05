@@ -53,7 +53,7 @@ export default function PremiumFooter() {
     { icon: Phone, label: t("footer_contact_sales"), value: "+7 707 846 99 99", href: "tel:+77078469999" },
     { icon: HeartHandshake, label: t("footer_contact_support"), value: "+7 707 846 55 55", href: "tel:+77078465555" },
     { icon: Mail, label: t("footer_contact_email"), value: "support@raycon.kz", href: "mailto:support@raycon.kz" },
-    { icon: MapPin, label: t("footer_contact_location"), value: "Казахстан, г. Алматы", href: "#" },
+    { icon: MapPin, label: t("footer_contact_location"), value: "Казахстан, г. Астана", href: "#" },
   ];
 
   const features = [
