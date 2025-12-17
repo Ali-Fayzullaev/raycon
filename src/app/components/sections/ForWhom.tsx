@@ -16,6 +16,7 @@ import {
   Target,
   Zap,
   ArrowRight,
+  ChartBar,
 } from "lucide-react";
 import ModernTryModal from "../modals/TryModal";
 
@@ -79,8 +80,8 @@ export default function OptimizedForWhom() {
         { icon: Building2, text: t("for_group_b_1") },
         { icon: ShoppingBag, text: t("for_group_b_2") },
         { icon: Bank, text: t("for_group_b_3") },
-        { icon: Home, text: t("for_group_b_4") },
-      ].slice(0, 3),
+        { icon: ChartBar, text: t("for_group_b_4") },
+      ].slice(0, 4),
     },
     {
       title: t("for_group_c_title"),

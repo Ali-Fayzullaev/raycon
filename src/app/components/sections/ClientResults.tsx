@@ -16,6 +16,9 @@ import {
   BarChart3,
   Users,
   CheckCircle2,
+  Shield,
+  DollarSign,
+  Settings,
 } from "lucide-react";
 import SITE from "@/lib/site";
 
@@ -102,38 +105,62 @@ export default function OptimizedClientResults() {
     {
       title: t("res1_title"),
       icon: TrendingUp,
-      accent: "from-orange-500 to-amber-500",
-      gradient: "bg-gradient-to-br from-orange-500/10 to-amber-500/10 dark:from-orange-500/5 dark:to-amber-500/5",
+      accent: "from-emerald-500 to-teal-500",
+      gradient: "bg-gradient-to-br from-emerald-500/10 to-teal-500/10 dark:from-emerald-500/5 dark:to-teal-500/5",
       metrics: [
         { icon: BarChart3, value: t("res1_a"), label: t("res1_a_label") },
-        { icon: Gauge, value: t("res1_b"), label: t("res1_b_label") },
+        { icon: Target, value: t("res1_b"), label: t("res1_b_label") },
       ],
       description: t("res1_desc"),
       features: [t("res1_feature1"), t("res1_feature2"), t("res1_feature3")],
     },
     {
       title: t("res2_title"),
-      icon: Timer,
-      accent: "from-teal-500 to-emerald-500",
-      gradient: "bg-gradient-to-br from-teal-500/10 to-emerald-500/10 dark:from-teal-500/5 dark:to-emerald-500/5",
+      icon: Zap,
+      accent: "from-blue-500 to-cyan-500",
+      gradient: "bg-gradient-to-br from-blue-500/10 to-cyan-500/10 dark:from-blue-500/5 dark:to-cyan-500/5",
       metrics: [
         { icon: Rocket, value: t("res2_a"), label: t("res2_a_label") },
-        { icon: Sparkles, value: t("res2_b"), label: t("res2_b_label") },
+        { icon: Clock, value: t("res2_b"), label: t("res2_b_label") },
       ],
       description: t("res2_desc"),
       features: [t("res2_feature1"), t("res2_feature2"), t("res2_feature3")],
     },
     {
       title: t("res3_title"),
-      icon: Smile,
-      accent: "from-purple-500 to-indigo-500",
-      gradient: "bg-gradient-to-br from-purple-500/10 to-indigo-500/10 dark:from-purple-500/5 dark:to-indigo-500/5",
+      icon: Shield,
+      accent: "from-orange-500 to-amber-500",
+      gradient: "bg-gradient-to-br from-orange-500/10 to-amber-500/10 dark:from-orange-500/5 dark:to-amber-500/5",
       metrics: [
         { icon: Users, value: t("res3_a"), label: t("res3_a_label") },
-        { icon: Clock, value: t("res3_b"), label: t("res3_b_label") },
+        { icon: CheckCircle2, value: t("res3_b"), label: t("res3_b_label") },
       ],
       description: t("res3_desc"),
       features: [t("res3_feature1"), t("res3_feature2"), t("res3_feature3")],
+    },
+    {
+      title: t("res4_title"),
+      icon: DollarSign,
+      accent: "from-purple-500 to-indigo-500",
+      gradient: "bg-gradient-to-br from-purple-500/10 to-indigo-500/10 dark:from-purple-500/5 dark:to-indigo-500/5",
+      metrics: [
+        { icon: Target, value: t("res4_a"), label: t("res4_a_label") },
+        { icon: Sparkles, value: t("res4_b"), label: t("res4_b_label") },
+      ],
+      description: t("res4_desc"),
+      features: [t("res4_feature1"), t("res4_feature2"), t("res4_feature3")],
+    },
+    {
+      title: t("res5_title"),
+      icon: Settings,
+      accent: "from-rose-500 to-pink-500",
+      gradient: "bg-gradient-to-br from-rose-500/10 to-pink-500/10 dark:from-rose-500/5 dark:to-pink-500/5",
+      metrics: [
+        { icon: Clock, value: t("res5_a"), label: t("res5_a_label") },
+        { icon: Zap, value: t("res5_b"), label: t("res5_b_label") },
+      ],
+      description: t("res5_desc"),
+      features: [t("res5_feature1"), t("res5_feature2"), t("res5_feature3")],
     },
   ], [t]);
 
@@ -207,15 +234,50 @@ export default function OptimizedClientResults() {
         </motion.div>
 
         {/* Оптимизированные карточки */}
+        {/* Карусель для мобильных */}
+        <div className="block md:hidden">
+          <div className="overflow-x-auto pb-4 -mx-4 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            <div className="flex gap-4 px-4" style={{ width: 'max-content' }}>
+              {cards.map((card, index) => (
+                <div key={index} className="w-80 flex-shrink-0">
+                  <OptimizedResultsCard card={card} index={index} />
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Индикатор прокрутки */}
+          <div className="flex justify-center gap-2 mt-4">
+            {cards.map((_, index) => (
+              <div key={index} className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600" />
+            ))}
+          </div>
+        </div>
+
+        {/* Сетка для планшетов и десктопов */}
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid lg:grid-cols-3 gap-6"
+          className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {cards.map((card, index) => (
+          {/* Первые 3 карточки */}
+          {cards.slice(0, 3).map((card, index) => (
             <OptimizedResultsCard key={index} card={card} index={index} />
+          ))}
+        </motion.div>
+
+        {/* Дополнительные карточки для десктопа */}
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+          className="hidden lg:grid lg:grid-cols-2 gap-6 mt-6 max-w-4xl mx-auto"
+        >
+          {/* Оставшиеся 2 карточки */}
+          {cards.slice(3, 5).map((card, index) => (
+            <OptimizedResultsCard key={index + 3} card={card} index={index + 3} />
           ))}
         </motion.div>
 

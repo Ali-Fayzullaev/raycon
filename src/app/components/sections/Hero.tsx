@@ -14,6 +14,9 @@ import {
   Monitor,
   Tablet,
   Laptop,
+  Users,
+  BarChart3,
+  Settings,
 } from "lucide-react";
 import { useI18n } from "@/providers/I18nProvider";
 import ModernTryModal from "../modals/TryModal";
@@ -53,7 +56,7 @@ const devices = [
   },
   {
     id: "macbook",
-    name: "MacBook Pro",
+    name: "MacBook",
     frame: "/frame/MacBookPro.png",
     content: "/logo.png",
     icon: Laptop,
@@ -216,6 +219,19 @@ export default function ModernHero() {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
 
+  // Функция для прокрутки к блоку с информацией о мультичате
+  const scrollToMultichatInfo = () => {
+    const element = document.getElementById('multichat-info');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      
+      // Запускаем событие для активации выделения текста в Pricing компоненте
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('multichat-highlight'));
+      }, 500); // Небольшая задержка для завершения прокрутки
+    }
+  };
+
   const bulletPoints = [
     { icon: Bot, text: t("hero_bul_1"), color: "from-blue-500 to-cyan-500" },
     { icon: Zap, text: t("hero_bul_2"), color: "from-amber-500 to-orange-500" },
@@ -224,13 +240,28 @@ export default function ModernHero() {
       text: t("hero_bul_3"),
       color: "from-emerald-500 to-teal-500",
     },
+    {
+      icon: Settings,
+      text: t("hero_bul_4"),
+      color: "from-purple-500 to-indigo-500",
+    },
+    {
+      icon: BarChart3,
+      text: t("hero_bul_5"),
+      color: "from-blue-500 to-purple-500",
+    },
+    {
+      icon: Users,
+      text: t("hero_bul_6"),
+      color: "from-pink-500 to-rose-500",
+    },
   ];
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       <AnimatedBackground />
-
-      <div className="relative z-10 mx-auto max-w-7xl px-4 py-16">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 pb-16 mt-5">
+        <p className="text-3xl md:text-5xl xl:text-4xl text-center font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white mb-6">Бесплатная CRM для микро и малого бизнеса</p>
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -250,33 +281,9 @@ export default function ModernHero() {
 
             <motion.h1
               variants={itemVariants}
-              className="text-4xl md:text-5xl xl:text-6xl font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white mb-6"
+              className="text-2xl md:text-5xl xl:text-6xl font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white mb-6"
             >
-              {t("hero_title_part1")}{" "}
-              <a
-                href="#multichat"
-                className="inline-flex items-center group relative"
-              >
-                <span className="relative">
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white px-3 py-1 pb-2 rounded-2xl text-2xl md:text-3xl xl:text-4xl font-bold hover:shadow-lg hover:shadow-blue-500/25 dark:hover:shadow-blue-400/25 transform group-hover:scale-105 transition-all duration-300">
-                    {t("hero_title_part2")}
-                    <svg
-                      className="w-4 h-4 ml-3 inline-block transform group-hover:translate-x-1 transition-transform duration-300"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-
-                  <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
-                </span>
-              </a>{" "}
-              {t("hero_title_part3")}
+              RAYCON CRM - простая CRM для управления заявками, услугами и управлением менеджмента.
             </motion.h1>
 
             <motion.p
@@ -287,19 +294,35 @@ export default function ModernHero() {
             </motion.p>
 
             <motion.div variants={itemVariants} className="space-y-4 mb-10">
-              {bulletPoints.map((item, index: number) => (
-                <div key={index} className="flex items-center gap-4 group">
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    className={`flex-shrink-0 w-12 h-12 bg-gradient-to-r ${item.color} rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300`}
+              {bulletPoints.map((item, index: number) => {
+                const isMultichatItem = item.text === t("hero_bul_2");
+                const ItemComponent = isMultichatItem ? 'button' : 'div';
+                
+                return (
+                  <ItemComponent
+                    key={index}
+                    onClick={isMultichatItem ? scrollToMultichatInfo : undefined}
+                    className={`flex items-center gap-4 group ${isMultichatItem ? 'cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/50 rounded-lg  transition-all' : ''}`}
                   >
-                    <item.icon className="w-5 h-5 text-white" />
-                  </motion.div>
-                  <span className="text-slate-700 dark:text-slate-300 font-medium group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
-                    {item.text}
-                  </span>
-                </div>
-              ))}
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className={`flex-shrink-0 w-12 h-12 bg-gradient-to-r ${item.color} rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300`}
+                    >
+                      <item.icon className="w-5 h-5 text-white" />
+                    </motion.div>
+                    <span className="text-slate-700 dark:text-slate-300 font-medium group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                      {isMultichatItem ? (
+                        <>
+                          <span className="text-teal-600 dark:text-teal-400 hover:underline">Мультичат</span>
+                          {item.text.replace('Мультичат', '')}
+                        </>
+                      ) : (
+                        item.text
+                      )}
+                    </span>
+                  </ItemComponent>
+                );
+              })}
             </motion.div>
 
             <motion.div
