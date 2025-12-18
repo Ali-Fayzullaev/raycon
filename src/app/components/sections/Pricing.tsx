@@ -9,19 +9,12 @@ import {
   Crown,
   Zap,
   Star,
-  Rocket,
   Gem,
-  BadgeCheck,
   ArrowRight,
-  Users,
-  Clock,
   Shield,
-  X,
   Minus,
-  TrendingDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { filter } from "framer-motion/client";
 
 // Упрощенные варианты анимаций
 const fade: Variants = {

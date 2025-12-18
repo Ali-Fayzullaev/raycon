@@ -3,7 +3,9 @@ export type Lang = "ru" | "kk";
 export const dict: Record<Lang, Record<string, string>> = {
   ru: {
     // Hero
-    hero_title_1: "Raycon CRM — умный мультичат для вашего бизнеса",
+    hero_main_title: "Бесплатная CRM для микро и малого бизнеса",
+    hero_badge_text: "Новое поколение CRM-систем",
+    hero_title_1: "RAYCON CRM - простая CRM для управления заявками, услугами и управлением менеджмента.",
     hero_title_part1: "Raycon CRM — умный",
     hero_title_part2: "мультичат",
     hero_title_part3: "для вашего бизнеса",
@@ -35,6 +37,13 @@ export const dict: Record<Lang, Record<string, string>> = {
     book: "Записаться",
 
     // Header
+    header_nav_home: "Главная",
+    header_nav_product: "Продукт", 
+    header_nav_features: "Функции",
+    header_nav_pricing: "Тарифы",
+    header_contacts: "Контакты",
+    header_login: "Войти",
+    header_mobile_contacts: "Свяжитесь с нами",
     lang_ru: "РУС",
     lang_kk: "ҚАЗ",
     theme_light: "Светлая",
@@ -492,16 +501,20 @@ export const dict: Record<Lang, Record<string, string>> = {
 
   kk: {
     // Hero
-    hero_title_1: "Raycon CRM — бизнес үшін ақылды мультичат",
-
+    hero_main_title: "Микро және шағын бизнес үшін тегін CRM",
+    hero_badge_text: "CRM жүйелерінің жаңа ұрпағы",
+    hero_title_1: "RAYCON CRM - өтінімдерді, қызметтерді және менеджментті басқаруға арналған қарапайым CRM.",
     hero_title_part1: "Raycon CRM — бизнес үшін ақылды",
     hero_title_part2: "мультичат",
     hero_title_part3: "",
     hero_title_2:
       "Барлық байланыс арналарын бір платформада біріктіреміз. Сөйлесулерді сатылымға айналдырамыз.",
-    hero_bul_1: "AI-көмекшісі бар интеллектуалды CRM",
-    hero_bul_2: "10 минутта интеграция",
-    hero_bul_3: "WhatsApp бір интерфейсте",
+    hero_bul_1: "Сатылымға бейімделген CRM.",
+    hero_bul_2: "Мультичат - WhatsApp, Telegram және Instagram чаттары бір терезеде",
+    hero_bul_3: "Өтінімдерді менеджерлер арасында автобөлу.",
+    hero_bul_4: "Мессенджерлердегі чат-боттар",
+    hero_bul_5: "Кеңейтілген CRM аналитикасы.",
+    hero_bul_6: "1 менеджерден бастап",
     hero_cta: "CRM-ді сынақ режимінде іске қосыңыз",
     hero_trial_note: "14 күн шектеусіз толық қол жетімділік",
     hero_video_alt: "Raycon CRM мүмкіндіктерінің демонстрациясы",
@@ -522,6 +535,13 @@ export const dict: Record<Lang, Record<string, string>> = {
     book: "Жазылу",
 
     // Header
+    header_nav_home: "Басты бет",
+    header_nav_product: "Өнім",
+    header_nav_features: "Мүмкіндіктер", 
+    header_nav_pricing: "Тарифтер",
+    header_contacts: "Байланыс",
+    header_login: "Кіру",
+    header_mobile_contacts: "Бізбен байланысыңыз",
     lang_ru: "РУС",
     lang_kk: "ҚАЗ",
     theme_light: "Жарық",

@@ -25,6 +25,16 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
 export function useI18n() {
   const v = useContext(Ctx);
-  if (!v) throw new Error("useI18n must be used within I18nProvider");
+  if (!v) {
+    // Возвращаем значения по умолчанию для SSR
+    if (typeof window === "undefined") {
+      return {
+        lang: "ru" as Lang,
+        t: (key: string) => key,
+        setLang: () => {},
+      };
+    }
+    throw new Error("useI18n must be used within I18nProvider");
+  }
   return v;
 }

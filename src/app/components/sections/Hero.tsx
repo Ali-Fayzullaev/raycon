@@ -1,3 +1,4 @@
+// src/app/components/sections/Hero.tsx
 "use client";
 import React, { useState } from "react";
 import { motion, Variants } from "framer-motion";
@@ -258,10 +259,10 @@ export default function ModernHero() {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden" id="home">
       <AnimatedBackground />
       <div className="relative z-10 mx-auto max-w-7xl px-4 pb-16 mt-5">
-        <p className="text-3xl md:text-5xl xl:text-4xl text-center font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white mb-6">Бесплатная CRM для микро и малого бизнеса</p>
+        <p className="text-3xl md:text-5xl xl:text-4xl text-center font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white mb-6">{t("hero_main_title")}</p>
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -275,15 +276,15 @@ export default function ModernHero() {
               className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500/15 to-emerald-500/15 dark:from-teal-400/10 dark:to-cyan-400/10 backdrop-blur-md border border-teal-200/30 dark:border-teal-500/20 rounded-full px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 mb-8"
             >
               <Sparkles className="w-4 h-4 text-teal-600 dark:text-teal-400" />
-              Новое поколение CRM-систем
+              {t("hero_badge_text")}
               <div className="w-3 h-3 border border-teal-400 dark:border-teal-500 border-dashed rounded-full animate-spin-slow" />
             </motion.div>
 
             <motion.h1
               variants={itemVariants}
-              className="text-2xl md:text-5xl xl:text-6xl font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white mb-6"
+              className="text-2xl md:text-3xl xl:text-4xl font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white mb-6"
             >
-              RAYCON CRM - простая CRM для управления заявками, услугами и управлением менеджмента.
+              {t("hero_title_1")}
             </motion.h1>
 
             <motion.p

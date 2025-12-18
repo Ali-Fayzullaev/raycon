@@ -1,3 +1,4 @@
+// src/app/components/layout/Header.tsx
 "use client";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ import {
   Phone, // Новый импорт
   Mail,
   Instagram, // Новый импорт
+  Info, // Для пункта "О нас"
 } from "lucide-react";
 import {
   Sheet,
@@ -82,7 +84,7 @@ const NavItem = ({
 );
 
 // --- НОВЫЙ КОМПОНЕНТ: Dropdown для контактов ---
-const ContactDropdown = () => (
+const ContactDropdown = ({ t }: { t: (key: string) => string }) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
       <motion.div
@@ -95,7 +97,7 @@ const ContactDropdown = () => (
           className="rounded-full px-4 py-2 text-sm font-medium bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group"
         >
           <Phone className="h-4 w-4 mr-2 text-teal-600 dark:text-teal-400" />
-          Контакты
+          {t("header_contacts")}
           <ChevronDown className="ml-1 h-3 w-3 transition-transform duration-200 group-data-[state=open]:rotate-180" />
         </Button>
       </motion.div>
@@ -193,10 +195,10 @@ export default function ModernHeader() {
   }, []);
 
   const navItems = [
-    { href: "#product", icon: PanelsTopLeft, label: "Продукт" },
-    { href: "#features", icon: Sparkles, label: "Функции" },
-    { href: "#cases", icon: Rocket, label: "Кейсы" },
-    { href: "#pricing", icon: BadgePercent, label: "Тарифы" },
+    { href: "#home", icon: PanelsTopLeft, label: t("header_nav_home") },
+    { href: "#product", icon: Sparkles, label: t("header_nav_product") },
+    { href: "#features", icon: Rocket, label: t("header_nav_features") },
+    { href: "#pricing", icon: BadgePercent, label: t("header_nav_pricing") },
   ];
 
   // Массив контактов для мобильного меню
@@ -296,7 +298,7 @@ export default function ModernHeader() {
           transition={{ delay: 0.5 }}
         >
           {/* НОВЫЙ КОМПОНЕНТ КОНТАКТОВ */}
-          <ContactDropdown />
+          <ContactDropdown t={t} />
           {/* --------------------------- */}
 
           <LanguageSwitcher />
@@ -312,7 +314,7 @@ export default function ModernHeader() {
                 className="hidden lg:inline-flex gap-2 text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 rounded-2xl"
               >
                 <User className="h-4 w-4" />
-                Войти
+                {t("header_login")}
               </Button>
             </Link>
           </motion.div>
@@ -389,7 +391,7 @@ export default function ModernHeader() {
             {/* НОВЫЙ БЛОК КОНТАКТОВ В МОБИЛЬНОМ МЕНЮ */}
             <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
               <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 px-4 mb-3">
-                Свяжитесь с нами
+                {t("header_mobile_contacts")}
               </h3>
               <div className="space-y-1">
                 {mobileContacts.map((contact, index) => (
@@ -435,7 +437,7 @@ export default function ModernHeader() {
                     className="w-full justify-center gap-2 border-slate-300 dark:border-slate-600 hover:border-teal-400 dark:hover:border-teal-400 transition-colors"
                   >
                     <User className="h-4 w-4" />
-                    Войти
+                    {t("header_login")}
                   </Button>
                 </Link>
 

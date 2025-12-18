@@ -10,7 +10,6 @@ import {
   Building2,
   ShoppingBag,
   Landmark as Bank,
-  Home,
   Bot,
   Sparkles,
   Target,
