@@ -346,6 +346,104 @@ export const dict: Record<Lang, Record<string, string>> = {
     faq_category_updates: "Обновления",
     faq_category_customization: "Настройка",
 
+    // Pricing periods
+    pricing_save_up_to: "Цена с учетом акции",
+    pricing_period_monthly: "Месяц",
+    pricing_period_halfyear: "Полгода",
+    pricing_period_yearly: "Год",
+    pricing_discount_halfyear: "скидка 10%",
+    pricing_discount_yearly: "скидка 20%",
+    
+    // Pricing plans details
+    pricing_standard_title: "Standard",
+    pricing_standard_desc: "Базовый контроль заявок. Для бизнеса, которому нужен порядок без масштабирования переписок",
+    pricing_pro_title: "Pro",
+    pricing_pro_desc: "Для масштабирования бизнеса и больших объёмов продаж",
+    pricing_business_title: "Business",
+    pricing_business_desc: "Максимум скорости и стабильности. Максимум возможностей и полный пакет контроля",
+    pricing_pro_badge: "Популярный",
+    
+    // Plan features
+    pricing_standard_f1: "CRM и воронка продаж",
+    pricing_standard_f2: "Автораспределение заявок",
+    pricing_standard_f3: "Аналитика, отчёты, статистика",
+    pricing_standard_f4: "WhatsApp в CRM",
+    pricing_standard_f5: "Чат-бот и автоматические ответы",
+    pricing_standard_f6: "Автоматизация процессов",
+    pricing_standard_f7: "Стандартная скорость обработки сообщений",
+    
+    pricing_pro_f1: "Всё из Standard, плюс:",
+    pricing_pro_f2: "Ускоренный мультичат",
+    pricing_pro_f3: "Мультичат с WhatsApp",
+    pricing_pro_f4: "Ускоренная обработка сообщений",
+    pricing_pro_f5: "WhatsApp в CRM работает быстрее",
+    pricing_pro_f6: "Расширенное время хранения файлов",
+    pricing_pro_f7: "Повышенная надёжность CRM",
+    
+    pricing_business_f1: "Всё из Pro, плюс:",
+    pricing_business_f2: "Мультичат WhatsApp + Instagram",
+    pricing_business_f3: "Максимальная скорость обработки сообщений",
+    pricing_business_f4: "Самая стабильная работа WhatsApp",
+    pricing_business_f5: "Хранение файлов без ограничений по времени",
+    pricing_business_f6: "Максимальная надёжность CRM",
+    pricing_business_f7: "Приоритетная скорость рассмотрения обращений",
+    
+    // Plan results and targets
+    pricing_standard_result: "Контроль заявок и продаж без потерь без сложных сценариев",
+    pricing_standard_target: "ИП, микробизнес, 1–2 менеджера",
+    pricing_pro_result: "Менеджеры отвечают быстрее, клиенты не теряются, конверсия растёт",
+    pricing_pro_target: "Отделы продаж, сервисы, онлайн-бизнес, до 20 менеджеров",
+    pricing_business_result: "CRM не ограничивает рост бизнеса даже при большом потоке заявок",
+    pricing_business_target: "Отделы продаж, сервисы, онлайн-бизнес, e-commerce, от 20 менеджеров",
+    
+    // Plan CTA
+    pricing_select_plan: "Выбрать план",
+    pricing_contact_us: "Связаться с нами",
+    pricing_by_request: "По запросу",
+    
+    // Comparison table
+    pricing_comparison_title: "Чем отличаются",
+    pricing_table_features: "Функции / Тариф",
+    pricing_table_bestseller: "Бестселлер продаж",
+    pricing_table_crm_integration: "Интеграция CRM",
+    pricing_table_free: "Бесплатно",
+    
+    // Multichat info
+    pricing_multichat_info: "— все сообщения клиентов из WhatsApp и Instagram в одном окне CRM. Диалоги не теряются, история сохраняется, клиенты всегда получают ответ.",
+    
+    // Additional table elements
+    pricing_discount_label: "Скидка",
+    pricing_included_label: "Включено:",
+    pricing_result_label: "Результат:",
+    pricing_suitable_label: "Подходит для:",
+    pricing_period_per: "/",
+    
+    // Table row labels
+    pricing_multichat: "Мультичат",
+    pricing_stats_deals: "Статистика по сделкам",
+    pricing_cloud_storage: "Облако хранения файлов",
+    pricing_reliability: "Надежность работы CRM",
+    pricing_speed: "Скорость обработки сообщений",
+    pricing_recommended: "Рекомендуется для",
+    
+    // Performance levels
+    pricing_basic: "Базовая",
+    pricing_enhanced: "Повышенная",
+    pricing_maximum: "Максимальная",
+    pricing_standard_level: "Стандарт",
+    pricing_high_level: "Высокая",
+    pricing_priority_level: "Приоритетная",
+    
+    // Feature descriptions
+    pricing_accelerated: "ускоренный",
+    pricing_most_stable: "самая стабильная и быстрая",
+    pricing_max_speed: "максимальная скорость",
+    pricing_key_functions: "Ключевые функции:",
+    pricing_for_label: "Для:",
+    
+    // Текст экономии
+    pricing_savings_yearly: "Выгоднее на 20%",
+
     final_cta_title: "Готовы к прорыву?",
     final_cta_lead:
       "Начните увеличивать продажи уже сегодня. Первые результаты увидите через 2 часа после запуска.",
@@ -727,6 +825,105 @@ export const dict: Record<Lang, Record<string, string>> = {
     faq_category_support: "Қолдау",
     faq_category_updates: "Жаңартулар",
     faq_category_customization: "Баптау",
+
+    // Pricing periods
+    pricing_save_up_to: "Акция бойынша баға",
+    pricing_period_monthly: "Ай",
+    pricing_period_halfyear: "Жарты жыл",
+    pricing_period_yearly: "Жыл",
+    pricing_discount_halfyear: "10% жеңілдік",
+    pricing_discount_yearly: "20% жеңілдік",
+    
+    // Pricing plans details
+    pricing_standard_title: "Standard",
+    pricing_standard_desc: "Негізгі өтінімдерді бақылау. Хат-хабарды масштабтамай-ақ тәртіп қажет бизнесге арналған",
+    pricing_pro_title: "Pro",
+    pricing_pro_desc: "Бизнесті масштабтауға және үлкен сатылым көлемдеріне арналған",
+    pricing_business_title: "Business",
+    pricing_business_desc: "Максималды жылдамдық пен тұрақтылық. Максималды мүмкіндіктер және толық бақылау пакеті",
+    pricing_pro_badge: "Танымал",
+    
+    // Plan features
+    pricing_standard_f1: "CRM және сатылым воронкасы",
+    pricing_standard_f2: "Өтінімдерді автобөлу",
+    pricing_standard_f3: "Аналитика, есептер, статистика",
+    pricing_standard_f4: "CRM-де WhatsApp",
+    pricing_standard_f5: "Чат-бот және автоматты жауаптар",
+    pricing_standard_f6: "Процестерді автоматтандыру",
+    pricing_standard_f7: "Хабарларды стандартты жылдамдықта өңдеу",
+    
+    pricing_pro_f1: "Standard-тан барлығы, плюс:",
+    pricing_pro_f2: "Жеделдетілген мультичат",
+    pricing_pro_f3: "WhatsApp-пен мультичат",
+    pricing_pro_f4: "Хабарларды жеделдетіп өңдеу",
+    pricing_pro_f5: "CRM-де WhatsApp жылдамырақ жұмыс істейді",
+    pricing_pro_f6: "Файлдарды ұзақ уақыт сақтау",
+    pricing_pro_f7: "CRM-нің жоғары сенімділігі",
+    
+    pricing_business_f1: "Pro-дан барлығы, плюс:",
+    pricing_business_f2: "WhatsApp + Instagram мультичаты",
+    pricing_business_f3: "Хабарларды максималды жылдамдықта өңдеу",
+    pricing_business_f4: "WhatsApp-тың ең тұрақты жұмысы",
+    pricing_business_f5: "Файлдарды уақыт шектеусіз сақтау",
+    pricing_business_f6: "CRM-нің максималды сенімділігі",
+    pricing_business_f7: "Өтініштерді қарауда басымды жылдамдық",
+    
+    // Plan results and targets
+    pricing_standard_result: "Күрделі сценарийлерсіз өтінімдер мен сатылымды жоғалтусыз бақылау",
+    pricing_standard_target: "ЖК, микробизнес, 1–2 менеджер",
+    pricing_pro_result: "Менеджерлер жылдамырақ жауап береді, клиенттер жоғалмайды, конверсия өседі",
+    pricing_pro_target: "Сатылым бөлімдері, қызметтер, онлайн бизнес, 20 менеджерге дейін",
+    pricing_business_result: "Үлкен өтінім ағынында да CRM бизнестің өсуін шектемейді",
+    pricing_business_target: "Сатылым бөлімдері, қызметтер, онлайн бизнес, e-commerce, 20 менеджерден",
+    
+    // Plan CTA
+    pricing_select_plan: "Жоспарды таңдау",
+    pricing_contact_us: "Бізбен хабарласыңыз",
+    pricing_by_request: "Сұраныс бойынша",
+    
+    // Comparison table
+    pricing_comparison_title: "Айырмашылығы неде",
+    pricing_table_features: "Функциялар / Тариф",
+    pricing_table_bestseller: "Сатылымның бестселлері",
+    pricing_table_crm_integration: "CRM интеграциясы",
+    pricing_table_free: "Тегін",
+    
+    // Multichat info
+    pricing_multichat_info: "— клиенттердің WhatsApp және Instagram-дағы барлық хабарлары CRM-нің бір терезесінде. Диалогтер жоғалмайды, тарих сақталады, клиенттер әрқашан жауап алады.",
+    
+    // Additional table elements
+    pricing_discount_label: "Жеңілдік",
+    pricing_included_label: "Кіреді:",
+    pricing_result_label: "Нәтиже:",
+    pricing_suitable_label: "Лайык:",
+    pricing_period_per: "/",
+    
+    // Table row labels
+    pricing_multichat: "Мультичат",
+    pricing_stats_deals: "Мәмілелер бойынша статистика",
+    pricing_cloud_storage: "Бұлтты файл сақтау",
+    pricing_reliability: "CRM жұмысының сенімділігі",
+    pricing_speed: "Хабарларды өңдеу жылдамдығы",
+    pricing_recommended: "Ұсынылады",
+    
+    // Performance levels
+    pricing_basic: "Негізгі",
+    pricing_enhanced: "Жоғарылатылған",
+    pricing_maximum: "Максималды",
+    pricing_standard_level: "Стандарт",
+    pricing_high_level: "Жоғары",
+    pricing_priority_level: "Басымды",
+    
+    // Feature descriptions
+    pricing_accelerated: "жеделдетілген",
+    pricing_most_stable: "ең тұрақты және жылдам",
+    pricing_max_speed: "максималды жылдамдық",
+    pricing_key_functions: "Негізгі функциялар:",
+    pricing_for_label: "Лайық:",
+    
+    // Текст экономии
+    pricing_savings_yearly: "20% арзан",
+
     final_cta_title: "Секіруге дайынсыз ба?",
     final_cta_lead:
       "Бүгін-ақ сатылымдарды көбейтуді бастаңыз. Алғашқы нәтижелерді іске қосқаннан кейін 2 сағат ішінде көресіз.",

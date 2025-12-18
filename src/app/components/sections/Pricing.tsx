@@ -2,6 +2,7 @@
 import React, { useState, useMemo } from "react";
 import { motion, Variants } from "framer-motion";
 import { useI18n } from "@/providers/I18nProvider";
+import Image from "next/image";
 import ModernTryModal from "../modals/TryModal";
 import {
   CheckCircle2,
@@ -15,9 +16,12 @@ import {
   Users,
   Clock,
   Shield,
-  X
+  X,
+  Minus,
+  TrendingDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { filter } from "framer-motion/client";
 
 // Упрощенные варианты анимаций
 const fade: Variants = {
@@ -83,10 +87,13 @@ function Feature({
 }
 
 export default function OptimizedPricing() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [open, setOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState("");
   const [isMultichatHighlighted, setIsMultichatHighlighted] = useState(false);
+  const [selectedPeriod, setSelectedPeriod] = useState<
+    "monthly" | "halfyear" | "yearly"
+  >("monthly");
 
   // Эффект для прослушивания событий выделения мультичата
   React.useEffect(() => {
@@ -99,97 +106,136 @@ export default function OptimizedPricing() {
     };
 
     // Слушаем кастомное событие от Hero компонента
-    window.addEventListener('multichat-highlight', handleMultichatHighlight);
-    
+    window.addEventListener("multichat-highlight", handleMultichatHighlight);
+
     return () => {
-      window.removeEventListener('multichat-highlight', handleMultichatHighlight);
+      window.removeEventListener(
+        "multichat-highlight",
+        handleMultichatHighlight
+      );
     };
   }, []);
 
   // Используем useMemo для предотвращения ненужных ререндеров
-  const plans = useMemo(
-    () => [
+  const plans = useMemo(() => {
+    // Определяем цены и скидки по периодам
+    const pricingPeriods = {
+      monthly: {
+        standard: {
+          price: "35 000 ₸",
+          period: t("pricing_period_monthly").toLowerCase(),
+        },
+        pro: {
+          price: "49 000 ₸",
+          period: t("pricing_period_monthly").toLowerCase(),
+        },
+        business: { price: t("pricing_by_request"), period: "" },
+      },
+      halfyear: {
+        standard: {
+          price: "189 000 ₸",
+          originalPrice: "210 000 ₸",
+          period: t("pricing_period_halfyear").toLowerCase(),
+          discount: "10%",
+        },
+        pro: {
+          price: "264 599 ₸",
+          originalPrice: "294 000 ₸",
+          period: t("pricing_period_halfyear").toLowerCase(),
+          discount: "10%",
+        },
+        business: { price: t("pricing_by_request"), period: "" },
+      },
+      yearly: {
+        standard: {
+          price: "336 000 ₸",
+          originalPrice: "420 000 ₸",
+          period: t("pricing_period_yearly").toLowerCase(),
+          discount: "20%",
+        },
+        pro: {
+          price: "470 399 ₸",
+          originalPrice: "588 000 ₸",
+          period: t("pricing_period_yearly").toLowerCase(),
+          discount: "20%",
+        },
+        business: { price: t("pricing_by_request"), period: "" },
+      },
+    };
+
+    return [
       {
-        key: "mini",
-        title: t("plan_mini"),
-        desc: t("plan_mini_desc"),
-        price: t("plan_mini_price"),
-        cta: t("plan_mini_cta"),
+        key: "standard",
+        title: t("pricing_standard_title"),
+        desc: t("pricing_standard_desc"),
+        pricing: pricingPeriods[selectedPeriod].standard,
+        cta: t("pricing_select_plan"),
+        popular: false,
+        accent: "from-slate-500 to-gray-600",
+        gradient:
+          "bg-gradient-to-br from-slate-500/10 to-gray-600/10 dark:from-slate-500/5 dark:to-gray-600/5",
+        icon: Shield,
+        features: [
+          t("pricing_standard_f1"),
+          t("pricing_standard_f2"),
+          t("pricing_standard_f3"),
+          t("pricing_standard_f4"),
+          t("pricing_standard_f5"),
+          t("pricing_standard_f6"),
+          t("pricing_standard_f7"),
+        ],
+        result: t("pricing_standard_result"),
+        target: t("pricing_standard_target"),
+      },
+      {
+        key: "pro",
+        title: t("pricing_pro_title"),
+        desc: t("pricing_pro_desc"),
+        pricing: pricingPeriods[selectedPeriod].pro,
+        cta: t("pricing_select_plan"),
         popular: true,
         accent: "from-teal-500 to-emerald-500",
         gradient:
           "bg-gradient-to-br from-teal-500/15 to-emerald-500/15 dark:from-teal-500/10 dark:to-emerald-500/10",
         icon: Crown,
         features: [
-          t("plan_mini_f1"),
-          t("plan_mini_f2"),
-          t("plan_mini_f3"),
-          t("plan_mini_f4"),
-          t("plan_mini_f5"),
+          t("pricing_pro_f1"),
+          t("pricing_pro_f2"),
+          t("pricing_pro_f3"),
+          t("pricing_pro_f4"),
+          t("pricing_pro_f5"),
+          t("pricing_pro_f6"),
+          t("pricing_pro_f7"),
         ],
-        stats: [
-          { icon: Users, value: "10", label: t("plan_stat_managers") },
-          {
-            icon: Zap,
-            value: t("plan_stat_implement_value"),
-            label: t("plan_stat_implement_label"),
-          },
-        ],
-        badge: t("plan_mini_popular"),
+        result: t("pricing_pro_result"),
+        target: t("pricing_pro_target"),
+        badge: t("pricing_pro_badge"),
       },
       {
-        key: "pro",
-        title: t("plan_pro"),
-        desc: t("plan_pro_desc"),
-        price: t("plan_pro_price"),
-        cta: t("plan_pro_cta"),
-        popular: false,
-        accent: "from-blue-500 to-cyan-500",
-        gradient:
-          "bg-gradient-to-br from-blue-500/10 to-cyan-500/10 dark:from-blue-500/5 dark:to-cyan-500/5",
-        icon: Rocket,
-        features: [
-          t("plan_pro_f1"),
-          t("plan_pro_f2"),
-          t("plan_pro_f3"),
-          t("plan_pro_f4"),
-          t("plan_pro_f5"),
-          t("plan_pro_f6"),
-        ],
-        stats: [
-          { icon: Users, value: "20", label: t("plan_stat_managers") },
-          { icon: Clock, value: "24/7", label: t("plan_stat_support") },
-        ],
-      },
-      {
-        key: "enterprise",
-        title: t("plan_enterprise"),
-        desc: t("plan_enterprise_desc"),
-        price: t("plan_enterprise_price"),
-        cta: t("plan_enterprise_cta"),
+        key: "business",
+        title: t("pricing_business_title"),
+        desc: t("pricing_business_desc"),
+        pricing: pricingPeriods[selectedPeriod].business,
+        cta: t("pricing_contact_us"),
         popular: false,
         accent: "from-purple-500 to-indigo-500",
         gradient:
           "bg-gradient-to-br from-purple-500/10 to-indigo-500/10 dark:from-purple-500/5 dark:to-indigo-500/5",
         icon: Gem,
         features: [
-          t("plan_ent_f1"),
-          t("plan_ent_f2"),
-          t("plan_ent_f3"),
-          t("plan_ent_f4"),
-          t("plan_ent_f5"),
-          t("plan_ent_f6"),
-          t("plan_ent_f7"),
-          t("plan_ent_f8"),
+          t("pricing_business_f1"),
+          t("pricing_business_f2"),
+          t("pricing_business_f3"),
+          t("pricing_business_f4"),
+          t("pricing_business_f5"),
+          t("pricing_business_f6"),
+          t("pricing_business_f7"),
         ],
-        stats: [
-          { icon: Shield, value: "99.9%", label: t("plan_stat_uptime") },
-          { icon: BadgeCheck, value: "SLA", label: t("plan_stat_sla") },
-        ],
+        result: t("pricing_business_result"),
+        target: t("pricing_business_target"),
       },
-    ],
-    [t]
-  );
+    ];
+  }, [selectedPeriod, lang]);
 
   const handlePlanSelect = (planKey: string) => {
     setSelectedPlan(planKey);
@@ -259,6 +305,112 @@ export default function OptimizedPricing() {
           </motion.p>
         </motion.div>
 
+        <div className="relative mb-3 h-8 sm:h-7 flex items-center">
+          {/* Всегда строго по центру */}
+          <span
+            className="absolute left-1/2 -translate-x-1/2
+      text-[11px] sm:text-sm
+      text-slate-500 dark:text-slate-400
+      whitespace-nowrap"
+          >
+            {t("pricing_save_up_to")}
+          </span>
+
+          {/* Управляемый сдвиг вправо */}
+          <span
+            className="
+            absolute left-1/2
+            translate-x-20 sm:translate-x-42
+            bg-gradient-to-r from-yellow-500 to-yellow-400
+            text-white px-1 py-1
+            text-[8px] sm:text-sm
+            font-bold shadow-lg whitespace-nowrap
+            border-dotted border-2
+          "
+          >
+            {t("pricing_savings_yearly")}
+          </span>
+        </div>
+
+        {/* Переключатель периода */}
+        <motion.div
+          variants={fade}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="relative flex justify-center mb-8 sm:mb-12"
+        >
+          <div className=" bg-white dark:bg-slate-900 rounded-xl sm:rounded-2xl p-0.5 sm:p-1 shadow-lg border border-slate-200 dark:border-slate-700 relative">
+            <div className="flex">
+              {[
+                {
+                  key: "monthly",
+                  label: t("pricing_period_monthly"),
+                  discount: null,
+                  savings: null,
+                },
+                {
+                  key: "halfyear",
+                  label: t("pricing_period_halfyear"),
+                  discount: t("pricing_discount_halfyear"),
+                  savings: null,
+                },
+                {
+                  key: "yearly",
+                  label: t("pricing_period_yearly"),
+                  discount: t("pricing_discount_yearly"),
+                  savings: "Выгоднее на 20%",
+                },
+              ].map((period) => (
+                <button
+                  key={period.key}
+                  onClick={() => setSelectedPeriod(period.key as any)}
+                  className={`relative px-3 sm:px-8 py-2 sm:py-4 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 ${
+                    selectedPeriod === period.key
+                      ? "bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-lg"
+                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
+                  }`}
+                >
+                  <div className="flex flex-col items-center gap-0.5 sm:gap-1">
+                    <span className="text-xs sm:text-base">{period.label}</span>
+                    {period.discount && (
+                      <span
+                        className={`text-[10px] sm:text-xs ${
+                          selectedPeriod === period.key
+                            ? "text-white/80"
+                            : "text-emerald-600 dark:text-emerald-400"
+                        }`}
+                      >
+                        {period.discount}
+                      </span>
+                    )}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative">
+            <Image
+              src="/subtract.png"
+              alt="Arrow"
+              width={130}
+              height={50} // реальное соотношение сторон
+              sizes="(max-width: 640px) 40px,
+          (max-width: 768px) 50px,
+          (max-width: 1024px) 80px,
+          90px"
+              className="
+          w-[50px] sm:w-[60px] md:w-[80px] lg:w-[90px]
+          filter
+          invert
+          sepia saturate-[400%]
+          brightness-110 contrast-110
+        "
+            />
+          </div>
+        </motion.div>
+
         {/* Тарифы - Desktop */}
         <motion.div
           variants={stagger}
@@ -321,7 +473,7 @@ export default function OptimizedPricing() {
 
         {/* Сравнительная таблица тарифов */}
         <p className="text-center text-lg font-medium text-slate-700 dark:text-slate-300 mt-16 mb-6">
-          Чем отличаются
+          {t("pricing_comparison_title")}
         </p>
         <motion.div
           variants={fade}
@@ -337,19 +489,19 @@ export default function OptimizedPricing() {
                 <thead>
                   <tr className="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
                     <th className="px-6 py-4 text-left font-semibold text-slate-900 dark:text-white">
-                      Функции / Тариф
+                      {t("pricing_table_features")}
                     </th>
                     <th className="px-6 py-4 text-center font-semibold text-slate-900 dark:text-white">
-                      Standard
+                      {t("pricing_standard_title")}
                     </th>
                     <th className="px-6 py-4 text-center font-semibold text-emerald-600 dark:text-emerald-400 relative">
-                      Pro ⭐
+                      {t("pricing_pro_title")} ⭐
                       <div className="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs px-2 py-1 rounded-full">
-                        Бестселлер продаж
+                        {t("pricing_table_bestseller")}
                       </div>
                     </th>
                     <th className="px-6 py-4 text-center font-semibold text-slate-900 dark:text-white">
-                      Business
+                      {t("pricing_business_title")}
                     </th>
                   </tr>
                 </thead>
@@ -357,36 +509,48 @@ export default function OptimizedPricing() {
                   {/* Интеграция CRM */}
                   <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                     <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
-                      Интеграция CRM
+                      {t("pricing_table_crm_integration")}
                     </td>
                     <td className="px-6 py-4 text-center text-emerald-600 dark:text-emerald-400">
-                      Бесплатно
+                      {t("pricing_table_free")}
                     </td>
                     <td className="px-6 py-4 text-center text-emerald-600 dark:text-emerald-400">
-                      Бесплатно
+                      {t("pricing_table_free")}
                     </td>
                     <td className="px-6 py-4 text-center text-emerald-600 dark:text-emerald-400">
-                      Бесплатно
+                      {t("pricing_table_free")}
                     </td>
                   </tr>
 
                   {/* Функции с галочками */}
                   {[
-                    "Автораспределение заявок",
-                    "Воронка продаж",
-                    "Аналитика и отчеты",
-                    "Статистика по сделкам",
-                    "Интеграция WhatsApp",
-                    "Чат-бот",
-                    "Автоматические ответы",
-                    "Автоматизация процессов",
-                  ].map((feature) => (
+                    { key: "f2", text: t("pricing_standard_f2") },
+                    { key: "f1", text: t("pricing_standard_f1") },
+                    { key: "f3_analytics", text: t("pricing_standard_f3") },
+                    { key: "f3_stats", text: t("pricing_stats_deals") },
+                    { key: "f4", text: t("pricing_standard_f4") },
+                    {
+                      key: "f5_bot",
+                      text: t("pricing_standard_f5").includes("и")
+                        ? t("pricing_standard_f5").split(" и ")[0]
+                        : t("pricing_standard_f5").split(" және ")[0],
+                    },
+                    {
+                      key: "f5_auto",
+                      text: t("pricing_standard_f5").includes("и")
+                        ? t("pricing_standard_f5").split(" и ")[1] ||
+                          t("pricing_standard_f5")
+                        : t("pricing_standard_f5").split(" және ")[1] ||
+                          t("pricing_standard_f5"),
+                    },
+                    { key: "f6", text: t("pricing_standard_f6") },
+                  ].map((item) => (
                     <tr
-                      key={feature}
+                      key={item.key}
                       className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
                     >
                       <td className="px-6 py-4 text-slate-700 dark:text-slate-300">
-                        {feature}
+                        {item.text}
                       </td>
                       <td className="px-6 py-4 text-center">
                         <CheckCircle2 className="w-5 h-5 text-emerald-500 mx-auto" />
@@ -403,10 +567,10 @@ export default function OptimizedPricing() {
                   {/* Мультичат */}
                   <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                     <td className="px-6 py-4 text-slate-700 dark:text-slate-300">
-                      Мультичат
+                      {t("pricing_multichat")}
                     </td>
                     <td className="px-6 py-4 text-center text-red-500 dark:text-red-400">
-                        <X className="w-5 h-5 mx-auto  bg-red-500 text-white rounded-full p-0.5" />
+                      <Minus className="w-5 h-5 mx-auto bg-slate-300 text-slate-600 rounded-full p-0.5" />
                     </td>
                     <td className="px-6 py-4 text-center text-slate-600 dark:text-slate-400">
                       <div className="flex items-center justify-center space-x-1">
@@ -416,7 +580,13 @@ export default function OptimizedPricing() {
                     <td className="px-6 py-4 text-center text-slate-600 dark:text-slate-400">
                       <div className="flex items-center justify-center space-x-1">
                         <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                        <span>(максимальная скорость)</span>
+                        <span>
+                          (
+                          {t("pricing_period_monthly") === "Месяц"
+                            ? "максимальная скорость"
+                            : "максималды жылдамдық"}
+                          )
+                        </span>
                       </div>
                     </td>
                   </tr>
@@ -424,7 +594,7 @@ export default function OptimizedPricing() {
                   {/* WhatsApp в CRM */}
                   <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                     <td className="px-6 py-4 text-slate-700 dark:text-slate-300">
-                      WhatsApp в CRM
+                      {t("pricing_standard_f4")}
                     </td>
                     <td className="px-6 py-4 text-center">
                       <CheckCircle2 className="w-5 h-5 text-emerald-500 mx-auto" />
@@ -432,13 +602,13 @@ export default function OptimizedPricing() {
                     <td className="px-6 py-4 text-center text-slate-600 dark:text-slate-400">
                       <div className="flex items-center justify-center space-x-1">
                         <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                        <span>(ускоренный)</span>
+                        <span>({t("pricing_accelerated")})</span>
                       </div>
                     </td>
                     <td className="px-6 py-4 text-center text-slate-600 dark:text-slate-400">
                       <div className="flex items-center justify-center space-x-1">
                         <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                        <span>(самая стабильная и быстрая)</span>
+                        <span>({t("pricing_most_stable")})</span>
                       </div>
                     </td>
                   </tr>
@@ -446,10 +616,10 @@ export default function OptimizedPricing() {
                   {/* Мультичат WhatsApp */}
                   <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                     <td className="px-6 py-4 text-slate-700 dark:text-slate-300">
-                      Мультичат WhatsApp
+                      {t("pricing_pro_f3")}
                     </td>
                     <td className="px-6 py-4 text-center text-red-500 dark:text-red-400">
-                      <X className="w-5 h-5 mx-auto  bg-red-500 text-white rounded-full p-0.5" />
+                      <Minus className="w-5 h-5 mx-auto bg-slate-300 text-slate-600 rounded-full p-0.5" />
                     </td>
                     <td className="px-6 py-4 text-center text-slate-600 dark:text-slate-400">
                       <CheckCircle2 className="w-5 h-5 text-emerald-500 mx-auto" />
@@ -458,9 +628,8 @@ export default function OptimizedPricing() {
                       <div className="flex items-center justify-center space-x-1">
                         <CheckCircle2 className="w-5 h-5 text-emerald-500" />
                         <span>
-                          WhatsApp+ Instagram
-                      <br />
-                      (максимальная скорость)
+                          {t("pricing_business_f2").replace("Мультичат ", "")}
+                          <br />({t("pricing_max_speed")})
                         </span>
                       </div>
                     </td>
@@ -469,10 +638,10 @@ export default function OptimizedPricing() {
                   {/* Облако хранения файлов */}
                   <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                     <td className="px-6 py-4 text-slate-700 dark:text-slate-300">
-                      Облако хранения файлов
+                      {t("pricing_cloud_storage")}
                     </td>
                     <td className="px-6 py-4 text-center">
-                      <X className="w-5 h-5 mx-auto  bg-red-500 text-white rounded-full p-0.5" />
+                      <Minus className="w-5 h-5 mx-auto bg-slate-300 text-slate-600 rounded-full p-0.5" />
                     </td>
                     <td className="px-6 py-4 text-center text-slate-600 dark:text-slate-400">
                       <div className="flex items-center justify-center space-x-1">
@@ -482,7 +651,7 @@ export default function OptimizedPricing() {
                     <td className="px-6 py-4 text-center text-slate-600 dark:text-slate-400">
                       <div className="flex items-center justify-center space-x-1">
                         <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                        <span>(хранение файлов без ограничения по времени)</span>
+                        <span>({t("pricing_business_f5")})</span>
                       </div>
                     </td>
                   </tr>
@@ -490,46 +659,46 @@ export default function OptimizedPricing() {
                   {/* Характеристики производительности */}
                   <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors bg-slate-100 dark:bg-slate-800">
                     <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
-                      Надежность работы CRM
+                      {t("pricing_reliability")}
                     </td>
                     <td className="px-6 py-4 text-center text-slate-600 dark:text-slate-400">
-                      Базовая
+                      {t("pricing_basic")}
                     </td>
                     <td className="px-6 py-4 text-center text-emerald-600 dark:text-emerald-400 font-medium">
-                      Повышенная
+                      {t("pricing_enhanced")}
                     </td>
                     <td className="px-6 py-4 text-center text-blue-600 dark:text-blue-400 font-medium">
-                      Максимальная
+                      {t("pricing_maximum")}
                     </td>
                   </tr>
 
                   <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                     <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
-                      Скорость обработки сообщений
+                      {t("pricing_speed")}
                     </td>
                     <td className="px-6 py-4 text-center text-slate-600 dark:text-slate-400">
-                      Стандарт
+                      {t("pricing_standard_level")}
                     </td>
                     <td className="px-6 py-4 text-center text-emerald-600 dark:text-emerald-400 font-medium">
-                      Высокая
+                      {t("pricing_high_level")}
                     </td>
                     <td className="px-6 py-4 text-center text-blue-600 dark:text-blue-400 font-medium">
-                      Приоритетная
+                      {t("pricing_priority_level")}
                     </td>
                   </tr>
 
                   <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                     <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
-                      Рекомендуется для
+                      {t("pricing_recommended")}
                     </td>
                     <td className="px-6 py-4 text-center text-slate-600 dark:text-slate-400 text-sm">
-                      ИП, микробизнес
+                      {t("pricing_standard_target").split(",")[0]}
                     </td>
                     <td className="px-6 py-4 text-center text-emerald-600 dark:text-emerald-400 text-sm font-medium">
-                      Отделы продаж
+                      {t("pricing_pro_target").split(",")[0]}
                     </td>
                     <td className="px-6 py-4 text-center text-blue-600 dark:text-blue-400 text-sm font-medium">
-                      Компании, команды, e-commerce
+                      {t("pricing_business_target")}
                     </td>
                   </tr>
                 </tbody>
@@ -544,20 +713,23 @@ export default function OptimizedPricing() {
           className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 px-6 py-4 border-t border-slate-200 dark:border-slate-700 transition-colors duration-500 scroll-mt-20"
         >
           <div className="text-center">
-            <p className={`text-sm mt-2 transition-colors duration-300 ${
-              isMultichatHighlighted 
-                ? 'text-amber-600 dark:text-amber-400 font-medium' 
-                : 'text-slate-700 dark:text-slate-300'
-            }`}>
-              <span className={`font-semibold ${
-                isMultichatHighlighted 
-                  ? 'text-amber-700 dark:text-amber-300'
-                  : 'text-teal-600 dark:text-teal-400'
-              }`}>Мультичат</span> — все сообщения клиентов из WhatsApp и Instagram в одном
-              окне CRM.
-              <br />
-              Диалоги не теряются, история сохраняется, клиенты всегда получают
-              ответ.
+            <p
+              className={`text-sm mt-2 transition-colors duration-300 ${
+                isMultichatHighlighted
+                  ? "text-amber-600 dark:text-amber-400 font-medium"
+                  : "text-slate-700 dark:text-slate-300"
+              }`}
+            >
+              <span
+                className={`font-semibold ${
+                  isMultichatHighlighted
+                    ? "text-amber-700 dark:text-amber-300"
+                    : "text-teal-600 dark:text-teal-400"
+                }`}
+              >
+                {t("pricing_multichat")}
+              </span>{" "}
+              {t("pricing_multichat_info")}
             </p>
           </div>
         </motion.div>
@@ -578,6 +750,7 @@ const OptimizedPricingCard = ({
   index: number;
   onSelect: (key: string) => void;
 }) => {
+  const { t } = useI18n();
   const isPopular = plan.popular;
 
   return (
@@ -595,7 +768,7 @@ const OptimizedPricingCard = ({
         }`}
       >
         {/* Бейдж популярного тарифа */}
-        {isPopular && (
+        {isPopular && plan.badge && (
           <motion.div
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
@@ -610,55 +783,83 @@ const OptimizedPricingCard = ({
         )}
 
         {/* Заголовок */}
-        <div className="flex items-center gap-3 mb-4">
-          <div
-            className={`w-12 h-12 rounded-xl bg-gradient-to-br ${plan.accent} flex items-center justify-center shadow-md`}
-          >
-            <plan.icon className="w-6 h-6 text-white" />
-          </div>
-          <div>
+        <div className="mb-4">
+          <div className="flex items-center gap-3 mb-3">
+            <div
+              className={`w-12 h-12 rounded-xl bg-gradient-to-br ${plan.accent} flex items-center justify-center shadow-md`}
+            >
+              <plan.icon className="w-6 h-6 text-white" />
+            </div>
             <h3 className="text-xl font-bold text-slate-900 dark:text-white">
               {plan.title}
             </h3>
-            <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-              {plan.desc}
-            </p>
           </div>
+          <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+            {plan.desc}
+          </p>
         </div>
 
         {/* Цена */}
-        <div className="mb-4">
-          <div className="text-3xl font-black text-slate-900 dark:text-white">
-            {plan.price}
-          </div>
-        </div>
-
-        {/* Статистика */}
-        <div className="flex gap-3 mb-4">
-          {plan.stats.map((stat: any, i: number) => (
-            <div
-              key={i}
-              className="flex-1 text-center p-2 rounded-lg bg-white/50 dark:bg-slate-800/30"
-            >
-              <stat.icon className="w-5 h-5 mx-auto mb-1 text-teal-500" />
-              <div className="font-bold text-slate-900 dark:text-white text-sm">
-                {stat.value}
-              </div>
-              <div className="text-xs text-slate-600 dark:text-slate-400">
-                {stat.label}
-              </div>
+        <div className="mb-6">
+          <div className="flex items-baseline gap-2">
+            <div className="text-3xl font-black text-slate-900 dark:text-white">
+              {plan.pricing.price}
             </div>
-          ))}
+            {plan.pricing.period && (
+              <span className="text-slate-600 dark:text-slate-400">
+                / {plan.pricing.period}
+              </span>
+            )}
+          </div>
+          {plan.pricing.originalPrice && (
+            <div className="flex items-center gap-2 mt-1">
+              <span className="text-slate-500 line-through text-sm">
+                {plan.pricing.originalPrice}
+              </span>
+              <span className="bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 rounded-full text-xs font-medium">
+                {t("pricing_discount_label")} {plan.pricing.discount}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Особенности */}
-        <ul className="space-y-1 mb-6 flex-1">
-          {plan.features.map((feature: string, i: number) => (
-            <Feature key={i} popular={isPopular && i < 2}>
-              {feature}
-            </Feature>
-          ))}
-        </ul>
+        <div className="space-y-4 mb-6 flex-1">
+          <div>
+            <h4 className="font-semibold text-slate-900 dark:text-white mb-2">
+              {t("pricing_included_label")}
+            </h4>
+            <ul className="space-y-1">
+              {plan.features.map((feature: string, i: number) => (
+                <li
+                  key={i}
+                  className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300"
+                >
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="border-t border-slate-200 dark:border-slate-700 pt-4">
+            <h4 className="font-semibold text-slate-900 dark:text-white mb-2">
+              {t("pricing_result_label")}
+            </h4>
+            <p className="text-sm text-slate-600 dark:text-slate-400">
+              {plan.result}
+            </p>
+          </div>
+
+          <div className="border-t border-slate-200 dark:border-slate-700 pt-4">
+            <h4 className="font-semibold text-slate-900 dark:text-white mb-2">
+              {t("pricing_suitable_label")}
+            </h4>
+            <p className="text-sm text-slate-600 dark:text-slate-400">
+              {plan.target}
+            </p>
+          </div>
+        </div>
 
         {/* Кнопка */}
         <Button
@@ -689,6 +890,7 @@ const OptimizedMobilePricingCard = ({
   index: number;
   onSelect: (key: string) => void;
 }) => {
+  const { t } = useI18n();
   const isPopular = plan.popular;
 
   return (
@@ -700,7 +902,7 @@ const OptimizedMobilePricingCard = ({
         isPopular ? "border-teal-500/30 ring-1 ring-teal-500/20" : ""
       }`}
     >
-      {isPopular && (
+      {isPopular && plan.badge && (
         <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
           <div className="inline-flex items-center gap-1 bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-2 py-1 rounded-full text-xs font-bold">
             <Crown className="w-3 h-3" />
@@ -709,35 +911,69 @@ const OptimizedMobilePricingCard = ({
         </div>
       )}
 
-      <div className="flex items-center gap-3 mb-3">
-        <div
-          className={`w-10 h-10 rounded-lg bg-gradient-to-br ${plan.accent} flex items-center justify-center shadow-sm`}
-        >
-          <plan.icon className="w-5 h-5 text-white" />
-        </div>
-        <div>
+      <div className="mb-4">
+        <div className="flex items-center gap-3 mb-2">
+          <div
+            className={`w-10 h-10 rounded-lg bg-gradient-to-br ${plan.accent} flex items-center justify-center shadow-sm`}
+          >
+            <plan.icon className="w-5 h-5 text-white" />
+          </div>
           <h3 className="text-lg font-bold text-slate-900 dark:text-white">
             {plan.title}
           </h3>
-          <p className="text-slate-600 dark:text-slate-400 text-xs">
-            {plan.desc}
+        </div>
+        <p className="text-slate-600 dark:text-slate-400 text-sm">
+          {plan.desc}
+        </p>
+      </div>
+
+      <div className="mb-4">
+        <div className="flex items-baseline gap-2">
+          <div className="text-2xl font-black text-slate-900 dark:text-white">
+            {plan.pricing.price}
+          </div>
+          {plan.pricing.period && (
+            <span className="text-slate-600 dark:text-slate-400 text-sm">
+              / {plan.pricing.period}
+            </span>
+          )}
+        </div>
+        {plan.pricing.originalPrice && (
+          <div className="flex items-center gap-2 mt-1">
+            <span className="text-slate-500 line-through text-xs">
+              {plan.pricing.originalPrice}
+            </span>
+            <span className="bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 rounded-full text-xs font-medium">
+              -{plan.pricing.discount}
+            </span>
+          </div>
+        )}
+      </div>
+
+      <div className="space-y-3 mb-4">
+        <div>
+          <h4 className="font-semibold text-slate-900 dark:text-white text-sm mb-2">
+            {t("pricing_key_functions")}
+          </h4>
+          <ul className="space-y-1">
+            {plan.features.slice(0, 4).map((feature: string, i: number) => (
+              <li
+                key={i}
+                className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300"
+              >
+                <CheckCircle2 className="w-3 h-3 text-emerald-500 mt-0.5 flex-shrink-0" />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="border-t border-slate-200 dark:border-slate-700 pt-3">
+          <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">
+            {t("pricing_for_label")} {plan.target}
           </p>
         </div>
       </div>
-
-      <div className="mb-3">
-        <div className="text-2xl font-black text-slate-900 dark:text-white">
-          {plan.price}
-        </div>
-      </div>
-
-      <ul className="space-y-1 mb-4">
-        {plan.features.slice(0, 3).map((feature: string, i: number) => (
-          <Feature key={i} popular={isPopular && i === 0}>
-            {feature}
-          </Feature>
-        ))}
-      </ul>
 
       <Button
         onClick={() => onSelect(plan.key)}
