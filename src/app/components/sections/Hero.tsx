@@ -262,7 +262,10 @@ export default function ModernHero() {
     <section className="relative min-h-screen flex items-center overflow-hidden" id="home">
       <AnimatedBackground />
       <div className="relative z-10 mx-auto max-w-7xl px-4 pb-16 mt-5">
-        <p className="text-3xl md:text-5xl xl:text-4xl text-center font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white mb-6">{t("hero_main_title")}</p>
+       <h1 className="text-3xl md:text-5xl xl:text-4xl text-center font-black leading-[1.1] tracking-tight text-transparent mb-6">
+  {t("hero_main_title")}
+</h1>
+
         <motion.div
           variants={containerVariants}
           initial="hidden"
