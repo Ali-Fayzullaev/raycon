@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RAYCON CRM - Бесплатная CRM система для малого бизнеса в Казахстане",
-  description: "Raycon CRM - простая и эффективная CRM система для управления клиентами, заявками и продажами. WhatsApp интеграция, мультичат, автоматизация. Бесплатный тест-драйв 14 дней.",
+  title: "Raycon CRM — аналог Wazzup для бизнеса | Установка CRM для WhatsApp от 35 000 ₸",
+  description: "Raycon CRM — адаптированная для продаж альтернатива Wazzup. Мультичат WhatsApp, автораспределение заявок, аналитика в одной CRM. Установка за 20 минут. Тарифы от 35 000₸/мес. Бесплатный тест 3 дня. ☎ +7 (707) 846-99-99",
   keywords: "CRM система, CRM Казахстан, система управления клиентами, WhatsApp CRM, мультичат, автоматизация продаж, CRM для малого бизнеса",
   authors: [{ name: "Raycon" }],
   robots: "index, follow",
