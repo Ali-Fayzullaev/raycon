@@ -78,7 +78,6 @@ export default function RootLayout({
           }}
         />
         
-        {/* Google Analytics */}}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z6QYLQ4C27"></script>
         <script
           dangerouslySetInnerHTML={{
