@@ -13,6 +13,7 @@ import KeyCapabilities from "./sections/KeyCapabilities";
 import ClientResults from "./sections/ClientResults";
 import FAQ from "./sections/FAQ";
 import FinalCTA from "./sections/FinalCTA";
+import WhoWe from "./sections/WhoWe";
 
 
 export default function LandingClient() {
@@ -28,6 +29,7 @@ export default function LandingClient() {
           <KeyCapabilities/>
           <Pricing />
           <ClientResults/>
+          <WhoWe/>
           <FAQ/>
           <FinalCTA />
           <Footer />
