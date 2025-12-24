@@ -3,7 +3,6 @@ export type Lang = "ru" | "kk";
 export const dict: Record<Lang, Record<string, string>> = {
   ru: {
     // Hero
-    hero_main_title: "Бесплатная CRM для микро и малого бизнеса",
     hero_badge_text: "Новое поколение CRM-систем",
     hero_title_1: "RAYCON CRM - простая CRM для управления заявками, услугами и управлением менеджмента.",
     hero_title_part1: "Raycon CRM — умный",
@@ -501,7 +500,6 @@ export const dict: Record<Lang, Record<string, string>> = {
 
   kk: {
     // Hero
-    hero_main_title: "Микро және шағын бизнес үшін тегін CRM",
     hero_badge_text: "CRM жүйелерінің жаңа ұрпағы",
     hero_title_1: "RAYCON CRM - өтінімдерді, қызметтерді және менеджментті басқаруға арналған қарапайым CRM.",
     hero_title_part1: "Raycon CRM — бизнес үшін ақылды",

@@ -78,7 +78,7 @@ const devices = [
     scale: 0.8,
     contentStyle: "rounded-[12px] h-[100%] ",
     type: "image",
-  }
+  },
 ];
 
 function DeviceCarousel() {
@@ -222,13 +222,13 @@ export default function ModernHero() {
 
   // Функция для прокрутки к блоку с информацией о мультичате
   const scrollToMultichatInfo = () => {
-    const element = document.getElementById('multichat-info');
+    const element = document.getElementById("multichat-info");
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      
+      element.scrollIntoView({ behavior: "smooth" });
+
       // Запускаем событие для активации выделения текста в Pricing компоненте
       setTimeout(() => {
-        window.dispatchEvent(new CustomEvent('multichat-highlight'));
+        window.dispatchEvent(new CustomEvent("multichat-highlight"));
       }, 500); // Небольшая задержка для завершения прокрутки
     }
   };
@@ -259,12 +259,14 @@ export default function ModernHero() {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden" id="home">
+    <section
+      className="relative min-h-screen flex items-center overflow-hidden"
+      id="home"
+    >
       <AnimatedBackground />
       <div className="relative z-10 mx-auto max-w-7xl px-4 pb-16 mt-5">
-       <h1 className="text-3xl md:text-5xl xl:text-4xl text-center font-black leading-[1.1] tracking-tight text-transparent mb-6">
-  {t("hero_main_title")}
-</h1>
+        <h1 className="text-3xl md:text-5xl xl:text-4xl text-center font-black leading-[1.1] tracking-tight text-transparent">
+          Бесплатная CRM для микро и малого бизнеса CRM Битрикс24, bitrix амо црм амо битрикс битрикс казахстан битрикс астана вазап wazzup</h1>
 
         <motion.div
           variants={containerVariants}
@@ -300,13 +302,19 @@ export default function ModernHero() {
             <motion.div variants={itemVariants} className="space-y-4 mb-10">
               {bulletPoints.map((item, index: number) => {
                 const isMultichatItem = item.text === t("hero_bul_2");
-                const ItemComponent = isMultichatItem ? 'button' : 'div';
-                
+                const ItemComponent = isMultichatItem ? "button" : "div";
+
                 return (
                   <ItemComponent
                     key={index}
-                    onClick={isMultichatItem ? scrollToMultichatInfo : undefined}
-                    className={`flex items-center gap-4 group ${isMultichatItem ? 'cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/50 rounded-lg  transition-all' : ''}`}
+                    onClick={
+                      isMultichatItem ? scrollToMultichatInfo : undefined
+                    }
+                    className={`flex items-center gap-4 group ${
+                      isMultichatItem
+                        ? "cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/50 rounded-lg  transition-all"
+                        : ""
+                    }`}
                   >
                     <motion.div
                       whileHover={{ scale: 1.1, rotate: 5 }}
@@ -317,8 +325,10 @@ export default function ModernHero() {
                     <span className="text-slate-700 dark:text-slate-300 font-medium group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
                       {isMultichatItem ? (
                         <>
-                          <span className="text-teal-600 dark:text-teal-400 hover:underline">Мультичат</span>
-                          {item.text.replace('Мультичат', '')}
+                          <span className="text-teal-600 dark:text-teal-400 hover:underline">
+                            Мультичат
+                          </span>
+                          {item.text.replace("Мультичат", "")}
                         </>
                       ) : (
                         item.text
