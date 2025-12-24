@@ -18,7 +18,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     hero_bul_5: "Развернутая CRM Аналитика.",
     hero_bul_6: "От 1 менеджера",
     hero_cta: "Запустить CRM в тестовом режиме",
-    hero_trial_note: "14 дней полного доступа без ограничений",
+    hero_trial_note: "3 дня полного доступа без ограничений",
     hero_video_alt: "Демонстрация возможностей Raycon CRM",
 
     // Modal
@@ -105,7 +105,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     roadmap_3_tag: "Шаг 3",
     roadmap_3_title: "Бесплатный тест-драйв",
     roadmap_3_desc:
-      "Вы можете бесплатно протестировать систему 14 дней. Подключение и настройка онлайн — полностью бесплатно, выезд специалиста — 20 000 тенге.",
+      "Вы можете бесплатно протестировать систему 3 дня. Подключение и настройка онлайн — полностью бесплатно, выезд специалиста — 20 000 тенге.",
     roadmap_subtitle:
       "Быстрое внедрение и мгновенный результат для вашего бизнеса",
     roadmap_badge: "Процесс внедрения",
@@ -169,7 +169,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     pricing_subtitle:
       "Выберите оптимальный план для вашего бизнеса. Во всех тарифах полный функционал.",
     pricing_badge: "Гибкая система цен",
-    pricing_feature1: "5 дней бесплатно",
+    pricing_feature1: "3 дня бесплатно",
     pricing_feature2: "Без скрытых платежей",
     pricing_feature3: "Можно менять тариф в любое время",
 
@@ -461,7 +461,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     final_guarantee_security: "Без кредитной карты",
     final_guarantee_cancel: "Отмена в любой момент",
     final_feature_quick: "20 минутта баптау",
-    final_feature_trial: "14 дней бесплатно",
+    final_feature_trial: "3 дня бесплатно",
     final_feature_fast: "Запуск в тот же день",
     final_feature_support: "Персональный менеджер",
 
@@ -482,7 +482,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     footer_contact_location: "Адрес",
 
     footer_cta_title: "Начните бесплатно",
-    footer_cta_description: "Забрать 14 дней бесплатно.",
+    footer_cta_description: "Забрать 3 дня бесплатно.",
     footer_cta_button: "Забрать доступ без оплаты ",
 
     footer_feature_quick: "За 20 минут",
@@ -516,7 +516,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     hero_bul_5: "Кеңейтілген CRM аналитикасы.",
     hero_bul_6: "1 менеджерден бастап",
     hero_cta: "CRM-ді сынақ режимінде іске қосыңыз",
-    hero_trial_note: "14 күн шектеусіз толық қол жетімділік",
+    hero_trial_note: "3 күн шектеусіз толық қол жетімділік",
     hero_video_alt: "Raycon CRM мүмкіндіктерінің демонстрациясы",
 
     // Modal
@@ -601,7 +601,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     roadmap_3_tag: "3-қадам",
     roadmap_3_title: "Тегін тест-драйв",
     roadmap_3_desc:
-      "Жүйені 14 күн ақысыз сынайсыз. Онлайн қосу мен баптау толықтай тегін, ал маманның келуі — 20 000 теңге.",
+      "Жүйені 3 күн ақысыз сынайсыз. Онлайн қосу мен баптау толықтай тегін, ал маманның келуі — 20 000 теңге.",
     roadmap_subtitle: "Бизнесіңізге жылдам енгізу және лезде нәтиже",
     roadmap_badge: "Енгізу процесі",
     roadmap_cta: "Қазір бастау",
@@ -660,7 +660,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     pricing_subtitle:
       "Бизнесіңізге бейім жоспарды таңдаңыз. Барлық тарифтерде толық функционал бар.",
     pricing_badge: "Икемді баға жүйесі",
-    pricing_feature1: "14 күн тегін сынау",
+    pricing_feature1: "3 күн тегін сынау",
     pricing_feature2: "Жасырын төлемдер жоқ",
     pricing_feature3: "Кез келген уақытта тарифті өзгерту",
 
@@ -953,7 +953,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     final_guarantee_security: "Несие картасыз",
     final_guarantee_cancel: "Кез келген уақытта тоқтату",
     final_feature_quick: "20 минутта баптау",
-    final_feature_trial: "14 күн тегін",
+    final_feature_trial: "3 күн тегін",
     final_feature_fast: "Сол күні іске қосу",
     final_feature_support: "Жеке менеджер",
     footer_description:

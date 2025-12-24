@@ -126,7 +126,7 @@ export default function RootLayout({
                 "@type": "Organization",
                 "name": "Raycon",
                 "url": "https://www.raycon.kz",
-                "logo": "https://www.raycon.kz/img/favicon.svg"
+                "logo": "https://www.raycon.kz/favicon.ico"
               },
               "screenshot": "https://www.raycon.kz/big-screeen.png",
               "featureList": [
