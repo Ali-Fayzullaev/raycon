@@ -171,6 +171,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     pricing_feature1: "3 дня бесплатно",
     pricing_feature2: "Без скрытых платежей",
     pricing_feature3: "Можно менять тариф в любое время",
+    pricing_feature4: "Не является публичной офертой",
 
     plan_mini: "Standard",
     plan_mini_popular: "Популярно",
@@ -231,7 +232,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     res1_desc: "Ни одно сообщение не теряется благодаря мультичату и автораспределению",
     res1_a: "+20–35%",
     res1_a_label: "к количеству обработанных заявок",
-    res1_b: "↘️ Ноль",
+    res1_b: "Ноль",
     res1_b_label: "потерянных лидов",
     res1_feature1: "Мультичат объединяет все каналы",
     res1_feature2: "Автоматическое распределение по менеджерам",
@@ -661,6 +662,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     pricing_feature1: "3 күн тегін сынау",
     pricing_feature2: "Жасырын төлемдер жоқ",
     pricing_feature3: "Кез келген уақытта тарифті өзгерту",
+    pricing_feature4: "Жария оферта болып табылмайды",
 
     plan_mini: "Mini",
     plan_mini_popular: "Танымал",
@@ -722,7 +724,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     res1_desc: "Мультичат және автобөлу арқасында ешбір хабар жоғалмайды",
     res1_a: "+20–35%",
     res1_a_label: "өңделген өтінімдер санына",
-    res1_b: "↘️ Нөл",
+    res1_b: "Нөл",
     res1_b_label: "жоғалған лидтер",
     res1_feature1: "Мультичат барлық арнаны біріктіреді",
     res1_feature2: "Менеджерлер арасында автобөлу",

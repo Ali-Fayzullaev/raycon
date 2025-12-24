@@ -441,13 +441,13 @@ export default function OptimizedPricing() {
         </motion.div>
         {/* Упрощенная дополнительная информация */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="text-center mt-12"
+          className="text-center mt-12 mb-0"
         >
-          <div className="inline-flex flex-wrap justify-center gap-4 bg-white/50 dark:bg-slate-800/30 rounded-xl p-4 backdrop-blur-sm">
+          <div className="inline-flex flex-wrap justify-center gap-4 bg-white/50 dark:bg-slate-800/30 rounded-xl backdrop-blur-sm">
             {[
               t("pricing_feature1"),
               t("pricing_feature2"),
@@ -464,6 +464,12 @@ export default function OptimizedPricing() {
           </div>
         </motion.div>
 
+          <div className="text-center mt-0 p-0">
+          <CheckCircle2 className="inline-block  w-2 h-2 mt-0 text-emerald-500" />
+          <span className="text-[10px] mt-0 p-0">
+            {t("pricing_feature4")}
+          </span>
+        </div>
         {/* Сравнительная таблица тарифов */}
         <p className="text-center text-lg font-medium text-slate-700 dark:text-slate-300 mt-16 mb-6">
           {t("pricing_comparison_title")}
@@ -707,7 +713,7 @@ export default function OptimizedPricing() {
         >
           <div className="text-center">
             <p
-              className={`text-sm mt-2 transition-colors duration-300 ${
+              className={`text-xl font-bold mt-2 transition-colors duration-300 ${
                 isMultichatHighlighted
                   ? "text-amber-600 dark:text-amber-400 font-medium"
                   : "text-slate-700 dark:text-slate-300"
