@@ -483,7 +483,7 @@ export default function OptimizedPricing() {
         >
           <div className="bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
             {/* Таблица */}
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto" id="table">
               <table className="w-full">
                 <thead>
                   <tr className="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">

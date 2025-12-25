@@ -29,7 +29,7 @@ export default function LandingClient() {
           <KeyCapabilities/>
           <Pricing />
           <ClientResults/>
-          <WhoWe/>
+          {/* <WhoWe/> */}
           <FAQ/>
           <FinalCTA />
           <Footer />

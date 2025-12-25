@@ -201,6 +201,7 @@ export default function ModernHeader() {
     { href: "#product", icon: Sparkles, label: t("header_nav_product") },
     { href: "#features", icon: Rocket, label: t("header_nav_features") },
     { href: "#pricing", icon: BadgePercent, label: t("header_nav_pricing") },
+    { href: "#table", icon: BadgePercent, label: t("header_nav_filling") },
     { href: "/articles", icon: Newspaper, label: t("header_nav_articles") },
 
     { href: "#who-we", icon: Users, label: t("header_nav_who_we") },
