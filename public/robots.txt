@@ -1,18 +1,73 @@
-User-agent: *
-Allow: /
+# ================================================
+# RAYCON CRM - Robots.txt
+# Обновлено: 26.12.2025
+# ================================================
 
+User-agent: *
+
+# ========== ЗАПРЕЩЁННЫЕ РАЗДЕЛЫ ==========
+# Административные панели
+Disallow: /admin/
+Disallow: /login/
+Disallow: /panel/
+Disallow: /dashboard/
+
+# API эндпоинты
+Disallow: /api/
+
+# Технические директории Next.js
+Disallow: /_next/
+Disallow: /_error
+Disallow: /404
+Disallow: /500
+
+# Медиафайлы и статические ресурсы
+Disallow: /img/
+Disallow: /frame/
+Disallow: /fonts/
+Disallow: /static/
+
+# Страницы входа (все языки)
+Disallow: /ru/login
+Disallow: /kz/login
+Disallow: /en/login
+
+# URL с параметрами (дубли)
+Disallow: /*?
+
+# ========== РАЗРЕШЁННЫЕ ФАЙЛЫ ==========
+# Разрешаем CSS/JS для правильного отображения в поиске
+Allow: /*.css$
+Allow: /*.js$
+Allow: /_next/static/
+
+# Разрешаем важные статические файлы
+Allow: /sitemap.xml
+Allow: /robots.txt
+Allow: /favicon.ico
+Allow: /*.webmanifest$
+
+# ========== ПОИСКОВЫЕ СИСТЕМЫ ==========
 # Yandex
 User-agent: Yandex
-Allow: /
+Crawl-delay: 1
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content
 
 # Google
 User-agent: Googlebot
-Allow: /
+Crawl-delay: 1
 
-Sitemap: https://www.raycon.kz/sitemap.xml
+# Bing
+User-agent: bingbot
+Crawl-delay: 1
 
-# Disallow admin areas
-Disallow: /admin/
-Disallow: /api/
-Disallow: /_next/
-Disallow: /static/
+# ========== КАРТА САЙТА ==========
+Sitemap: https://raycon.kz/sitemap.xml
+
+# ================================================
+# Контакты:
+# Отдел продаж: +7 (707) 846-99-99
+# Поддержка: +7 (707) 846-55-55
+# Email: support@raycon.kz
+# Веб-сайт: https://raycon.kz
+# ================================================
