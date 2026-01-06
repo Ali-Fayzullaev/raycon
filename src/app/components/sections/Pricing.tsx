@@ -464,11 +464,9 @@ export default function OptimizedPricing() {
           </div>
         </motion.div>
 
-          <div className="text-center mt-0 p-0">
+        <div className="text-center mt-0 p-0">
           <CheckCircle2 className="inline-block  w-2 h-2 mt-0 text-emerald-500" />
-          <span className="text-[10px] mt-0 p-0">
-            {t("pricing_feature4")}
-          </span>
+          <span className="text-[10px] mt-0 p-0">{t("pricing_feature4")}</span>
         </div>
         {/* Сравнительная таблица тарифов */}
         <p className="text-center text-lg font-medium text-slate-700 dark:text-slate-300 mt-16 mb-6">
@@ -704,7 +702,7 @@ export default function OptimizedPricing() {
               </table>
             </div>
           </div>
-        </motion.div>
+        </motion.div> 
         {/* Дополнительная информация */}
         <motion.div
           id="multichat-info"
@@ -731,6 +729,38 @@ export default function OptimizedPricing() {
               {t("pricing_multichat_info")}
             </p>
           </div>
+        </motion.div>
+         {/* Кнопка Мультичат */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mt-8"
+        >
+          <motion.a
+            href="https://chat.raycon.kz/"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            className="inline-block group relative px-8 py-4 bg-gradient-to-r from-emerald-600 to-green-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 animate-shine" />
+            <span className="relative flex items-center gap-2">
+              Мультичат
+              <motion.div
+                animate={{ x: [0, 4, 0] }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                <ArrowRight className="w-5 h-5" />
+              </motion.div>
+            </span>
+          </motion.a>
         </motion.div>
       </div>
 

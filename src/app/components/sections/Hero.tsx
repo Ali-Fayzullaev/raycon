@@ -343,6 +343,7 @@ export default function ModernHero() {
               variants={itemVariants}
               className="flex flex-col sm:flex-row gap-5 items-start"
             >
+             
               <motion.button
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
@@ -364,7 +365,15 @@ export default function ModernHero() {
                   </motion.div>
                 </span>
               </motion.button>
-
+               <a
+                href="https://chat.raycon.kz/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 bg-gradient-to-r from-emerald-600 to-green-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 mb-4 flex items-center gap-2"
+              >
+                Мультичат
+                <ArrowRight className="w-5 h-5" />
+              </a>
               <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400 pt-2">
                 <motion.div
                   whileHover={{ scale: 1.1 }}
