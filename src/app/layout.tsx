@@ -131,7 +131,7 @@ export default function RootLayout({
         </noscript>
         
         <script
-          type="application/ld+json"
+          type="application/ld+json" 
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",

@@ -47,36 +47,36 @@ const devices = [
     id: "imac",
     name: "iMac",
     frame: "/frame/iMac.png",
-    content: "/big-screeen.png",
+    content: "/big-screen.png",
     icon: Monitor,
     aspect: "aspect-[16/10]",
-    maxWidth: "max-w-[600px]",
+    maxWidth: "max-w-[1000px]",
     scale: 0.9,
-    contentStyle: "rounded-[8px] mb-23",
+    contentStyle: "rounded-[0px] mb-23",
     type: "image",
   },
   {
     id: "macbook",
     name: "MacBook",
     frame: "/frame/MacBookPro.png",
-    content: "/logo.png",
+    content: "/big-screen.png",
     icon: Laptop,
     aspect: "aspect-[16/10]",
-    maxWidth: "max-w-[500px]",
+    maxWidth: "max-w-[1000px]",
     scale: 0.85,
-    contentStyle: "rounded-[6px] scale-[0.76]",
+    contentStyle: "rounded-[0px] scale-[0.76]",
     type: "image",
   },
   {
     id: "ipad",
     name: "iPad Pro",
-    frame: "/frame/iPadpro12.png",
-    content: "/sm-sc.png",
+    frame: "/frame/iPadpro.png",
+    content: "/",
     icon: Tablet,
-    aspect: "aspect-[16/16]",
-    maxWidth: "max-w-[300px]",
+    aspect: "aspect-[14/10]",
+    maxWidth: "max-w-[1000px]",
     scale: 0.8,
-    contentStyle: "rounded-[12px] h-[100%] ",
+    contentStyle: "rounded-[0px] h-[100%] ",
     type: "image",
   },
 ];
@@ -146,15 +146,17 @@ function DeviceCarousel() {
                 height={400}
                 className="w-full h-full object-contain drop-shadow-2xl"
               />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Image
-                  src={currentDeviceConfig.content}
-                  alt="Raycon CRM"
-                  width={400}
-                  height={300}
-                  className={`rounded-lg scale-75 object-contain ${currentDeviceConfig.contentStyle}`}
-                />
-              </div>
+              {currentDeviceConfig.content && currentDeviceConfig.content !== "/" && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Image
+                    src={currentDeviceConfig.content}
+                    alt="Raycon"
+                    width={570}
+                    height={410}
+                    className={`rounded-lg scale-75 object-contain ${currentDeviceConfig.contentStyle}`}
+                  />
+                </div>
+              )}
             </div>
           </motion.div>
         </div>
@@ -265,9 +267,6 @@ export default function ModernHero() {
     >
       <AnimatedBackground />
       <div className="relative z-10 mx-auto max-w-7xl px-4 pb-16 mt-5">
-        <h1 className="text-3xl md:text-5xl xl:text-4xl text-center font-black leading-[1.1] tracking-tight text-transparent">
-          Бесплатная CRM для микро и малого бизнеса CRM Битрикс24, bitrix амо црм амо битрикс битрикс казахстан битрикс астана вазап wazzup</h1>
-
         <motion.div
           variants={containerVariants}
           initial="hidden"
