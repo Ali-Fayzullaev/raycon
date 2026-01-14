@@ -76,7 +76,7 @@ const devices = [
     aspect: "aspect-[14/10]",
     maxWidth: "max-w-[1000px]",
     scale: 0.8,
-    contentStyle: "rounded-[0px] h-[100%] ",
+    contentStyle: "rounded-[10px]",
     type: "image",
   },
 ];
@@ -144,7 +144,7 @@ function DeviceCarousel() {
                 alt={currentDeviceConfig.name}
                 width={600}
                 height={400}
-                className="w-full h-full object-contain drop-shadow-2xl"
+                className={`w-full h-full object-contain drop-shadow-2xl`}
               />
               {currentDeviceConfig.content && currentDeviceConfig.content !== "/" && (
                 <div className="absolute inset-0 flex items-center justify-center">

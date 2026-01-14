@@ -1,6 +1,8 @@
 // src/app/components/layout/Header.tsx
 "use client";
 import React, { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import LanguageSwitcher from "../common/LanguageSwitcher";
 import ThemeToggle from "../common/ThemeToggle";
@@ -31,7 +33,6 @@ import {
 } from "@/components/ui/sheet";
 import Image from "next/image";
 import ModernTryModal from "../modals/TryModal";
-import Link from "next/link";
 import SITE from "@/lib/site"; // Импорт констант сайта
 
 // --- Новые импорты для Dropdown Menu (предполагаем, что они доступны) ---
@@ -55,17 +56,17 @@ const NavItem = ({
 }) => (
   <motion.a
     href={href}
-    className="relative inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-teal-600 dark:hover:text-teal-400 transition-colors group"
+    className="relative inline-flex items-center gap-1.5 px-2 xl:px-3 py-1.5 xl:py-2 rounded-lg text-xs xl:text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-teal-600 dark:hover:text-teal-400 transition-colors group"
     whileHover={{ y: -2 }}
     whileTap={{ y: 0 }}
   >
     <motion.div
-      className="p-1.5 rounded-lg bg-teal-500/10 group-hover:bg-teal-500/20 transition-colors"
+      className="hidden xl:block p-1 xl:p-1.5 rounded-lg bg-teal-500/10 group-hover:bg-teal-500/20 transition-colors"
       whileHover={{ scale: 1.1, rotate: 5 }}
     >
-      <Icon className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+      <Icon className="h-3.5 w-3.5 xl:h-4 xl:w-4 text-teal-600 dark:text-teal-400" />
     </motion.div>
-    <span className="opacity-90 group-hover:opacity-100 transition-opacity">
+    <span className="opacity-90 group-hover:opacity-100 transition-opacity whitespace-nowrap">
       {children}
     </span>
 
@@ -197,14 +198,14 @@ export default function ModernHeader() {
   }, []);
 
   const navItems = [
-    { href: "#home", icon: PanelsTopLeft, label: t("header_nav_home") },
-    { href: "#product", icon: Sparkles, label: t("header_nav_product") },
-    { href: "#features", icon: Rocket, label: t("header_nav_features") },
-    { href: "#pricing", icon: BadgePercent, label: t("header_nav_pricing") },
-    { href: "#table", icon: BadgePercent, label: t("header_nav_filling") },
+    { href: "/#home", icon: PanelsTopLeft, label: t("header_nav_home") },
+    { href: "/#product", icon: Sparkles, label: t("header_nav_product") },
+    { href: "/#features", icon: Rocket, label: t("header_nav_features") },
+    { href: "/#pricing", icon: BadgePercent, label: t("header_nav_pricing") },
+    { href: "/#table", icon: BadgePercent, label: t("header_nav_filling") },
     { href: "/articles", icon: Newspaper, label: t("header_nav_articles") },
 
-    { href: "#who-we", icon: Users, label: t("header_nav_who_we") },
+    { href: "/#who-we", icon: Users, label: t("header_nav_who_we") },
   ];
 
   // Массив контактов для мобильного меню
@@ -281,7 +282,7 @@ export default function ModernHeader() {
         </motion.div>
 
         {/* НАВИГАЦИЯ — десктоп */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1">
           {navItems.map((item, index) => (
             <motion.div
               key={item.href}
@@ -298,7 +299,7 @@ export default function ModernHeader() {
 
         {/* КНОПКИ / ПЕРЕКЛЮЧАТЕЛИ */}
         <motion.div
-          className="hidden md:flex items-center gap-3"
+          className="hidden lg:flex items-center gap-2 xl:gap-3"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.5 }}
@@ -350,7 +351,7 @@ export default function ModernHeader() {
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <motion.button
-              className="md:hidden inline-flex items-center p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              className="lg:hidden inline-flex items-center p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
