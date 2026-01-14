@@ -2,17 +2,25 @@ import { Metadata } from "next";
 import connectDB from "@/lib/mongodb";
 import Article from "@/models/Article";
 import ArticleContent from "./ArticleContent";
+import mongoose from "mongoose";
 
 interface PageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ id: string }>;
 }
 
 // Генерация метаданных для SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { id } = await params;
+  
+  // Проверяем валидность ID
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return {
+      title: "Статья не найдена | Raycon",
+    };
+  }
   
   await connectDB();
-  const article = await Article.findOne({ slug, published: true });
+  const article = await Article.findOne({ _id: id, published: true });
   
   if (!article) {
     return {
@@ -31,21 +39,37 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-// Статическая генерация путей (опционально)
+// Статическая генерация путей
 export async function generateStaticParams() {
   await connectDB();
-  const articles = await Article.find({ published: true }).select("slug");
+  const articles = await Article.find({ published: true }).select("_id");
   
   return articles.map((article) => ({
-    slug: article.slug,
+    id: article._id.toString(),
   }));
 }
 
 export default async function ArticlePage({ params }: PageProps) {
-  const { slug } = await params;
+  const { id } = await params;
+  
+  // Проверяем валидность ID
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+            Статья не найдена
+          </h1>
+          <a href="/articles" className="text-teal-500 hover:underline">
+            Вернуться к статьям
+          </a>
+        </div>
+      </div>
+    );
+  }
   
   await connectDB();
-  const articleDoc = await Article.findOne({ slug, published: true });
+  const articleDoc = await Article.findOne({ _id: id, published: true });
   
   if (!articleDoc) {
     return (
@@ -66,7 +90,6 @@ export default async function ArticlePage({ params }: PageProps) {
   const article = {
     _id: articleDoc._id.toString(),
     title: articleDoc.title,
-    slug: articleDoc.slug,
     content: articleDoc.content,
     excerpt: articleDoc.excerpt,
     coverImage: articleDoc.coverImage || null,

@@ -39,29 +39,13 @@ export async function POST(request: NextRequest) {
 
     const data = await request.json();
 
-    // Генерируем slug если не передан
-    if (!data.slug && data.title) {
-      data.slug = data.title
-        .toLowerCase()
-        .replace(/[^a-zа-яё0-9\s-]/gi, "")
-        .replace(/\s+/g, "-")
-        .replace(/-+/g, "-")
-        .trim();
-    }
+    // Slug больше не требуется - используем _id в URL
 
     const article = await Article.create(data);
 
     return NextResponse.json(article, { status: 201 });
   } catch (error: unknown) {
     console.error("Error creating article:", error);
-    
-    // Проверяем на дублирование slug
-    if (error && typeof error === "object" && "code" in error && error.code === 11000) {
-      return NextResponse.json(
-        { error: "Статья с таким slug уже существует" },
-        { status: 400 }
-      );
-    }
 
     return NextResponse.json(
       { error: "Ошибка при создании статьи" },

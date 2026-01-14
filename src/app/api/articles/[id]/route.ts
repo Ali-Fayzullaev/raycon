@@ -2,21 +2,30 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Article from "@/models/Article";
 import { getTokenFromRequest, validateToken } from "@/lib/auth";
+import mongoose from "mongoose";
 
 interface RouteParams {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ id: string }>;
 }
 
-// GET - получить одну статью по slug
+// GET - получить одну статью по id
 export async function GET(
   request: NextRequest,
   { params }: RouteParams
 ) {
   try {
     await connectDB();
-    const { slug } = await params;
+    const { id } = await params;
 
-    const article = await Article.findOne({ slug });
+    // Проверяем, что id валидный ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json(
+        { error: "Неверный ID статьи" },
+        { status: 400 }
+      );
+    }
+
+    const article = await Article.findById(id);
 
     if (!article) {
       return NextResponse.json(
@@ -47,12 +56,20 @@ export async function PUT(
     }
 
     await connectDB();
-    const { slug } = await params;
+    const { id } = await params;
+
+    // Проверяем, что id валидный ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json(
+        { error: "Неверный ID статьи" },
+        { status: 400 }
+      );
+    }
 
     const data = await request.json();
 
-    const article = await Article.findOneAndUpdate(
-      { slug },
+    const article = await Article.findByIdAndUpdate(
+      id,
       data,
       { new: true, runValidators: true }
     );
@@ -86,9 +103,17 @@ export async function DELETE(
     }
 
     await connectDB();
-    const { slug } = await params;
+    const { id } = await params;
 
-    const article = await Article.findOneAndDelete({ slug });
+    // Проверяем, что id валидный ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json(
+        { error: "Неверный ID статьи" },
+        { status: 400 }
+      );
+    }
+
+    const article = await Article.findByIdAndDelete(id);
 
     if (!article) {
       return NextResponse.json(

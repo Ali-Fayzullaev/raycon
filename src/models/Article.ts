@@ -1,8 +1,9 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IArticle extends Document {
+  _id: mongoose.Types.ObjectId;
   title: string;
-  slug: string;
+  slug?: string; // Теперь опционально, для совместимости
   content: string;
   excerpt: string;
   coverImage?: string;
@@ -21,10 +22,9 @@ const ArticleSchema = new Schema<IArticle>(
     },
     slug: {
       type: String,
-      required: [true, "Slug обязателен"],
-      unique: true,
       trim: true,
       lowercase: true,
+      sparse: true, // Позволяет null/undefined без конфликта уникальности
     },
     content: {
       type: String,
@@ -51,17 +51,7 @@ const ArticleSchema = new Schema<IArticle>(
   }
 );
 
-// Создаём slug из заголовка автоматически
-ArticleSchema.pre("save", function () {
-  if (this.isModified("title") && !this.slug) {
-    this.slug = this.title
-      .toLowerCase()
-      .replace(/[^a-zа-яё0-9\s-]/gi, "")
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-")
-      .trim();
-  }
-});
+// Slug больше не генерируется автоматически - используем _id
 
 export default mongoose.models.Article ||
   mongoose.model<IArticle>("Article", ArticleSchema);

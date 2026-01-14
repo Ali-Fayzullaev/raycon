@@ -18,7 +18,6 @@ import {
 interface Article {
   _id: string;
   title: string;
-  slug: string;
   excerpt: string;
   published: boolean;
   createdAt: string;
@@ -64,17 +63,17 @@ export default function AdminArticlesPage() {
     }
   };
 
-  const handleDelete = async (slug: string) => {
+  const handleDelete = async (id: string) => {
     if (!confirm("Вы уверены, что хотите удалить эту статью?")) return;
 
-    setDeleting(slug);
+    setDeleting(id);
     try {
-      const res = await fetch(`/api/articles/${slug}`, {
+      const res = await fetch(`/api/articles/${id}`, {
         method: "DELETE",
       });
 
       if (res.ok) {
-        setArticles(articles.filter((a) => a.slug !== slug));
+        setArticles(articles.filter((a) => a._id !== id));
       } else {
         alert("Ошибка при удалении статьи");
       }
@@ -87,7 +86,7 @@ export default function AdminArticlesPage() {
 
   const togglePublish = async (article: Article) => {
     try {
-      const res = await fetch(`/api/articles/${article.slug}`, {
+      const res = await fetch(`/api/articles/${article._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ published: !article.published }),
@@ -96,7 +95,7 @@ export default function AdminArticlesPage() {
       if (res.ok) {
         setArticles(
           articles.map((a) =>
-            a.slug === article.slug ? { ...a, published: !a.published } : a
+            a._id === article._id ? { ...a, published: !a.published } : a
           )
         );
       }
@@ -190,7 +189,7 @@ export default function AdminArticlesPage() {
                       {article.excerpt}
                     </p>
                     <p className="text-slate-500 dark:text-slate-500 text-xs">
-                      Slug: {article.slug} •{" "}
+                      ID: {article._id} •{" "}
                       {new Date(article.createdAt).toLocaleDateString("ru-RU")}
                     </p>
                   </div>
@@ -209,7 +208,7 @@ export default function AdminArticlesPage() {
                         <Eye className="h-4 w-4" />
                       )}
                     </Button>
-                    <Link href={`/admin/articles/${article.slug}/edit`}>
+                    <Link href={`/admin/articles/${article._id}/edit`}>
                       <Button variant="ghost" size="sm">
                         <Edit className="h-4 w-4" />
                       </Button>
@@ -217,11 +216,11 @@ export default function AdminArticlesPage() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => handleDelete(article.slug)}
-                      disabled={deleting === article.slug}
+                      onClick={() => handleDelete(article._id)}
+                      disabled={deleting === article._id}
                       className="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
                     >
-                      {deleting === article.slug ? (
+                      {deleting === article._id ? (
                         <Loader2 className="h-4 w-4 animate-spin" />
                       ) : (
                         <Trash2 className="h-4 w-4" />

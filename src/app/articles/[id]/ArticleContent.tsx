@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 interface Article {
   _id: string;
   title: string;
-  slug: string;
   content: string;
   excerpt: string;
   coverImage: string | null;
@@ -147,6 +146,17 @@ function ArticlePageContent({ article }: { article: Article }) {
 
   const readTime = calculateReadTime(article.content);
   const parsedContent = useMemo(() => parseMarkdown(article.content), [article.content]);
+
+  // Отмечаем статью как просмотренную при открытии
+  useEffect(() => {
+    const viewedArticles = JSON.parse(localStorage.getItem("viewedArticles") || "[]");
+    if (!viewedArticles.includes(article._id)) {
+      viewedArticles.push(article._id);
+      localStorage.setItem("viewedArticles", JSON.stringify(viewedArticles));
+      // Dispatch event для обновления Header
+      window.dispatchEvent(new Event("articlesViewed"));
+    }
+  }, [article._id]);
 
   const handleShare = async () => {
     const url = window.location.href;

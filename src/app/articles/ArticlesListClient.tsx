@@ -13,7 +13,6 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 interface Article {
   _id: string;
   title: string;
-  slug: string;
   excerpt: string;
   coverImage: string | null;
   published: boolean;
@@ -88,7 +87,7 @@ function ArticlesListContent({ articles }: { articles: Article[] }) {
                   variants={itemVariants}
                   className="group bg-white dark:bg-slate-800/50 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700"
                 >
-                  <Link href={`/articles/${article.slug}`}>
+                  <Link href={`/articles/${article._id}`}>
                     <div className="relative h-56 overflow-hidden bg-slate-200 dark:bg-slate-700">
                       {article.coverImage ? (
                         <Image

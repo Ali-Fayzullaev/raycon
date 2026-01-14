@@ -16,7 +16,6 @@ export default function NewArticlePage() {
   const [checking, setChecking] = useState(true);
   const [form, setForm] = useState({
     title: "",
-    slug: "",
     excerpt: "",
     content: "",
     coverImage: "",
@@ -40,19 +39,6 @@ export default function NewArticlePage() {
     };
     checkAuth();
   }, [router]);
-
-  // Автоматическая генерация slug из заголовка
-  useEffect(() => {
-    if (form.title && !form.slug) {
-      const generatedSlug = form.title
-        .toLowerCase()
-        .replace(/[^a-zа-яё0-9\s-]/gi, "")
-        .replace(/\s+/g, "-")
-        .replace(/-+/g, "-")
-        .trim();
-      setForm((prev) => ({ ...prev, slug: generatedSlug }));
-    }
-  }, [form.title, form.slug]);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -228,29 +214,12 @@ export default function NewArticlePage() {
                 <Input
                   value={form.title}
                   onChange={(e) =>
-                    setForm({ ...form, title: e.target.value, slug: "" })
+                    setForm({ ...form, title: e.target.value })
                   }
                   placeholder="Введите заголовок статьи"
                   required
                   className="bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-600"
                 />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                  Slug (URL) *
-                </label>
-                <Input
-                  value={form.slug}
-                  onChange={(e) =>
-                    setForm({ ...form, slug: e.target.value })
-                  }
-                  placeholder="url-stati"
-                  required
-                  className="bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-600"
-                />
-                <p className="text-xs text-slate-500 mt-1">
-                  Будет использоваться в URL: /articles/{form.slug || "url-stati"}
-                </p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">

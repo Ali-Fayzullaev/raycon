@@ -9,11 +9,16 @@ import { Input } from "@/components/ui/input";
 import { ArrowLeft, Loader2, Save, ExternalLink, Upload, X } from "lucide-react";
 
 interface PageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ id: string }>;
+}
+
+// Простая проверка валидности ObjectId без mongoose
+function isValidObjectId(id: string): boolean {
+  return /^[0-9a-fA-F]{24}$/.test(id);
 }
 
 export default function EditArticlePage({ params }: PageProps) {
-  const { slug } = use(params);
+  const { id } = use(params);
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
@@ -21,7 +26,6 @@ export default function EditArticlePage({ params }: PageProps) {
   const [fetching, setFetching] = useState(true);
   const [form, setForm] = useState({
     title: "",
-    slug: "",
     excerpt: "",
     content: "",
     coverImage: "",
@@ -39,13 +43,19 @@ export default function EditArticlePage({ params }: PageProps) {
           return;
         }
 
+        // Проверяем валидность ID
+        if (!isValidObjectId(id)) {
+          alert("Неверный ID статьи");
+          router.push("/admin/articles");
+          return;
+        }
+
         // Загрузка статьи
-        const res = await fetch(`/api/articles/${slug}`);
+        const res = await fetch(`/api/articles/${id}`);
         if (res.ok) {
           const article = await res.json();
           setForm({
             title: article.title || "",
-            slug: article.slug || "",
             excerpt: article.excerpt || "",
             content: article.content || "",
             coverImage: article.coverImage || "",
@@ -63,7 +73,7 @@ export default function EditArticlePage({ params }: PageProps) {
       }
     };
     init();
-  }, [slug, router]);
+  }, [id, router]);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -109,7 +119,7 @@ export default function EditArticlePage({ params }: PageProps) {
     setLoading(true);
 
     try {
-      const res = await fetch(`/api/articles/${slug}`, {
+      const res = await fetch(`/api/articles/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -153,8 +163,8 @@ export default function EditArticlePage({ params }: PageProps) {
             </h1>
           </div>
           <div className="flex items-center gap-2">
-            <Link href={`/articles/${form.slug}`} target="_blank">
-              <Button variant="outline" size="sm">
+            <Link href={`/articles/${id}`} target="_blank">
+              <Button variant="ghost" size="sm">
                 <ExternalLink className="h-4 w-4 mr-2" />
                 Просмотр
               </Button>
@@ -256,23 +266,6 @@ export default function EditArticlePage({ params }: PageProps) {
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                  Slug (URL) *
-                </label>
-                <Input
-                  value={form.slug}
-                  onChange={(e) =>
-                    setForm({ ...form, slug: e.target.value })
-                  }
-                  placeholder="url-stati"
-                  required
-                  className="bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-600"
-                />
-                <p className="text-xs text-slate-500 mt-1">
-                  Будет использоваться в URL: /articles/{form.slug || "url-stati"}
-                </p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                   Краткое описание *
                 </label>
                 <textarea
@@ -324,7 +317,7 @@ export default function EditArticlePage({ params }: PageProps) {
                 htmlFor="published"
                 className="text-sm text-slate-700 dark:text-slate-300"
               >
-                Опубликовано
+                Опубликовать сразу
               </label>
             </div>
           </div>

@@ -49,10 +49,12 @@ const NavItem = ({
   href,
   children,
   icon: Icon,
+  hasNotification = false
 }: {
   href: string;
   children: React.ReactNode;
   icon: React.ComponentType<{ className?: string }>;
+  hasNotification?: boolean;
 }) => (
   <motion.a
     href={href}
@@ -61,13 +63,29 @@ const NavItem = ({
     whileTap={{ y: 0 }}
   >
     <motion.div
-      className="hidden xl:block p-1 xl:p-1.5 rounded-lg bg-teal-500/10 group-hover:bg-teal-500/20 transition-colors"
+      className="hidden xl:block p-1 xl:p-1.5 rounded-lg bg-teal-500/10 group-hover:bg-teal-500/20 transition-colors relative"
       whileHover={{ scale: 1.1, rotate: 5 }}
     >
       <Icon className="h-3.5 w-3.5 xl:h-4 xl:w-4 text-teal-600 dark:text-teal-400" />
+      {hasNotification && (
+        <motion.div 
+          className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 300, damping: 15 }}
+        />
+      )}
     </motion.div>
     <span className="opacity-90 group-hover:opacity-100 transition-opacity whitespace-nowrap">
       {children}
+      {hasNotification && (
+        <motion.span 
+          className="inline-block ml-2 w-2 h-2 bg-red-500 rounded-full xl:hidden"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 300, damping: 15 }}
+        />
+      )}
     </span>
 
     {/* Анимированная подчёркивающая линия */}
@@ -187,6 +205,35 @@ export default function ModernHeader() {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [hasNewArticles, setHasNewArticles] = useState(false);
+
+  // Проверка на новые статьи
+  React.useEffect(() => {
+    const checkForNewArticles = async () => {
+      try {
+        const response = await fetch("/api/articles?published=true");
+        if (!response.ok) return;
+        
+        const articles = await response.json();
+        
+        const viewedArticles = JSON.parse(localStorage.getItem("viewedArticles") || "[]");
+        const hasUnviewedArticles = articles.some((article: any) => !viewedArticles.includes(article._id));
+        setHasNewArticles(hasUnviewedArticles);
+      } catch (error) {
+        console.error("Error checking for new articles:", error);
+      }
+    };
+
+    checkForNewArticles();
+    
+    // Слушаем событие для обновления после просмотра статьи
+    const handleArticlesViewed = () => {
+      checkForNewArticles();
+    };
+    
+    window.addEventListener("articlesViewed", handleArticlesViewed);
+    return () => window.removeEventListener("articlesViewed", handleArticlesViewed);
+  }, []);
 
   // Эффект для отслеживания скролла
   React.useEffect(() => {
@@ -290,7 +337,11 @@ export default function ModernHeader() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 + index * 0.1 }}
             >
-              <NavItem href={item.href} icon={item.icon}>
+              <NavItem 
+                href={item.href} 
+                icon={item.icon}
+                hasNotification={item.href === "/articles" && hasNewArticles}
+              >
                 {item.label}
               </NavItem>
             </motion.div>
@@ -383,13 +434,29 @@ export default function ModernHeader() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 py-3 px-4 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group"
+                  className="flex items-center gap-3 py-3 px-4 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group relative"
                   whileHover={{ x: 5 }}
                 >
-                  <div className="p-2 rounded-lg bg-teal-500/10 group-hover:bg-teal-500/20 transition-colors">
+                  <div className="p-2 rounded-lg bg-teal-500/10 group-hover:bg-teal-500/20 transition-colors relative">
                     <item.icon className="h-5 w-5 text-teal-600 dark:text-teal-400" />
+                    {item.href === "/articles" && hasNewArticles && (
+                      <motion.div 
+                        className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                      />
+                    )}
                   </div>
                   <span className="font-medium">{item.label}</span>
+                  {item.href === "/articles" && hasNewArticles && (
+                    <motion.div 
+                      className="w-2 h-2 bg-red-500 rounded-full ml-2"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    />
+                  )}
                   <ChevronDown className="h-4 w-4 ml-auto transform -rotate-90 text-slate-400" />
                 </motion.a>
               ))}
