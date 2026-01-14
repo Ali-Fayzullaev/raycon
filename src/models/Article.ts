@@ -24,7 +24,7 @@ const ArticleSchema = new Schema<IArticle>(
       type: String,
       trim: true,
       lowercase: true,
-      sparse: true, // Позволяет null/undefined без конфликта уникальности
+      // Убираем sparse: true и unique, так как slug больше не используется
     },
     content: {
       type: String,

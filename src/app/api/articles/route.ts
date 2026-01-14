@@ -39,7 +39,8 @@ export async function POST(request: NextRequest) {
 
     const data = await request.json();
 
-    // Slug больше не требуется - используем _id в URL
+    // Убираем поле slug если оно есть, чтобы избежать конфликта индекса
+    delete data.slug;
 
     const article = await Article.create(data);
 
