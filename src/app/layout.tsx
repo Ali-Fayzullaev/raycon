@@ -110,8 +110,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T77P85GS" height="0" width="0" style={{ display: 'none', visibility: 'hidden' }} /></noscript>
-        <noscript><div><img src="https://mc.yandex.ru/watch/105992559" style={{ position: 'absolute', left: '-9999px' }} alt="" /></div></noscript>
+        <noscript>
+          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T77P85GS" height="0" width="0" style={{ display: 'none', visibility: 'hidden' }} />
+        </noscript>
+        <noscript>
+          <div><img src="https://mc.yandex.ru/watch/105992559" style={{ position: 'absolute', left: '-9999px' }} alt="" /></div>
+        </noscript>
         <script
           type="application/ld+json" 
           dangerouslySetInnerHTML={{
