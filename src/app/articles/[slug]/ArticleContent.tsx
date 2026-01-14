@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -23,12 +23,67 @@ interface Article {
   updatedAt: string;
 }
 
+// Функция для парсинга Markdown в HTML
+function parseMarkdown(markdown: string): string {
+  let html = markdown;
+  
+  // Заголовки
+  html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+  html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+  
+  // Жирный текст
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  
+  // Курсив
+  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  
+  // Цитаты (blockquote)
+  html = html.replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>');
+  
+  // Горизонтальная линия
+  html = html.replace(/^---$/gim, '<hr />');
+  
+  // Инлайн код
+  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+  
+  // Таблицы
+  const tableRegex = /\|(.+)\|\n\|[-:| ]+\|\n((?:\|.+\|\n?)+)/g;
+  html = html.replace(tableRegex, (match, header, body) => {
+    const headerCells = header.split('|').filter((c: string) => c.trim()).map((c: string) => `<th>${c.trim()}</th>`).join('');
+    const rows = body.trim().split('\n').map((row: string) => {
+      const cells = row.split('|').filter((c: string) => c.trim()).map((c: string) => `<td>${c.trim()}</td>`).join('');
+      return `<tr>${cells}</tr>`;
+    }).join('');
+    return `<table><thead><tr>${headerCells}</tr></thead><tbody>${rows}</tbody></table>`;
+  });
+  
+  // Списки с дефисом
+  html = html.replace(/^- (.*$)/gim, '<li>$1</li>');
+  html = html.replace(/(<li>.*<\/li>)\n(?!<li>)/gim, '$1</ul>\n');
+  html = html.replace(/(?<!<\/ul>\n)(<li>)/gim, '<ul>$1');
+  
+  // Параграфы
+  html = html.split('\n\n').map(block => {
+    const trimmed = block.trim();
+    if (!trimmed) return '';
+    // Не оборачиваем если уже HTML тег
+    if (trimmed.startsWith('<')) return trimmed;
+    return `<p>${trimmed.replace(/\n/g, '<br />')}</p>`;
+  }).join('\n');
+  
+  return html;
+}
+
 function ArticlePageContent({ article }: { article: Article }) {
   const formattedDate = new Date(article.createdAt).toLocaleDateString("ru-RU", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
+
+  // Парсим Markdown в HTML
+  const parsedContent = useMemo(() => parseMarkdown(article.content), [article.content]);
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -144,8 +199,9 @@ function ArticlePageContent({ article }: { article: Article }) {
               prose-ol:text-slate-700 dark:prose-ol:text-slate-300
               prose-blockquote:border-teal-500 prose-blockquote:bg-slate-100 dark:prose-blockquote:bg-slate-800/50 prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-lg
               prose-code:bg-slate-100 dark:prose-code:bg-slate-800 prose-code:px-2 prose-code:py-1 prose-code:rounded
-              prose-pre:bg-slate-900 dark:prose-pre:bg-slate-950"
-            dangerouslySetInnerHTML={{ __html: article.content }}
+              prose-pre:bg-slate-900 dark:prose-pre:bg-slate-950
+              prose-table:border-collapse prose-th:bg-slate-100 dark:prose-th:bg-slate-800 prose-th:p-3 prose-td:p-3 prose-td:border prose-td:border-slate-200 dark:prose-td:border-slate-700"
+            dangerouslySetInnerHTML={{ __html: parsedContent }}
           />
         </motion.div>
       </section>
