@@ -154,17 +154,6 @@ function DeviceCarousel() {
                 height={400}
                 className={`w-full h-full object-contain drop-shadow-2xl`}
               />
-              {currentDeviceConfig.content && currentDeviceConfig.content !== "/" && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Image
-                    src={currentDeviceConfig.content}
-                    alt="Raycon"
-                    width={570}
-                    height={410}
-                    className={`rounded-lg scale-75 object-contain ${currentDeviceConfig.contentStyle}`}
-                  />
-                </div>
-              )}
             </div>
           </motion.div>
         </div>
