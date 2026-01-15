@@ -421,8 +421,9 @@ export const dict: Record<Lang, Record<string, string>> = {
     pricing_table_free: "Бесплатно",
     
     // Multichat info
-    pricing_multichat_info: "— все сообщения клиентов из WhatsApp и Instagram в одном окне CRM. Диалоги не теряются, история сохраняется, клиенты всегда получают ответ.",
-    
+    pricing_multichat_info: "все сообщения клиентов из WhatsApp и Instagram в одном окне CRM. Диалоги не теряются, история сохраняется, клиенты всегда получают ответ.",
+    printing_multichat_alt: "Объедините все мессенджеры в одном окне и общайтесь с клиентами без переключения между приложениями",
+
     // Additional table elements
     pricing_discount_label: "Скидка",
     pricing_included_label: "Включено:",
@@ -915,8 +916,9 @@ export const dict: Record<Lang, Record<string, string>> = {
     pricing_table_free: "Тегін",
     
     // Multichat info
-    pricing_multichat_info: "— клиенттердің WhatsApp және Instagram-дағы барлық хабарлары CRM-нің бір терезесінде. Диалогтер жоғалмайды, тарих сақталады, клиенттер әрқашан жауап алады.",
-    
+    pricing_multichat_info: "клиенттердің WhatsApp және Instagram-дағы барлық хабарлары CRM-нің бір терезесінде. Диалогтер жоғалмайды, тарих сақталады, клиенттер әрқашан жауап алады.",
+    printing_multichat_alt: " Барлық мессенджерлерді бір терезеде біріктіріп, қолданбалар арасында ауыспай-ақ клиенттермен сөйлесіңіз",
+
     // Additional table elements
     pricing_discount_label: "Жеңілдік",
     pricing_included_label: "Кіреді:",

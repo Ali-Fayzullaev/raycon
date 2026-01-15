@@ -746,31 +746,27 @@ export default function OptimizedPricing() {
               {/* Текстовая часть */}
               <div className="flex-1 text-center lg:text-left">
                 <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500/15 to-emerald-500/15 dark:from-teal-500/20 dark:to-emerald-500/20 rounded-full px-4 py-2 mb-4"
-                >
-                  <div className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
-                  <span className="text-sm font-semibold text-teal-700 dark:text-teal-300">
-                    {t("pricing_multichat")}
-                  </span>
-                </motion.div>
-                
-                <motion.h3
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 }}
-                  className={`text-2xl md:text-3xl font-bold mb-4 transition-colors duration-300 ${
-                    isMultichatHighlighted
-                      ? "text-amber-600 dark:text-amber-400"
-                      : "text-slate-900 dark:text-white"
-                  }`}
+                  className="mb-4"
                 >
-                  {t("pricing_multichat_info")}
-                </motion.h3>
+                  <h3
+                    className={`text-2xl md:text-3xl font-bold transition-colors duration-300 ${
+                      isMultichatHighlighted
+                        ? "text-amber-600 dark:text-amber-400"
+                        : "text-slate-900 dark:text-white"
+                    }`}
+                  >
+                    <span className="bg-gradient-to-r from-teal-500 to-emerald-500 bg-clip-text text-transparent">
+                      {t("pricing_multichat")}
+                    </span>
+                    <span className="text-xl md:text-2xl font-semibold text-slate-700 dark:text-slate-300 ml-2">
+                      — {t("pricing_multichat_info")}
+                    </span>
+                  </h3>
+                </motion.div>
                 
                 <motion.p
                   initial={{ opacity: 0, y: 10 }}
@@ -885,7 +881,7 @@ export default function OptimizedPricing() {
             </motion.div>
           </motion.div>
         )}
-         {/* Кнопка Мультичат */}
+        {/* Кнопка Мультичат */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
