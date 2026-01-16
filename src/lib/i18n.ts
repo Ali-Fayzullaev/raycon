@@ -21,7 +21,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     hero_video_alt: "Демонстрация возможностей Raycon CRM",
 
     // Modal
-    modal_title: "Тест-драйв на 14 дней",
+    modal_title: "Тест-драйв на 3 дня",
     modal_tab_form: "Заполнить форму",
     modal_tab_schedule: "Выбрать время созвона",
     modal_hint_form:
@@ -321,7 +321,7 @@ export const dict: Record<Lang, Record<string, string>> = {
 
     faq_q7: "Можно ли протестировать перед покупкой?",
     faq_a7:
-      "Да, мы предоставляем 14-дневный пробный период с полным функционалом. Никаких ограничений, никакой кредитной карты для начала тестирования.",
+      "Да, мы предоставляем 3-дневный пробный период с полным функционалом. Никаких ограничений, никакой кредитной карты для начала тестирования.",
 
     faq_q8: "Какая поддержка предоставляется?",
     faq_a8:
@@ -523,7 +523,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     hero_video_alt: "Raycon CRM мүмкіндіктерінің демонстрациясы",
 
     // Modal
-    modal_title: "Тегін қолданып көру",
+    modal_title: "3 күндік сынақ жүргізу",
     modal_tab_form: "Форманы толтыру",
     modal_tab_schedule: "Қоңырау уақыты",
     modal_hint_form:
@@ -817,7 +817,7 @@ export const dict: Record<Lang, Record<string, string>> = {
 
     faq_q7: "Сатып алмай тұрып сынап көруге бола ма?",
     faq_a7:
-      "Иә, біз толық функционалмен 14 күндік сынақ мерзімін ұсынамыз. Ешқандай шектеулер мен сынақты бастау үшін кредиттік картаның қажеті жоқ.",
+      "Иә, біз толық функционалмен 3 күндік сынақ мерзімін ұсынамыз. Ешқандай шектеулер мен сынақты бастау үшін кредиттік картаның қажеті жоқ.",
 
     faq_q8: "Қандай қолдау көрсетіледі?",
     faq_a8:
@@ -980,7 +980,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     footer_contact_location: "Мекен-жай",
 
     footer_cta_title: "Тегін бастау",
-    footer_cta_description: "14 күн толық қол жетімділік. Несие картасыз.",
+    footer_cta_description: "3 күн толық қол жетімділік. Несие картасыз.",
     footer_cta_button: "Trial бастау",
 
     footer_feature_quick: "20 минутта",
