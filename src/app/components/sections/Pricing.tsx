@@ -207,9 +207,9 @@ export default function OptimizedPricing() {
         pricing: pricingPeriods[selectedPeriod].pro,
         cta: t("pricing_select_plan"),
         popular: true,
-        accent: "from-teal-500 to-emerald-500",
+        accent: "from-red-500 to-rose-500",
         gradient:
-          "bg-gradient-to-br from-teal-500/15 to-emerald-500/15 dark:from-teal-500/10 dark:to-emerald-500/10",
+          "border border-red-500 border-2 bg-gradient-to-br from-red-500/15 to-rose-500/15 dark:from-red-500/10 dark:to-rose-500/10",
         icon: Crown,
         features: [
           t("pricing_pro_f1"),
@@ -938,13 +938,13 @@ const OptimizedPricingCard = ({
       variants={fade}
       whileHover={{ y: isPopular ? -8 : -4, scale: isPopular ? 1.02 : 1.01 }}
       transition={{ duration: 0.2 }}
-      className={`relative flex-1 max-w-sm ${isPopular ? "z-10" : ""}`}
+      className={`relative flex-1 max-w-sm${isPopular ? " z-10" : ""}`}
     >
       <div
         className={`relative rounded-xl ${
           plan.gradient
-        } border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-sm p-6 shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col ${
-          isPopular ? "border-teal-500/30 ring-1 ring-teal-500/20" : ""
+        }bb dark:border-slate-700/50 backdrop-blur-sm p-6 shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col ${
+          isPopular ? "border-red-500/30 ring-1 ring-red-500/20" : ""
         }`}
       >
         {/* Бейдж популярного тарифа */}
@@ -955,7 +955,7 @@ const OptimizedPricingCard = ({
             transition={{ duration: 0.4 }}
             className="absolute -top-3 left-1/2 transform -translate-x-1/2"
           >
-            <div className="inline-flex items-center gap-1 bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">
+            <div className="inline-flex items-center gap-1 bg-gradient-to-r from-red-500 to-rose-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">
               <Crown className="w-3 h-3" />
               {plan.badge}
             </div>
@@ -1078,13 +1078,13 @@ const OptimizedMobilePricingCard = ({
       variants={fade}
       className={`relative rounded-xl ${
         plan.gradient
-      } border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-sm p-5 shadow-lg ${
-        isPopular ? "border-teal-500/30 ring-1 ring-teal-500/20" : ""
+      }  dark:border-slate-700/50 backdrop-blur-sm p-5 shadow-lg ${
+        isPopular ? " ring-1 ring-red-500/20" : ""
       }`}
     >
       {isPopular && plan.badge && (
         <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
-          <div className="inline-flex items-center gap-1 bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+          <div className="inline-flex items-center gap-1 bg-gradient-to-r from-red-500 to-rose-500 text-white px-2 py-1 rounded-full text-xs font-bold">
             <Crown className="w-3 h-3" />
             {plan.badge}
           </div>
