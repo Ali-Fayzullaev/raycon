@@ -137,10 +137,14 @@ export default function OptimizedPricing() {
         standard: {
           price: "35 000 ₸",
           period: t("pricing_period_monthly").toLowerCase(),
+          dailyPriceDiscounted: "1 166 ₸",
+          dailyExample: lang === "ru" ? "По цене чашки кофе ☕" : "Кофе бір шыны бағасы ☕",
         },
         pro: {
           price: "49 000 ₸",
           period: t("pricing_period_monthly").toLowerCase(),
+          dailyPriceDiscounted: "1 633 ₸",
+          dailyExample: lang === "ru" ? "Лёгкий завтрак 🥐" : "Жеңіл таңғы ас 🥐",
         },
         business: { price: t("pricing_by_request"), period: "" },
       },
@@ -150,12 +154,20 @@ export default function OptimizedPricing() {
           originalPrice: "210 000 ₸",
           period: t("pricing_period_halfyear").toLowerCase(),
           discount: "10%",
+          dailyPrice: "1 166 ₸",
+          dailyPriceDiscounted: "1 050 ₸",
+          savings: "21 000 ₸",
+          dailyExample: lang === "ru" ? "70 литров АИ-95 (полный бак) ⛽" : "70 литр АИ-95 (толық бак) ⛽",
         },
         pro: {
           price: "264 599 ₸",
           originalPrice: "294 000 ₸",
           period: t("pricing_period_halfyear").toLowerCase(),
           discount: "10%",
+          dailyPrice: "1 633 ₸",
+          dailyPriceDiscounted: "1 470 ₸",
+          savings: "29 400 ₸",
+          dailyExample: lang === "ru" ? "Бизнес-ланч на троих 🍽️" : "Үшеуге бизнес-ланч 🍽️",
         },
         business: { price: t("pricing_by_request"), period: "" },
       },
@@ -165,12 +177,20 @@ export default function OptimizedPricing() {
           originalPrice: "420 000 ₸",
           period: t("pricing_period_yearly").toLowerCase(),
           discount: "20%",
+          dailyPrice: "1 166 ₸",
+          dailyPriceDiscounted: "933 ₸",
+          savings: "84 000 ₸",
+          dailyExample: lang === "ru" ? "Месяц безлимита в FitnessBlitz 💪" : "FitnessBlitz-те бір ай шексіз 💪",
         },
         pro: {
           price: "470 399 ₸",
           originalPrice: "588 000 ₸",
           period: t("pricing_period_yearly").toLowerCase(),
           discount: "20%",
+          dailyPrice: "1 633 ₸",
+          dailyPriceDiscounted: "1 306 ₸",
+          savings: "117 600 ₸",
+          dailyExample: lang === "ru" ? "Apple Watch SE ⌚" : "Apple Watch SE ⌚",
         },
         business: { price: t("pricing_by_request"), period: "" },
       },
@@ -981,25 +1001,65 @@ const OptimizedPricingCard = ({
 
         {/* Цена */}
         <div className="mb-6">
-          <div className="flex items-baseline gap-2">
-            <div className="text-3xl font-black text-slate-900 dark:text-white">
-              {plan.pricing.price}
+          {/* Ежедневная цена - для Standard и Pro */}
+          {plan.pricing.dailyPriceDiscounted ? (
+            <div className="text-center">
+              {/* Зачёркнутая цена - только если есть скидка */}
+              {plan.pricing.dailyPrice && (
+                <div className="mb-1">
+                  <span className="text-slate-400 dark:text-slate-500 line-through text-lg">
+                    {plan.pricing.dailyPrice}
+                  </span>
+                </div>
+              )}
+              
+              {/* Основная цена */}
+              <div className="flex items-baseline justify-center gap-1">
+                <span className={`text-4xl font-black ${isPopular ? 'bg-gradient-to-r from-red-500 to-rose-500' : 'bg-gradient-to-r from-emerald-500 to-teal-500'} bg-clip-text text-transparent`}>
+                  {plan.pricing.dailyPriceDiscounted}
+                </span>
+                <span className="text-slate-500 dark:text-slate-400 text-sm font-medium">
+                  /{t("pricing_period_monthly") === "Месяц" ? "день" : "күн"}
+                </span>
+              </div>
+              
+              {/* Выгода */}
+              {plan.pricing.savings && (
+                <div className="mt-2">
+                  <span className={`inline-flex items-center gap-1 ${isPopular ? 'bg-red-300 dark:bg-red-900/30 text-red-600 dark:text-red-400' : 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400'} text-sm font-semibold px-3 py-1 rounded-full`}>
+                    🎁 {t("pricing_period_monthly") === "Месяц" ? "Выгода" : "Үнемдеу"} {plan.pricing.savings}
+                  </span>
+                </div>
+              )}
+              
+              {/* Пример */}
+              <div className="mt-2 text-slate-500 dark:text-slate-400 text-sm">
+                {plan.pricing.dailyExample}
+              </div>
             </div>
-            {plan.pricing.period && (
-              <span className="text-slate-600 dark:text-slate-400">
-                / {plan.pricing.period}
-              </span>
-            )}
-          </div>
-          {plan.pricing.originalPrice && (
-            <div className="flex items-center gap-2 mt-1">
-              <span className="text-slate-500 line-through text-sm">
-                {plan.pricing.originalPrice}
-              </span>
-              <span className="bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 rounded-full text-xs font-medium">
-                {t("pricing_discount_label")} {plan.pricing.discount}
-              </span>
-            </div>
+          ) : (
+            <>
+              <div className="flex items-baseline gap-2">
+                <div className="text-3xl font-black text-slate-900 dark:text-white">
+                  {plan.pricing.price}
+                </div>
+                {plan.pricing.period && (
+                  <span className="text-slate-600 dark:text-slate-400">
+                    / {plan.pricing.period}
+                  </span>
+                )}
+              </div>
+              {plan.pricing.originalPrice && (
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="text-slate-500 line-through text-sm">
+                    {plan.pricing.originalPrice}
+                  </span>
+                  <span className="bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 rounded-full text-xs font-medium">
+                    {t("pricing_discount_label")} {plan.pricing.discount}
+                  </span>
+                </div>
+              )}
+            </>
           )}
         </div>
 
@@ -1108,25 +1168,65 @@ const OptimizedMobilePricingCard = ({
       </div>
 
       <div className="mb-4">
-        <div className="flex items-baseline gap-2">
-          <div className="text-2xl font-black text-slate-900 dark:text-white">
-            {plan.pricing.price}
+        {/* Ежедневная цена - для Standard и Pro (Mobile) */}
+        {plan.pricing.dailyPriceDiscounted ? (
+          <div className="text-center">
+            {/* Зачёркнутая цена - только если есть скидка */}
+            {plan.pricing.dailyPrice && (
+              <div className="mb-0.5">
+                <span className="text-slate-400 dark:text-slate-500 line-through text-base">
+                  {plan.pricing.dailyPrice}
+                </span>
+              </div>
+            )}
+            
+            {/* Основная цена */}
+            <div className="flex items-baseline justify-center gap-1">
+              <span className={`text-4xl font-black ${isPopular ? 'bg-gradient-to-r from-red-500 to-rose-500' : 'bg-gradient-to-r from-emerald-500 to-teal-500'} bg-clip-text text-transparent`}>
+                {plan.pricing.dailyPriceDiscounted}
+              </span>
+              <span className="text-slate-500 dark:text-slate-400 text-xs font-medium">
+                /{t("pricing_period_monthly") === "Месяц" ? "день" : "күн"}
+              </span>
+            </div>
+            
+            {/* Выгода */}
+            {plan.pricing.savings && (
+              <div className="mt-1.5">
+                <span className={`inline-flex items-center gap-1 ${isPopular ? 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400' : 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400'} text-xs font-semibold px-2 py-0.5 rounded-full`}>
+                  🎁 {t("pricing_period_monthly") === "Месяц" ? "Выгода" : "Үнемдеу"} {plan.pricing.savings}
+                </span>
+              </div>
+            )}
+            
+            {/* Пример */}
+            <div className="mt-1.5 text-slate-500 dark:text-slate-400 text-xs">
+              {plan.pricing.dailyExample}
+            </div>
           </div>
-          {plan.pricing.period && (
-            <span className="text-slate-600 dark:text-slate-400 text-sm">
-              / {plan.pricing.period}
-            </span>
-          )}
-        </div>
-        {plan.pricing.originalPrice && (
-          <div className="flex items-center gap-2 mt-1">
-            <span className="text-slate-500 line-through text-xs">
-              {plan.pricing.originalPrice}
-            </span>
-            <span className="bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 rounded-full text-xs font-medium">
-              -{plan.pricing.discount}
-            </span>
-          </div>
+        ) : (
+          <>
+            <div className="flex items-baseline gap-2">
+              <div className="text-2xl font-black text-slate-900 dark:text-white">
+                {plan.pricing.price}
+              </div>
+              {plan.pricing.period && (
+                <span className="text-slate-600 dark:text-slate-400 text-sm">
+                  / {plan.pricing.period}
+                </span>
+              )}
+            </div>
+            {plan.pricing.originalPrice && (
+              <div className="flex items-center gap-2 mt-1">
+                <span className="text-slate-500 line-through text-xs">
+                  {plan.pricing.originalPrice}
+                </span>
+                <span className="bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 rounded-full text-xs font-medium">
+                  -{plan.pricing.discount}
+                </span>
+              </div>
+            )}
+          </>
         )}
       </div>
 
