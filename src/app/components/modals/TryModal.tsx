@@ -148,6 +148,17 @@ export default function ModernTryModal({
 
       if (result.success) {
         setSubmitStatus("success");
+        
+        // GTM: отправка события успешной отправки формы
+        if (typeof window !== 'undefined') {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            'event': 'form_submitted',
+            'form_type': tab,
+            'form_name': tab === 'schedule' ? 'schedule_call' : 'quick_callback'
+          });
+        }
+        
         setTimeout(() => {
           setName("");
           setPhone("");
