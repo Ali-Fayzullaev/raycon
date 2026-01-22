@@ -873,7 +873,6 @@ export default function OptimizedPricing() {
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               className="relative max-w-6xl max-h-[90vh] w-full"
-              onClick={(e) => e.stopPropagation()}
             >
               {/* Кнопка закрытия */}
               <button
